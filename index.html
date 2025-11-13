@@ -57,12 +57,12 @@
             gap: 12px;
         }
 
-        .logo-icon {
-            font-size: 2em;
-            background: linear-gradient(135deg, #00d4ff, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        /* Replace icon with image logo styling */
+        .logo-img {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            border-radius: 8px;
         }
 
         .college-title {
@@ -696,7 +696,7 @@
             color: #e0e0e0;
         }
 
-        /* Updated footer with new navigation structure */
+        /* Footer */
         footer {
             background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
             color: #e0e0e0;
@@ -767,28 +767,7 @@
             color: #808080;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2em; }
-            h2.section-title { font-size: 1.8em; }
-            .about-section, .programs-section, .admissions-section {
-                padding: 50px 20px;
-            }
-            .about-credits, .programs-credits, .admissions-credits {
-                flex-direction: column;
-            }
-            /* Adjust popup position on mobile */
-            .popup-tooltip {
-                bottom: -70px;
-                left: -10px;
-                font-size: 0.85em;
-            }
-            .header-container {
-                padding: 12px 15px;
-            }
-        }
-
-        /* Added floating button styles */
+        /* Floating Apply Button */
         .floating-apply-btn {
             position: fixed;
             right: 20px;
@@ -818,7 +797,26 @@
             transform: translateY(-2px);
         }
 
-        /* Mobile responsive - hide on very small screens */
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2em; }
+            h2.section-title { font-size: 1.8em; }
+            .about-section, .programs-section, .admissions-section {
+                padding: 50px 20px;
+            }
+            .about-credits, .programs-credits, .admissions-credits {
+                flex-direction: column;
+            }
+            .popup-tooltip {
+                bottom: -70px;
+                left: -10px;
+                font-size: 0.85em;
+            }
+            .header-container {
+                padding: 12px 15px;
+            }
+        }
+
         @media (max-width: 480px) {
             .floating-apply-btn {
                 left: 10px;
@@ -830,13 +828,11 @@
     </style>
 </head>
 <body>
-    <!-- Added header with logo and navigation -->
+    <!-- Updated header with image logo instead of icon -->
     <header>
         <div class="header-container">
             <div class="logo-section">
-                <div class="logo-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
+                <img src="https://i.imgur.com/QsV8xs6.webp" alt="Koyoyo College Logo" class="logo-img">
                 <div class="college-title">
                     <h1>KOYOYO COLLEGE</h1>
                     <span>AFRICA</span>
@@ -864,7 +860,6 @@
     <div class="hero" id="home">
         <h1>Welcome to Koyoyo College</h1>
         <p>Shaping futures through innovative learning and excellence</p>
-        <!-- Wrapped button in wrapper div with popup tooltip -->
         <div class="cta-btn-wrapper">
             <a href="https://tally.so/r/n09joA" class="cta-btn">Apply Now</a>
             <div class="popup-tooltip">Start your journey today! 🚀</div>
@@ -1002,7 +997,6 @@
                 <div class="footer-logo">KOYOYO COLLEGE</div>
                 <p>We Serve All...</p>
             </div>
-            <!-- Updated footer navigation to match header -->
             <div class="footer-nav">
                 <a href="index.html">Home</a>
                 <a href="index.html#programs">Programs</a>
@@ -1012,13 +1006,13 @@
                 <a href="gallery.html">Gallery</a>
             </div>
             <div class="social-icons">
-  <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-  <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-  <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-  <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
-  <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank">
-    <i class="fab fa-tiktok"></i>
-  </a>
+                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                </a>
             </div>
         </div>
         <div class="footer-bottom">
@@ -1032,9 +1026,7 @@
         <i class="fas fa-arrow-right"></i>
     </a>
 
-    <!-- Added mobile navigation toggle script -->
     <script>
-        // Mobile hamburger menu toggle
         const hamburger = document.getElementById('hamburger');
         const nav = document.querySelector('nav');
 
@@ -1043,7 +1035,6 @@
             nav.classList.toggle('active');
         });
 
-        // Close menu when a link is clicked
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -1051,7 +1042,6 @@
             });
         });
 
-        // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
