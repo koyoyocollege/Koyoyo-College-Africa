@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admissions - Koyoyo College</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0066ff;
+      --secondary: #7c3aed;
+      --background: #0f172a;
+      --surface: rgba(30, 41, 59, 0.7);
+      --surface-light: rgba(51, 65, 85, 0.5);
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --accent: #06b6d4;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--background) 0%, #1a1f3a 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* Fixed carousel with proper sizing and slower animation */
+    .hero {
+      position: relative;
+      height: 400px;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-carousel {
+      display: flex;
+      height: 100%;
+      gap: 16px;
+      animation: scroll 40s linear infinite;
+      padding: 8px;
+    }
+
+    .hero-slide {
+      min-width: 25%;
+      height: 100%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    .hero-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      backdrop-filter: none;
+      background: transparent;
+      padding: 40px 20px;
+      z-index: 10;
+    }
+
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fbbf24;
+      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      -webkit-text-stroke: 1px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero p {
+      max-width: 700px;
+      font-size: 1.05rem;
+      color: #ffffff;
+      line-height: 1.6;
+      text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        height: 280px;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        height: 220px;
+      }
+
+      .hero h1 {
+        font-size: 1.6rem;
+      }
+
+      .hero p {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Glassmorphism card styling */
+    .card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      background: var(--surface-light);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 48px rgba(0, 102, 255, 0.15);
+    }
+
+    .card h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
+
+    .muted {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 960px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+      .aside-box {
+        order: 2;
+      }
+    }
+
+    .requirements ul {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+
+    .requirements li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+
+    .requirements li:last-child {
+      border-bottom: none;
+    }
+
+    .requirements strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .requirements ol {
+      margin: 16px 0;
+      padding-left: 20px;
+    }
+
+    .requirements ol li {
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+    }
+
+    .important {
+      background: rgba(251, 191, 36, 0.1);
+      border-left: 4px solid var(--gold);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 20px 0;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+    }
+
+    .important strong {
+      color: var(--gold);
+    }
+
+    .bank {
+      background: rgba(6, 182, 212, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      margin: 16px 0;
+    }
+
+    .bank p {
+      margin: 10px 0;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .bank .acct {
+      font-weight: 400;
+      color: var(--text-secondary);
+      margin-left: 6px;
+    }
+
+    .form-embed {
+      margin-top: 20px;
+    }
+
+    iframe[data-tally-src] {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.5);
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 102, 255, 0.3);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+
+    .btn.secondary:hover {
+      background: rgba(6, 182, 212, 0.1);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
+    }
+
+    footer {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(26, 31, 58, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      padding: 40px 20px;
+      margin-top: 60px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-inner .brand {
+      font-family: 'Outfit', sans-serif;
+      color: var(--accent);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      margin: 0 12px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .social a {
+      color: var(--accent);
+      margin: 0 8px;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social a:hover {
+      transform: translateY(-3px);
+      color: var(--primary);
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <section class="hero">
+      <div class="hero-carousel">
+        <div class="hero-slide">
+          <img src="https://i.imgur.com/tntGaYj.png" alt="Admissions banner 1" />
+        </div>
+        <div class="hero-slide">
+          <img src="https://i.imgur.com/ZQ2ubQp.png" alt="Admissions banner 2" />
+        </div>
+        <div class="hero-slide">
+          <img src="https://i.imgur.com/rX7sXEX.jpeg" />
+        </div>
+        <div class="hero-slide">
+          <img src="https://i.imgur.com/7RBcdmI.jpeg" alt="Admissions banner 4" />
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <h1>Admissions — Apply to KOYOYO COLLEGE</h1>
+        <p>Carefully read the requirements below, complete the online application form, and submit your supporting documents so we can process your application quickly.</p>
+      </div>
+    </section>
+
+    <div class="split">
+      <div>
+        <div class="card requirements">
+          <h2>Admission Requirements</h2>
+          <p class="muted">Please make sure you have the following ready before you start the application form.</p>
+          <ul>
+            <li><strong>Application/Processing fee:</strong> GH₵ 250.00 (required for all programs)</li>
+            <li><strong>Scanned academic certificates</strong> (Highest Educational Certificates and/or Statement of Result)</li>
+            <li><strong>Valid ID:</strong> Ghana Card, Passport, Driver's License, Voter ID or NHIS Card</li>
+            <li><strong>Proof of payment</strong> (screenshot or transaction ID after payment)</li>
+          </ul>
+
+          <div class="important">
+            <strong>Important:</strong> Submitted forms <em>without</em> the application processing fee cannot be processed. After you complete the application form below, scan your documents and email them (with your full name and application ID) to <strong>koyoyocollege@gmail.com</strong>.
+          </div>
+
+          <h3>How to apply</h3>
+          <ol class="muted">
+            <li>Complete the online application form in the box on the right (please fill every required field).</li>
+            <li>Pay the application fee (see bank details on the right) and save the proof of payment.</li>
+            <li>Email scanned documents and payment proof to <strong>koyoyocollege@gmail.com</strong>.</li>
+            <li>Wait for the confirmation email with next steps.</li>
+          </ol>
+
+          <h3>Documents to email</h3>
+          <p class="muted">Highest educational certificates or statement of results, a clear copy of a valid ID, and proof of payment. Email to: <strong>koyoyocollege@gmail.com</strong>.</p>
+        </div>
+
+        <div class="card" style="margin-top: 28px;">
+          <h2>Application Fee — Payment Options</h2>
+          <p class="muted">Pay GH₵ 250.00 in favour of <strong>KOYOYO REMEDIAL COLLEGE</strong>. Choose any of the options below and keep a screenshot or transaction ID.</p>
+
+          <div class="bank">
+            <p><strong>MTN Mobile Money</strong><span class="acct">: 0598609544</span></p>
+            <p><strong>National Investment Bank (NIB)</strong><span class="acct">: Koyoyo Remedial College — Acc #: 2149099142801 — Branch: Accra New Town</span></p>
+            <p><strong>Agricultural Development Bank (ADB)</strong><span class="acct">: Koyoyo Remedial College — Acc #: 1201010143766301 — Branch: Mallam Atta</span></p>
+          </div>
+
+          <div style="margin-top: 12px; font-size: 0.95rem; color: var(--text-secondary);">If you need help with payment or an invoice, call/WhatsApp: <strong>+233 59 860 9544</strong>.</div>
+        </div>
+      </div>
+
+      <aside class="aside-box">
+        <div class="card">
+          <h2>Fill the Application Form</h2>
+          <p class="muted">Please complete the form below — it collects your personal, academic, and payment information. <strong>Make sure you hit Submit.</strong></p>
+
+          <div class="form-embed">
+            <iframe data-tally-src="https://tally.so/embed/n09joA?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0" title="Koyoyo College — Admissions Form"></iframe>
+            <script>
+              (function(d){var w='https://tally.so/widgets/embed.js'; function l(){ if('Tally' in d) Tally.loadEmbeds(); else { var s=d.createElement('script'); s.src=w; s.onload=l; d.body.appendChild(s); } } l();})(document);
+            </script>
+
+            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 12px;">After submitting the form, <strong>scan and email</strong> your certificates, valid ID and proof of payment to <a href="mailto:koyoyocollege@gmail.com">koyoyocollege@gmail.com</a>. Use the subject: <em>Application — [Your Full Name]</em>.</p>
+
+            <div class="cta-row">
+              <a class="btn" href="https://tally.so/r/n09joA" target="_self">Open Form in full page</a>
+              <a class="btn secondary" href="mailto:koyoyocollege@gmail.com">Email Documents</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 28px;">
+          <h2>Need help?</h2>
+          <p class="muted">If you have questions about the application or payment, reach us:</p>
+          <p style="margin: 12px 0; color: var(--text-secondary);"><i class="fas fa-phone" style="color: var(--accent); margin-right: 8px;"></i> +233 59 860 9544 (Call / WhatsApp)</p>
+          <p style="margin: 12px 0; color: var(--text-secondary);"><i class="fas fa-envelope" style="color: var(--accent); margin-right: 8px;"></i> <a href="mailto:koyoyocollege@gmail.com">koyoyocollege@gmail.com</a></p>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="brand">Koyoyo College</div>
+      <div class="footer-links">
+        <a href="#">Home</a>
+        <a href="https://sites.google.com/view/koyoyo/programs">Programs</a>
+        <a href="https://sites.google.com/view/koyoyo/admissions">Admissions</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="social">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@koyoyocollege   "><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="small">© 2025 KOYOYO COLLEGE AFRICA. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
