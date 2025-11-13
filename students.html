@@ -4,7 +4,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Students Portal - Koyoyo College</title>
-  <!-- Updated fonts to modern Inter and Outfit -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -39,6 +38,143 @@
       padding: 28px;
     }
 
+    /* Added header section with logo and navigation */
+    header {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95));
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #60a5fa, #3b82f6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      color: white;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .logo-text {
+      color: white;
+      font-size: 1.2em;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-link {
+      color: #e0e7ff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #60a5fa;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.98));
+        backdrop-filter: blur(20px);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+      }
+
+      .nav-links.active {
+        max-height: 400px;
+      }
+
+      .nav-link {
+        padding: 14px 20px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+      }
+    }
+
     /* Enhanced hero section with gradient border and deeper glassmorphism */
     .hero {
       background: linear-gradient(135deg, var(--surface) 0%, rgba(51, 65, 85, 0.3) 100%),
@@ -52,6 +188,7 @@
       padding: 60px 40px;
       text-align: center;
       margin-bottom: 60px;
+      margin-top: 20px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       animation: fadeInDown 0.8s ease;
       min-height: 400px;
@@ -61,7 +198,6 @@
       align-items: center;
     }
 
-    /* Added scroll-triggered animations */
     @keyframes fadeInDown {
       0% {
         opacity: 0;
@@ -126,7 +262,6 @@
       margin: 0 auto;
     }
 
-    /* Enhanced cards grid with scroll animations */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -149,7 +284,6 @@
       overflow: visible;
     }
 
-    /* Added gradient overlay effect on cards */
     .card::before {
       content: '';
       position: absolute;
@@ -170,7 +304,6 @@
     .card:nth-child(4) { animation-delay: 0.4s; }
     .card:nth-child(5) { animation-delay: 0.5s; }
 
-    /* Enhanced hover effects with glow and lift */
     .card:hover {
       background: linear-gradient(135deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
       border-color: rgba(6, 182, 212, 0.6);
@@ -218,7 +351,6 @@
       margin-bottom: 20px;
     }
 
-    /* Added dropdown menu styles */
     .dropdown-container {
       position: relative;
       display: inline-block;
@@ -261,7 +393,6 @@
       box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
     }
 
-    /* Updated dropdown menu to appear on the right side of the screen */
     .dropdown-menu {
       position: fixed;
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.6) 100%);
@@ -340,7 +471,6 @@
       transform: rotate(180deg);
     }
 
-    /* Enhanced calendar section with scroll animation */
     .calendar-section {
       margin: 80px 0;
       opacity: 0;
@@ -360,7 +490,6 @@
       background-clip: text;
     }
 
-    /* Enhanced calendar container with deeper glassmorphism */
     .calendar-container {
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.4) 100%);
       backdrop-filter: blur(25px);
@@ -384,37 +513,82 @@
       border-radius: 12px;
     }
 
-    .calendar-placeholder {
-      width: 100%;
-      height: 600px;
-      background: linear-gradient(135deg, rgba(0, 102, 255, 0.15) 0%, rgba(124, 58, 237, 0.15) 100%);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-    }
-
-    /* Footer */
+    /* Added footer section matching header styles */
     footer {
       background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(26, 31, 58, 0.9) 100%);
       backdrop-filter: blur(20px);
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-primary);
-      padding: 40px 20px;
+      padding: 60px 20px 30px;
       margin-top: 80px;
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
     }
 
-    footer p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
+    .footer-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    /* Responsive design */
+    .footer-nav {
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .footer-nav a {
+      color: #e0e7ff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    .social-icons {
+      margin: 20px 0;
+    }
+
+    .social-icons a {
+      color: #60a5fa;
+      margin: 0 12px;
+      font-size: 1.4em;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #a78bfa;
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      margin-top: 25px;
+      font-size: 0.9em;
+      color: #94a3b8;
+    }
+
     @media (max-width: 768px) {
       .hero {
         padding: 40px 24px;
@@ -435,11 +609,6 @@
         height: 400px;
       }
 
-      .calendar-placeholder {
-        height: 400px;
-      }
-
-      /* Adjust dropdown for mobile screens */
       .dropdown-menu {
         right: 16px;
         min-width: 280px;
@@ -474,11 +643,6 @@
         height: 300px;
       }
 
-      .calendar-placeholder {
-        height: 300px;
-      }
-
-      /* Further adjust dropdown for small screens */
       .dropdown-menu {
         right: 12px;
         min-width: 260px;
@@ -487,6 +651,30 @@
   </style>
 </head>
 <body>
+  <!-- Added header with logo and navigation -->
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo-section">
+        <div class="logo-icon">🎓</div>
+        <div class="logo-text">KOYOYO COLLEGE AFRICA</div>
+      </a>
+      <nav>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="index.html#programs" class="nav-link">Programs</a>
+          <a href="admissions.html" class="nav-link">Admissions</a>
+          <a href="contact.html" class="nav-link">Contact Us</a>
+          <a href="students.html" class="nav-link active">Students</a>
+          <a href="gallery.html" class="nav-link">Gallery</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
   <div class="container">
     <!-- Modern hero section -->
@@ -521,7 +709,6 @@
               <i class="fas fa-microscope"></i>
               <span>BRAIDE HALL</span>
             </a>
-           
           </div>
         </div>
       </div>
@@ -555,29 +742,64 @@
       </div>
     </div>
 
-<!-- Calendar section with glassmorphism -->
-<section class="calendar-section" id="calendar">
-  <h2>Academic Calendar</h2>
-  <div class="calendar-container">
-    <iframe 
-      src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra" 
-      style="border: 0" 
-      width="100%" 
-      height="600" 
-      frameborder="0" 
-      scrolling="no">
-    </iframe>
+    <section class="calendar-section" id="calendar">
+      <h2>Academic Calendar</h2>
+      <div class="calendar-container">
+        <iframe 
+          src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra" 
+          style="border: 0" 
+          width="100%" 
+          height="600" 
+          frameborder="0" 
+          scrolling="no">
+        </iframe>
+      </div>
+    </section>
   </div>
-</section>
 
-  <!-- Footer -->
+  <!-- Added footer section matching header styles -->
   <footer>
-    <p>© 2025 KOYOYO COLLEGE AFRICA. Accra Ghana | Student Portal</p>
+    <div class="footer-container">
+      <div class="footer-logo">Koyoyo College</div>
+      <nav class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="students.html">Students</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@koyoyocollege"><i class="fab fa-tiktok"></i></a>
+      </div>
+      <div class="footer-bottom">
+        © 2025 KOYOYO COLLEGE AFRICA. All Rights Reserved.
+      </div>
+    </div>
   </footer>
 
   <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
     const classroomBtn = document.getElementById('classroomBtn');
     const classroomMenu = document.getElementById('classroomMenu');
+
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    const navItems = navLinks.querySelectorAll('.nav-link');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
 
     classroomBtn.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -585,7 +807,6 @@
       classroomMenu.classList.toggle('active');
     });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', function(e) {
       if (!e.target.closest('.dropdown-container')) {
         classroomBtn.classList.remove('active');
@@ -593,7 +814,6 @@
       }
     });
 
-    // Close dropdown when a class is selected
     const dropdownItems = document.querySelectorAll('.dropdown-item');
     dropdownItems.forEach(item => {
       item.addEventListener('click', function() {
