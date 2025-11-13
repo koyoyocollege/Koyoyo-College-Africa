@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koyoyo College</title>
+    <title>Koyoyo College Africa</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -30,6 +30,174 @@
             margin: auto;
             padding: 20px;
         }
+
+        /* Added header and navigation styles */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, rgba(10, 42, 102, 0.95), rgba(88, 44, 131, 0.95));
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2em;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .college-title {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .college-title h1 {
+            font-size: 1.3em;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .college-title span {
+            font-size: 0.75em;
+            color: #a0a0a0;
+            font-weight: 500;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: #c0c0c0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95em;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00d4ff;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Mobile navigation */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(88, 44, 131, 0.98));
+                backdrop-filter: blur(15px);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+
+            nav.active {
+                max-height: 400px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                padding: 20px;
+                width: 100%;
+            }
+
+            nav a {
+                display: block;
+                padding: 12px 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            nav a::after {
+                display: none;
+            }
+
+            .college-title h1 {
+                font-size: 1.1em;
+            }
+
+            .college-title span {
+                font-size: 0.65em;
+            }
+        }
+        /* End of header and navigation styles */
 
         /* Hero Banner */
         .hero {
@@ -528,7 +696,7 @@
             color: #e0e0e0;
         }
 
-        /* Enhanced Footer */
+        /* Updated footer with new navigation structure */
         footer {
             background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
             color: #e0e0e0;
@@ -557,9 +725,14 @@
             margin-bottom: 15px;
         }
 
+        .footer-nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
         .footer-nav a {
-            display: inline-block;
-            margin: 6px 12px;
             color: #c0c0c0;
             text-decoration: none;
             font-weight: 500;
@@ -570,9 +743,14 @@
             color: #00d4ff;
         }
 
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
         .social-icons a {
             color: #00d4ff;
-            margin: 0 10px;
             font-size: 1.4em;
             transition: all 0.3s ease;
         }
@@ -604,6 +782,9 @@
                 bottom: -70px;
                 left: -10px;
                 font-size: 0.85em;
+            }
+            .header-container {
+                padding: 12px 15px;
             }
         }
 
@@ -649,8 +830,38 @@
     </style>
 </head>
 <body>
+    <!-- Added header with logo and navigation -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="college-title">
+                    <h1>KOYOYO COLLEGE</h1>
+                    <span>AFRICA</span>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#programs">Programs</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="#students">Students</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+            </nav>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
     <!-- Hero Banner -->
-    <div class="hero">
+    <div class="hero" id="home">
         <h1>Welcome to Koyoyo College</h1>
         <p>Shaping futures through innovative learning and excellence</p>
         <!-- Wrapped button in wrapper div with popup tooltip -->
@@ -684,7 +895,7 @@
     </section>
 
     <!-- Our Programs Section -->
-    <section class="programs-section">
+    <section class="programs-section" id="programs">
         <div class="programs-content">
             <h2 class="section-title">Our Programs</h2>
             <div class="programs-grid">
@@ -791,11 +1002,14 @@
                 <div class="footer-logo">KOYOYO COLLEGE</div>
                 <p>We Serve All...</p>
             </div>
+            <!-- Updated footer navigation to match header -->
             <div class="footer-nav">
-                <a href="index.html#about">About</a>
-                <a href="programs.html">Programs</a>
-                <a href="admissions.html">Admissions</a>
-                <a href="contact.html">Contact</a>
+                <a href="#home">Home</a>
+                <a href="#programs">Programs</a>
+                <a href="#admissions">Admissions</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="#students">Students</a>
+                <a href="gallery.html">Gallery</a>
             </div>
             <div class="social-icons">
   <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
@@ -805,7 +1019,7 @@
   <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank">
     <i class="fab fa-tiktok"></i>
   </a>
-</div>
+            </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; 2025 KOYOYO COLLEGE. All rights reserved.</p>
@@ -818,7 +1032,25 @@
         <i class="fas fa-arrow-right"></i>
     </a>
 
+    <!-- Added mobile navigation toggle script -->
     <script>
+        // Mobile hamburger menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.querySelector('nav');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                nav.classList.remove('active');
+            });
+        });
+
         // Intersection Observer for animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
