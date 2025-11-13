@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koyoyo College - Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a1a;
+            background: #f8f9fa;
+        }
+
+        h1, h2, h3, h4, .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.7)),
+                url('https://i.imgur.com/zXaQiRD.jpeg') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.95;
+        }
+
+        /* Contact Section with Background */
+        .contact-section {
+            position: relative;
+            padding: 80px 20px;
+            margin: 60px 0;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1200&h=600&fit=crop') center/cover no-repeat;
+            z-index: 0;
+        }
+
+        .contact-section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            z-index: 1;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        @media (max-width: 768px) {
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Glassmorphism Cards */
+        .contact-info, .contact-form {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info:hover, .contact-form:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-info h2, .contact-form h2 {
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-info p {
+            margin: 15px 0;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+        }
+
+        .contact-info i {
+            color: #60a5fa;
+            margin-right: 12px;
+            font-size: 1.1em;
+        }
+
+        /* Form Styling */
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 16px;
+            margin: 12px 0;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        .contact-form button {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .contact-form button:hover {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Map Section */
+        .map {
+            margin: 60px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0f1729, #1e3a8a);
+            color: #fff;
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            border-top-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-nav {
+            margin: 20px 0;
+        }
+
+        .footer-nav a {
+            color: #e0e7ff;
+            text-decoration: none;
+            margin: 0 16px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #60a5fa;
+        }
+
+        .social-icons {
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            color: #60a5fa;
+            margin: 0 12px;
+            font-size: 1.4em;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #a78bfa;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you. Reach out with your questions or feedback.</p>
+    </div>
+
+    <!-- Contact Section with Background Image -->
+    <div class="contact-section">
+        <div class="contact-wrapper">
+            <!-- Contact Info Card -->
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <p><i class="fas fa-map-marker-alt"></i>Nima, Accra, Ghana</p>
+                <p><i class="fas fa-phone"></i>+233 59 860 9544</p>
+                <p><i class="fas fa-phone"></i>+233 24 123 4567</p>
+                <p><i class="fas fa-envelope"></i>koyoyocollege@gmail.com</p>
+                <p><i class="fas fa-clock"></i>Mon - Fri: 8:00am - 5:00pm</p>
+            </div>
+
+            <!-- Contact Form Card -->
+            <div class="contact-form">
+                <h2>Send a Message</h2>
+                <form>
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <input type="text" placeholder="Subject">
+                    <textarea rows="5" placeholder="Your Message" required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Map Section -->
+    <div class="container">
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.7432123456!2d-0.2!3d5.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNcKwMzYnMDAuMCJOIDAiwrAxMicwMC4wIlc!5e0!3m2!1sen!2sgh!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">Koyoyo College</div>
+            <nav class="footer-nav">
+                <a href="#home">Home</a>
+                <a href="#programs">Programs</a>
+                <a href="#admissions">Admissions</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+
+                <a href="https://www.tiktok.com/@koyoyocollege   "><i class="fab fa-tiktok"></i></a>
+            </div>
+            <div class="footer-bottom">
+                © 2025 KOYOYO COLLEGE AFRICA. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
