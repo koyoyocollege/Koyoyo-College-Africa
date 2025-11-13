@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koyoyo College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6, .footer-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, rgba(10, 42, 102, 0.85), rgba(88, 44, 131, 0.85)),
+                url('https://i.imgur.com/foV1pYH.png') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 120px 20px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.2em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: #e0e0e0;
+        }
+
+        /* Added wrapper for button with popup positioning */
+        .cta-btn-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero .cta-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            font-weight: 600;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Popup tooltip styling */
+        .popup-tooltip {
+            position: absolute;
+            bottom: -80px;
+            left: -20px;
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.4);
+            border-radius: 12px;
+            padding: 12px 16px;
+            backdrop-filter: blur(15px);
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+            font-size: 0.9em;
+            color: #00d4ff;
+            font-weight: 500;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2);
+        }
+
+        .cta-btn-wrapper:hover .popup-tooltip {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        /* Arrow pointer for popup */
+        .popup-tooltip::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid rgba(0, 212, 255, 0.4);
+        }
+
+        /* Section Styling */
+        section {
+            margin: 80px 0;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            display: block;
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* About Us Section */
+        .about-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://i.imgur.com/r6VK6Gr.png') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-section h2 {
+            color: #00d4ff;
+            margin-bottom: 30px;
+        }
+
+        .about-section p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .about-credits {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .credit-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .credit-item .name {
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .credit-item .name:hover {
+            color: #7c3aed;
+        }
+
+        .credit-item .position {
+            color: #a0a0a0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .credit-item .position:hover {
+            color: #e0e0e0;
+        }
+
+        /* Programs Grid */
+        .programs-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .programs-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .programs-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .program-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease-out;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .program-card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+
+        .program-card p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #c0c0c0;
+        }
+
+        .programs-credits {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .programs-credit-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .programs-credit-item .name {
+            font-weight: 600;
+            color: #7c3aed;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .programs-credit-item .name:hover {
+            color: #00d4ff;
+        }
+
+        .programs-credit-item .position {
+            color: #a0a0a0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .programs-credit-item .position:hover {
+            color: #e0e0e0;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .explore-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .testimonial-card p {
+            font-size: 0.95em;
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #c0c0c0;
+        }
+
+        .testimonial-card h4 {
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-card .position {
+            color: #a0a0a0;
+            font-size: 0.9em;
+        }
+
+        /* Admissions Section */
+        .admissions-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://images.unsplash.com/photo-1523580494863-6f3031224c94') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .admissions-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .admissions-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .admissions-section h2 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+        }
+
+        .admissions-section p {
+            font-size: 1.1em;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+        }
+
+        .admissions-btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .admissions-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+        }
+
+        .admissions-credits {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .admissions-credit-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .admissions-credit-item .name {
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .admissions-credit-item .name:hover {
+            color: #7c3aed;
+        }
+
+        .admissions-credit-item .position {
+            color: #a0a0a0;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .admissions-credit-item .position:hover {
+            color: #e0e0e0;
+        }
+
+        /* Enhanced Footer */
+        footer {
+            background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
+            color: #e0e0e0;
+            padding: 60px 20px 30px;
+            margin-top: 80px;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .footer-nav a {
+            display: inline-block;
+            margin: 6px 12px;
+            color: #c0c0c0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #00d4ff;
+        }
+
+        .social-icons a {
+            color: #00d4ff;
+            margin: 0 10px;
+            font-size: 1.4em;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #7c3aed;
+            transform: scale(1.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #808080;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2em; }
+            h2.section-title { font-size: 1.8em; }
+            .about-section, .programs-section, .admissions-section {
+                padding: 50px 20px;
+            }
+            .about-credits, .programs-credits, .admissions-credits {
+                flex-direction: column;
+            }
+            /* Adjust popup position on mobile */
+            .popup-tooltip {
+                bottom: -70px;
+                left: -10px;
+                font-size: 0.85em;
+            }
+        }
+
+        /* Added floating button styles */
+        .floating-apply-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 30px;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #00d4ff, #7c3aed);
+            color: white;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+
+        .floating-apply-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+
+        .floating-apply-btn:active {
+            transform: translateY(-2px);
+        }
+
+        /* Mobile responsive - hide on very small screens */
+        @media (max-width: 480px) {
+            .floating-apply-btn {
+                left: 10px;
+                bottom: 20px;
+                padding: 12px 16px;
+                font-size: 0.85em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Banner -->
+    <div class="hero">
+        <h1>Welcome to Koyoyo College</h1>
+        <p>Shaping futures through innovative learning and excellence</p>
+        <!-- Wrapped button in wrapper div with popup tooltip -->
+        <div class="cta-btn-wrapper">
+            <a href="https://tally.so/r/n09joA" class="cta-btn">Apply Now</a>
+            <div class="popup-tooltip">Start your journey today! 🚀</div>
+        </div>
+    </div>
+
+    <!-- About Us Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2 class="section-title">About Us</h2>
+            <p>Koyoyo College, located in Nima, Accra, is committed to delivering quality education that goes beyond exams. We nurture creativity, problem-solving, and innovation to prepare students for the WASSCE, university entrance, and life beyond.</p>
+            
+            <div class="about-credits">
+                <div class="credit-item">
+                    <div class="name" contenteditable="true">Dr. Kwame Asante</div>
+                    <div class="position" contenteditable="true">Principal</div>
+                </div>
+                <div class="credit-item">
+                    <div class="name" contenteditable="true">Ama Osei</div>
+                    <div class="position" contenteditable="true">Vice Principal</div>
+                </div>
+                <div class="credit-item">
+                    <div class="name" contenteditable="true">Kofi Mensah</div>
+                    <div class="position" contenteditable="true">Academic Director</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Programs Section -->
+    <section class="programs-section">
+        <div class="programs-content">
+            <h2 class="section-title">Our Programs</h2>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <h3>WASSCE Preparation</h3>
+                    <p>Comprehensive support to excel in the West African Senior School Certificate Examination.</p>
+                </div>
+                <div class="program-card">
+                    <h3>University Entrance Exams</h3>
+                    <p>Focused training to help you secure admission into top universities.</p>
+                </div>
+                <div class="program-card">
+                    <h3>STEM Programs</h3>
+                    <p>Engage with Science, Technology, Engineering, and Mathematics in dynamic ways.</p>
+                </div>
+                <div class="program-card">
+                    <h3>Vocational Training</h3>
+                    <p>Hands-on skills in trades like carpentry, plumbing, and hospitality.</p>
+                </div>
+                <div class="program-card">
+                    <h3>IT Courses</h3>
+                    <p>Stay ahead with computer literacy, coding, and digital skills.</p>
+                </div>
+                <div class="program-card">
+                    <h3>Art & Design</h3>
+                    <p>Unleash creativity with drawing, design, and artistic expression.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#programs" class="explore-btn">Explore All Programs</a>
+            </div>
+
+            <div class="programs-credits">
+                <div class="programs-credit-item">
+                    <div class="name" contenteditable="true">Yaa Boateng</div>
+                    <div class="position" contenteditable="true">Programs Coordinator</div>
+                </div>
+                <div class="programs-credit-item">
+                    <div class="name" contenteditable="true">Nana Owusu</div>
+                    <div class="position" contenteditable="true">STEM Lead</div>
+                </div>
+                <div class="programs-credit-item">
+                    <div class="name" contenteditable="true">Abena Agyeman</div>
+                    <div class="position" contenteditable="true">Vocational Director</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="container">
+        <h2 class="section-title">What Our Students Say</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Student">
+                <p>"Koyoyo College transformed my academic journey. The teachers are dedicated and the environment is inspiring!"</p>
+                <h4>Ama Mensah</h4>
+                <div class="position">WASSCE Graduate</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Student">
+                <p>"The STEM program here is world-class. I gained practical skills that helped me secure a scholarship."</p>
+                <h4>Kwesi Boateng</h4>
+                <div class="position">University Scholar</div>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Student">
+                <p>"The vocational training prepared me perfectly for my career. I'm now a certified electrician!"</p>
+                <h4>Efua Osei</h4>
+                <div class="position">Vocational Graduate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admissions Section -->
+    <section class="admissions-section" id="admissions">
+        <div class="admissions-content">
+            <h2 class="section-title">Ready to Join Us?</h2>
+            <p>Take the first step towards your future. Apply to Koyoyo College today and unlock your potential.</p>
+            <a href="https://tally.so/r/n09joA" class="admissions-btn">Start Your Application</a>
+
+            <div class="admissions-credits">
+                <div class="admissions-credit-item">
+                    <div class="name" contenteditable="true">Akosua Mensah</div>
+                    <div class="position" contenteditable="true">Admissions Officer</div>
+                </div>
+                <div class="admissions-credit-item">
+                    <div class="name" contenteditable="true">Kwame Darko</div>
+                    <div class="position" contenteditable="true">Student Counselor</div>
+                </div>
+                <div class="admissions-credit-item">
+                    <div class="name" contenteditable="true">Ama Asare</div>
+                    <div class="position" contenteditable="true">Enrollment Manager</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">KOYOYO COLLEGE</div>
+                <p>We Serve All...</p>
+            </div>
+            <div class="footer-nav">
+                <a href="index.html#about">About</a>
+                <a href="programs.html">Programs</a>
+                <a href="admissions.html">Admissions</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+  <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+  <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+  <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+  <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank">
+    <i class="fab fa-tiktok"></i>
+  </a>
+</div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 KOYOYO COLLEGE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Apply Button -->
+    <a href="https://tally.so/r/n09joA" class="floating-apply-btn">
+        <span>Apply Now</span>
+        <i class="fas fa-arrow-right"></i>
+    </a>
+
+    <script>
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.program-card').forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
