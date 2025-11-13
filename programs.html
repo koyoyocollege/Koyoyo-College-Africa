@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Our Programs - Koyoyo College</title>
+  <!-- Updated fonts to modern Inter and Outfit -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0066ff;
+      --secondary: #7c3aed;
+      --background: #0f172a;
+      --surface: rgba(30, 41, 59, 0.7);
+      --surface-light: rgba(51, 65, 85, 0.5);
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --accent: #06b6d4;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--background) 0%, #1a1f3a 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    /* Modernized hero section with glassmorphism and background image */
+    .programs-hero {
+      position: relative;
+      background: linear-gradient(135deg, rgba(0, 102, 255, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%),
+        url('https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?w=1200&h=500&fit=crop') center/cover no-repeat;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 80px 40px;
+      text-align: center;
+      margin-bottom: 60px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .programs-hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .programs-hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Glassmorphic program cards with scroll animation */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .program-card {
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: popUp 0.6s ease-out forwards;
+    }
+
+    .program-card:nth-child(1) { animation-delay: 0.1s; }
+    .program-card:nth-child(2) { animation-delay: 0.2s; }
+    .program-card:nth-child(3) { animation-delay: 0.3s; }
+    .program-card:nth-child(4) { animation-delay: 0.4s; }
+    .program-card:nth-child(5) { animation-delay: 0.5s; }
+    .program-card:nth-child(6) { animation-delay: 0.6s; }
+    .program-card:nth-child(7) { animation-delay: 0.7s; }
+    .program-card:nth-child(8) { animation-delay: 0.8s; }
+    .program-card:nth-child(9) { animation-delay: 0.9s; }
+
+    .program-card:hover {
+      background: var(--surface-light);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 12px 48px rgba(0, 102, 255, 0.2);
+    }
+
+    .program-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: inline-block;
+      transition: transform 0.3s ease;
+    }
+
+    .program-card:hover .program-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .program-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .program-card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Modernized CTA section with glassmorphism */
+    .cta-section {
+      text-align: center;
+      margin-top: 60px;
+      padding: 40px;
+      background: var(--surface);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+
+    .cta-section h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .cta-section p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-size: 1rem;
+    }
+
+    .cta-section a {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 14px 32px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .cta-section a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 102, 255, 0.3);
+    }
+
+    /* Animations for scroll effects */
+    @keyframes popUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(26, 31, 58, 0.8) 100%);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+      padding: 40px 20px;
+      margin-top: 60px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-inner .brand {
+      font-family: 'Outfit', sans-serif;
+      color: var(--accent);
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      margin: 0 12px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .social a {
+      color: var(--accent);
+      margin: 0 8px;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social a:hover {
+      transform: translateY(-3px);
+      color: var(--primary);
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .programs-hero {
+        padding: 60px 20px;
+      }
+
+      .programs-hero h1 {
+        font-size: 2rem;
+      }
+
+      .programs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Hero -->
+    <section class="programs-hero">
+      <h1>Our Programs</h1>
+      <p>Diverse opportunities designed to prepare you for success in academics, careers, and life.</p>
+    </section>
+
+    <!-- Programs Grid -->
+    <section class="programs-grid">
+      <div class="program-card">
+        <div class="program-icon">🎓</div>
+        <h3>WASSCE Preparation</h3>
+        <p>Get ready for the West African Senior School Certificate Examination with expert guidance.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">📘</div>
+        <h3>University Entrance Prep</h3>
+        <p>Comprehensive training to help you excel in university admission tests.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🌐</div>
+        <h3>Advanced Placement (AP)</h3>
+        <p>Earn college credit while still in high school with our AP courses.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">💼</div>
+        <h3>Professional Development</h3>
+        <p>Enhance your career prospects with practical skill-based programs.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🗣️</div>
+        <h3>Language Proficiency</h3>
+        <p>Master a new language and improve communication for global opportunities.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🔬</div>
+        <h3>STEM Programs</h3>
+        <p>Explore science, technology, engineering, and mathematics with hands-on learning.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🎨</div>
+        <h3>Art & Design</h3>
+        <p>Unleash your creativity in visual arts, design, and creative expression.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">🛠️</div>
+        <h3>Vocational Training</h3>
+        <p>Gain hands-on expertise in trades like carpentry, plumbing, and hospitality.</p>
+      </div>
+
+      <div class="program-card">
+        <div class="program-icon">💻</div>
+        <h3>Information Technology</h3>
+        <p>Stay ahead in the digital age with our IT-focused courses.</p>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <h2>Ready to Transform Your Future?</h2>
+      <p>Join Koyoyo College and unlock your potential with our world-class programs.</p>
+      <a href="admissions.html">Apply Now</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="brand">Koyoyo College</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="social">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+<a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@koyoyocollege   "><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div class="small">© 2025 Koyoyo College. All rights reserved.</div>
+  </footer>
+
+</body>
+</html>
