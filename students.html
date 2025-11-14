@@ -827,6 +827,29 @@
     <span>Apply Now</span>
     <i class="fas fa-arrow-right"></i>
   </a>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
+    authDomain: "koyoyocollegeafrica.firebaseapp.com",
+    projectId: "koyoyocollegeafrica",
+    storageBucket: "koyoyocollegeafrica.firebasestorage.app",
+    messagingSenderId: "501491274694",
+    appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
+    measurementId: "G-3F9CM217HQ"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 
   <script>
     const hamburger = document.getElementById('hamburger');
