@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /admissions.html
+Allow: /contact.html
+Allow: /students.html
+Allow: /gallery.html
+
+# Disallow sensitive areas if needed
+Disallow: /admin/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://koyoyocollege.github.io/Koyoyo-College-Africa/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1
