@@ -147,7 +147,7 @@
     }
 
     .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
+      transform: rotate(45deg) translate(5px, 5px);
     }
 
     .hamburger.active span:nth-child(2) {
@@ -155,7 +155,7 @@
     }
 
     .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
+      transform: rotate(-45deg) translate(5px, -5px);
     }
 
     @media (max-width: 768px) {
@@ -406,7 +406,10 @@
     }
 
     .dropdown-menu {
-      position: fixed;
+      position: absolute; /* Changed from fixed to be relative to card */
+      top: 110%; /* Position below the button */
+      left: 0;
+      right: 0;
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.6) 100%);
       backdrop-filter: blur(30px);
       border: 1.5px solid rgba(6, 182, 212, 0.4);
@@ -414,24 +417,18 @@
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       opacity: 0;
       visibility: hidden;
-      transform: translateX(20px);
+      transform: translateY(10px);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 999999 !important;
-      min-width: 300px;
-      animation: slideUp 0.3s ease forwards;
-      will-change: z-index;
-      transform: translateZ(0) translateX(20px);
-      pointer-events: auto;
-      max-height: 500px;
+      z-index: 10;
+      min-width: 100%;
+      max-height: 250px;
       overflow-y: auto;
-      right: 28px;
-      top: 120px;
     }
 
     .dropdown-menu.active {
       opacity: 1;
       visibility: visible;
-      transform: translateZ(0) translateX(0);
+      transform: translateY(0);
     }
 
     .dropdown-item {
@@ -473,7 +470,7 @@
     }
 
     .btn-dropdown::after {
-      content: '▲';
+      content: '▼';
       font-size: 0.7rem;
       margin-left: 4px;
       transition: transform 0.3s ease;
@@ -644,12 +641,6 @@
       .calendar-container iframe {
         height: 400px;
       }
-
-      .dropdown-menu {
-        right: 16px;
-        min-width: 280px;
-        max-height: 400px;
-      }
     }
 
     @media (max-width: 480px) {
@@ -679,17 +670,157 @@
         height: 300px;
       }
 
-      .dropdown-menu {
-        right: 12px;
-        min-width: 260px;
-      }
-
       .floating-apply-btn {
         left: 10px;
         bottom: 20px;
         padding: 12px 16px;
         font-size: 0.85em;
       }
+    }
+
+    /* NEW STYLES FOR LOGIN/DASHBOARD */
+    .portal-content-wrapper {
+        min-height: calc(100vh - 70px - 250px); /* Adjust based on header/footer height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 28px;
+    }
+
+    .auth-card {
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.5) 100%);
+        backdrop-filter: blur(25px);
+        border: 1.5px solid rgba(6, 182, 212, 0.2);
+        border-radius: 16px;
+        padding: 40px 32px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        text-align: center;
+        max-width: 450px;
+        width: 100%;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    .auth-card h2 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 24px;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .auth-card .input-group {
+        margin-bottom: 20px;
+    }
+
+    .auth-card label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .auth-card input[type="email"],
+    .auth-card input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        border: 1.5px solid rgba(96, 165, 250, 0.3);
+        border-radius: 8px;
+        background-color: rgba(15, 23, 42, 0.5);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .auth-card input[type="email"]:focus,
+    .auth-card input[type="password"]:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+    }
+
+    .auth-card button[type="submit"] {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .auth-card button[type="submit"]:hover {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4);
+    }
+
+    #login-error-message {
+        color: var(--gold); /* Using gold for error messages */
+        margin-top: 15px;
+        font-size: 0.9rem;
+        min-height: 1.2em;
+    }
+
+    #dashboard-container {
+        width: 100%; /* Ensure dashboard takes full width of container */
+        text-align: left;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    #dashboard-container .dashboard-info {
+        text-align: center;
+        margin-bottom: 20px;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+    
+    #dashboard-container .dashboard-info h2 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    #dashboard-container #logout-button {
+        display: block;
+        margin: 40px auto 0; /* Center the button */
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Red for logout */
+        width: auto; /* Allow button to size to content */
+        padding: 12px 30px;
+    }
+    #dashboard-container #logout-button:hover {
+        background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Responsive adjustments for auth card */
+    @media (max-width: 480px) {
+        .auth-card {
+            padding: 24px 16px;
+        }
+        .auth-card h2 {
+            font-size: 1.5rem;
+        }
+        #dashboard-container .dashboard-info h2 {
+            font-size: 1.8rem;
+        }
+        .auth-card button {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
     }
   </style>
 </head>
@@ -718,83 +849,117 @@
     </div>
   </header>
 
-  <div class="container">
-    <section class="hero">
-      <h1>Students Portal</h1>
-      <p>Access your learning resources, schedules, and important updates all in one place</p>
-    </section>
+  <!-- NEW: Wrapper for Login/Dashboard Content -->
+  <main class="portal-content-wrapper">
+    <!-- Login Form Section -->
+    <div id="login-container" class="auth-card" style="display: none;">
+        <h2>Koyoyo Portal Login</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" required autocomplete="email">
+            </div>
 
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon"><i class="fas fa-chalkboard"></i></div>
-        <h3>Google Classroom</h3>
-        <p>Join your virtual classes and stay updated with assignments.</p>
-        <div class="dropdown-container">
-          <button class="btn btn-dropdown" id="classroomBtn">Select a Class</button>
-          <div class="dropdown-menu" id="classroomMenu">
-            <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-              <i class="fas fa-book"></i>
-              <span>MAWUKO HALL</span>
-            </a>
-            <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-              <i class="fas fa-flask"></i>
-              <span>MALORFA HALL</span>
-            </a>
-            <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-              <i class="fas fa-globe"></i>
-              <span>HATSU HALL</span>
-            </a>
-            <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-              <i class="fas fa-microscope"></i>
-              <span>BRAIDE HALL</span>
-            </a>
-          </div>
-        </div>
-      </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required autocomplete="current-password">
+            </div>
 
-      <div class="card">
-        <div class="card-icon"><i class="fas fa-folder-open"></i></div>
-        <h3>Google Drive Resources</h3>
-        <p>Access study materials, past papers, and notes anytime.</p>
-        <a href="https://drive.google.com/drive/folders/1DMQHifTd-AeLvrm8feNbAlmYtSg2whw2" target="_blank" class="btn">Open Drive</a>
-      </div>
-
-      <div class="card">
-        <div class="card-icon"><i class="fas fa-file-alt"></i></div>
-        <h3>WASSCE Appeal</h3>
-        <p>Resolve any issues with your past WASSCE exam.</p>
-        <a href="https://forms.gle/beQ3WhHHzoR2PaCT8" target="_blank" class="btn">Fill the Form</a>
-      </div>
-
-      <div class="card">
-        <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
-        <h3>Calendar</h3>
-        <p>View upcoming exams, holidays, and school events.</p>
-        <a href="#calendar" class="btn secondary">View Calendar</a>
-      </div>
-
-      <div class="card">
-        <div class="card-icon"><i class="fas fa-book"></i></div>
-        <h3>Important Documents</h3>
-        <p>Download the handbook, rules, and exam guidelines.</p>
-        <a href="#" class="btn">View Documents</a>
-      </div>
+            <button type="submit">Log In</button>
+        </form>
+        <p id="login-error-message"></p>
     </div>
 
-    <section class="calendar-section" id="calendar">
-      <h2>Academic Calendar</h2>
-      <div class="calendar-container">
-        <iframe 
-          src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra" 
-          style="border: 0" 
-          width="100%" 
-          height="600" 
-          frameborder="0" 
-          scrolling="no">
-        </iframe>
-      </div>
-    </section>
-  </div>
+    <!-- Dashboard Section (Initially Hidden) - Contains ALL previous content for students.html -->
+    <div id="dashboard-container" style="display: none;">
+        <div class="dashboard-info">
+            <h2>Welcome, <span id="user-email-display"></span>!</h2>
+            <p>Your central hub for academic resources and updates.</p>
+        </div>
+
+        <!-- ORIGINAL content of students.html's .container starts here -->
+        <div class="container">
+            <section class="hero">
+              <h1>Students Dashboard</h1>
+              <p>Access your learning resources, schedules, and important updates all in one place.</p>
+            </section>
+
+            <div class="cards-grid">
+              <div class="card">
+                <div class="card-icon"><i class="fas fa-chalkboard"></i></div>
+                <h3>Google Classroom</h3>
+                <p>Join your virtual classes and stay updated with assignments.</p>
+                <div class="dropdown-container">
+                  <button class="btn btn-dropdown" id="classroomBtn">Select a Class</button>
+                  <div class="dropdown-menu" id="classroomMenu">
+                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                      <i class="fas fa-book"></i>
+                      <span>MAWUKO HALL</span>
+                    </a>
+                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                      <i class="fas fa-flask"></i>
+                      <span>MALORFA HALL</span>
+                    </a>
+                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                      <i class="fas fa-globe"></i>
+                      <span>HATSU HALL</span>
+                    </a>
+                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                      <i class="fas fa-microscope"></i>
+                      <span>BRAIDE HALL</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-icon"><i class="fas fa-folder-open"></i></div>
+                <h3>Google Drive Resources</h3>
+                <p>Access study materials, past papers, and notes anytime.</p>
+                <a href="https://drive.google.com/drive/folders/1DMQHifTd-AeLvrm8feNbAlmYtSg2whw2" target="_blank" class="btn">Open Drive</a>
+              </div>
+
+              <div class="card">
+                <div class="card-icon"><i class="fas fa-file-alt"></i></div>
+                <h3>WASSCE Appeal</h3>
+                <p>Resolve any issues with your past WASSCE exam.</p>
+                <a href="https://forms.gle/beQ3WhHHzoR2PaCT8" target="_blank" class="btn">Fill the Form</a>
+              </div>
+
+              <div class="card">
+                <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
+                <h3>Calendar</h3>
+                <p>View upcoming exams, holidays, and school events.</p>
+                <a href="#calendar" class="btn secondary">View Calendar</a>
+              </div>
+
+              <div class="card">
+                <div class="card-icon"><i class="fas fa-book"></i></div>
+                <h3>Important Documents</h3>
+                <p>Download the handbook, rules, and exam guidelines.</p>
+                <a href="#" class="btn">View Documents</a>
+              </div>
+            </div>
+
+            <section class="calendar-section" id="calendar">
+              <h2>Academic Calendar</h2>
+              <div class="calendar-container">
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra"
+                  style="border: 0"
+                  width="100%"
+                  height="600"
+                  frameborder="0"
+                  scrolling="no">
+                </iframe>
+              </div>
+            </section>
+        </div>
+        <!-- ORIGINAL content of students.html's .container ends here -->
+
+        <button id="logout-button" class="btn">Log Out</button>
+    </div>
+  </main>
 
   <footer>
     <div class="footer-container">
@@ -827,68 +992,161 @@
     <span>Apply Now</span>
     <i class="fas fa-arrow-right"></i>
   </a>
+
+  <!-- ORIGINAL Firebase SDK and NEW Login/Dashboard JavaScript -->
   <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    // NEW: Import Authentication and Firestore modules
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
-    authDomain: "koyoyocollegeafrica.firebaseapp.com",
-    projectId: "koyoyocollegeafrica",
-    storageBucket: "koyoyocollegeafrica.firebasestorage.app",
-    messagingSenderId: "501491274694",
-    appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
-    measurementId: "G-3F9CM217HQ"
-  };
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
+      authDomain: "koyoyocollegeafrica.firebaseapp.com",
+      projectId: "koyoyocollegeafrica",
+      storageBucket: "koyoyocollegeafrica.appspot.com",
+      messagingSenderId: "501491274694",
+      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
+      measurementId: "G-3F9CM217HQ"
+    };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    // NEW: Initialize Firebase Authentication and Cloud Firestore
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
+    // Get references to HTML elements for Login/Dashboard
+    const loginForm = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('login-error-message');
+    const loginContainer = document.getElementById('login-container');
+    const dashboardContainer = document.getElementById('dashboard-container');
+    const userEmailDisplay = document.getElementById('user-email-display');
+    const logoutButton = document.getElementById('logout-button');
+
+    // --- Authentication Logic ---
+
+    // This function runs whenever the user's login state changes.
+    // It's the central controller for showing/hiding the login form or the dashboard.
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // User is signed in.
+            loginContainer.style.display = 'none';
+            dashboardContainer.style.display = 'block';
+            userEmailDisplay.textContent = user.email; // Display the user's email
+
+            // Future-proofing: You could add functions here to load user-specific data
+            // from Firestore, like their specific courses or exam results.
+            // e.g., loadUserCourses(user.uid);
+
+        } else {
+            // User is signed out.
+            loginContainer.style.display = 'block';
+            dashboardContainer.style.display = 'none';
+            userEmailDisplay.textContent = ''; // Clear email display
+            errorMessage.textContent = ''; // Clear any previous login errors
+            if (loginForm) loginForm.reset(); // Clear form fields
+        }
+    });
+
+    // Event Listener for Login Form Submission
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Prevent form from reloading the page
+
+            const email = emailInput.value;
+            const password = passwordInput.value;
+            errorMessage.textContent = ''; // Clear previous errors
+
+            try {
+                // Attempt to sign in with Firebase Auth
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                // If successful, the onAuthStateChanged listener above will automatically
+                // hide the login form and show the dashboard.
+                console.log("User logged in:", userCredential.user.email);
+            } catch (error) {
+                console.error("Login failed:", error.code, error.message);
+                let userFacingMessage = "Login failed. Please check your credentials.";
+                // Provide more specific (but still safe) error messages
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                    userFacingMessage = "Invalid email or password.";
+                } else if (error.code === 'auth/too-many-requests') {
+                    userFacingMessage = "Access temporarily disabled due to many failed login attempts. Please try again later.";
+                }
+                errorMessage.textContent = userFacingMessage;
+            }
+        });
+    }
+
+
+    // Event Listener for Logout Button
+    if (logoutButton) {
+        logoutButton.addEventListener('click', async () => {
+            try {
+                await signOut(auth);
+                // If successful, the onAuthStateChanged listener will automatically
+                // hide the dashboard and show the login form.
+                console.log("User logged out.");
+            } catch (error) {
+                console.error("Logout failed:", error);
+                alert("An error occurred during logout. Please try again.");
+            }
+        });
+    }
+  </script>
+
+  <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    const classroomBtn = document.getElementById('classroomBtn');
-    const classroomMenu = document.getElementById('classroomMenu');
+    document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        const classroomBtn = document.getElementById('classroomBtn');
+        const classroomMenu = document.getElementById('classroomMenu');
 
-    hamburger.addEventListener('click', function() {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', function() {
+              hamburger.classList.toggle('active');
+              navLinks.classList.toggle('active');
+            });
 
-    const navItems = navLinks.querySelectorAll('.nav-link');
-    navItems.forEach(item => {
-      item.addEventListener('click', function() {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
+            const navItems = navLinks.querySelectorAll('.nav-link');
+            navItems.forEach(item => {
+              item.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+              });
+            });
+        }
 
-    classroomBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      classroomBtn.classList.toggle('active');
-      classroomMenu.classList.toggle('active');
-    });
+        // This code now only runs when the dashboard is visible
+        if(classroomBtn && classroomMenu) {
+            classroomBtn.addEventListener('click', function(e) {
+              e.stopPropagation(); // Prevent the document click from firing immediately
+              const isActive = classroomMenu.classList.contains('active');
+              // Close all other dropdowns if any exist in the future
+              document.querySelectorAll('.dropdown-menu.active').forEach(menu => menu.classList.remove('active'));
+              document.querySelectorAll('.btn-dropdown.active').forEach(btn => btn.classList.remove('active'));
+              
+              if (!isActive) {
+                classroomBtn.classList.add('active');
+                classroomMenu.classList.add('active');
+              }
+            });
+        }
 
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.dropdown-container')) {
-        classroomBtn.classList.remove('active');
-        classroomMenu.classList.remove('active');
-      }
-    });
-
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
-    dropdownItems.forEach(item => {
-      item.addEventListener('click', function() {
-        classroomBtn.classList.remove('active');
-        classroomMenu.classList.remove('active');
-      });
+        // Global click listener to close dropdowns
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.dropdown-container')) {
+            if (classroomBtn) classroomBtn.classList.remove('active');
+            if (classroomMenu) classroomMenu.classList.remove('active');
+          }
+        });
     });
   </script>
 
