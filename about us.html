@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Koyoyo College Africa – Our Mission, Vision & Values</title>
+
+  <!-- ✅ Google Search Console Verification -->
+  <meta name="google-site-verification" content="rU42e72XWOWwQohtIlMEQi3-EdlaufsicL9KKv6w8cI" />
+
+  <!-- ✅ SEO and Social Meta Tags -->
+  <meta name="description" content="Learn about Koyoyo College Africa's mission, vision, anthem, pledge, and standard operating procedures. Our commitment to quality education excellence.">
+  <meta name="keywords" content="Koyoyo College About, mission vision, college values, anthem pledge, SOP">
+  <meta name="author" content="Koyoyo College Africa">
+  <meta name="theme-color" content="#00d4ff">
+  <meta property="og:title" content="About Koyoyo College Africa">
+  <meta property="og:description" content="Discover our mission, vision, and core values shaping education excellence">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://koyoyocollege.github.io/Koyoyo-College-Africa/about.html">
+  <meta property="og:image" content="https://i.imgur.com/QsV8xs6.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Koyoyo College Africa">
+  <meta name="twitter:description" content="Learn about our mission, vision, and values">
+  <meta name="twitter:image" content="https://i.imgur.com/QsV8xs6.webp">
+  <link rel="canonical" href="https://koyoyocollege.github.io/Koyoyo-College-Africa/about.html">
+  <link rel="icon" type="image/webp" href="https://i.imgur.com/QsV8xs6.webp">
+
+  <!-- ✅ Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+      color: #e0e0e0;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6, .footer-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    /* Header and Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: linear-gradient(135deg, rgba(10, 42, 102, 0.95), rgba(88, 44, 131, 0.95));
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .college-title {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .college-title h1 {
+      font-size: 1.3em;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+    }
+
+    .college-title span {
+      font-size: 0.75em;
+      color: #a0a0a0;
+      font-weight: 500;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #c0c0c0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 0.95em;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00d4ff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    /* Hero Banner */
+    .hero {
+      background: linear-gradient(135deg, rgba(10, 42, 102, 0.85), rgba(88, 44, 131, 0.85)),
+        url('https://i.imgur.com/foV1pYH.png') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 120px 20px;
+      border-radius: 20px;
+      margin-bottom: 60px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero h1 {
+      font-size: 3.2em;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      color: #e0e0e0;
+    }
+
+    /* Section Title */
+    h2.section-title {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 50px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    h2.section-title::after {
+      content: '';
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      display: block;
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Mission & Vision Section */
+    .mission-vision-section {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+        url('https://i.imgur.com/r6VK6Gr.png') center/cover no-repeat;
+      background-attachment: fixed;
+      border-radius: 20px;
+      padding: 80px 40px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      margin: 60px 0;
+    }
+
+    .mission-vision-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+      z-index: 1;
+    }
+
+    .mission-vision-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .mission-card, .vision-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 40px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .mission-card:hover, .vision-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(0, 212, 255, 0.6);
+      box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+    }
+
+    .mission-card h3, .vision-card h3 {
+      color: #00d4ff;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    .mission-card p, .vision-card p {
+      color: #e0e0e0;
+      font-size: 1.05em;
+      line-height: 1.8;
+    }
+
+    /* Anthem & Pledge Section */
+    .anthem-pledge-section {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+        url('https://images.unsplash.com/photo-1470225620780-dba8ba36b745') center/cover no-repeat;
+      background-attachment: fixed;
+      border-radius: 20px;
+      padding: 80px 40px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      margin: 60px 0;
+    }
+
+    .anthem-pledge-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+      z-index: 1;
+    }
+
+    .anthem-pledge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .anthem-card, .pledge-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 40px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      box-shadow: 0 8px 32px rgba(124, 58, 237, 0.1);
+      transition: all 0.3s ease;
+      max-height: 500px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+    }
+
+    .anthem-card::-webkit-scrollbar, .pledge-card::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .anthem-card::-webkit-scrollbar-track, .pledge-card::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+    }
+
+    .anthem-card::-webkit-scrollbar-thumb, .pledge-card::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      border-radius: 10px;
+    }
+
+    .anthem-card:hover, .pledge-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(124, 58, 237, 0.6);
+      box-shadow: 0 15px 50px rgba(124, 58, 237, 0.3);
+    }
+
+    .anthem-card h3, .pledge-card h3 {
+      color: #7c3aed;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .anthem-card p, .pledge-card p {
+      color: #e0e0e0;
+      font-size: 1em;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+    }
+
+    /* SOP Section */
+    .sop-section {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+        url('https://images.unsplash.com/photo-1552664730-d307ca884978') center/cover no-repeat;
+      background-attachment: fixed;
+      border-radius: 20px;
+      padding: 80px 40px;
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      margin: 60px 0;
+    }
+
+    .sop-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+      z-index: 1;
+    }
+
+    .sop-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .sop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .sop-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 35px;
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .sop-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(0, 212, 255, 0.6);
+      box-shadow: 0 15px 50px rgba(0, 212, 255, 0.3);
+    }
+
+    .sop-card .icon {
+      font-size: 2.5em;
+      color: #00d4ff;
+      margin-bottom: 15px;
+    }
+
+    .sop-card h3 {
+      color: #00d4ff;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+    }
+
+    .sop-card p {
+      color: #c0c0c0;
+      font-size: 0.95em;
+      line-height: 1.7;
+    }
+
+    .sop-card ul {
+      color: #c0c0c0;
+      margin-top: 15px;
+      margin-left: 20px;
+      font-size: 0.95em;
+    }
+
+    .sop-card li {
+      margin-bottom: 8px;
+      list-style: none;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .sop-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #00d4ff;
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
+      color: #e0e0e0;
+      padding: 60px 20px 30px;
+      margin-top: 80px;
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-size: 1.8em;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .footer-nav a {
+      color: #c0c0c0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #00d4ff;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #00d4ff;
+      font-size: 1.4em;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #7c3aed;
+      transform: scale(1.2);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #808080;
+    }
+
+    /* Floating Apply Button */
+    .floating-apply-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 30px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      color: white;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95em;
+    }
+
+    .floating-apply-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, rgba(10, 42, 102, 0.98), rgba(88, 44, 131, 0.98));
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      nav.active {
+        max-height: 400px;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 0;
+        padding: 20px;
+        width: 100%;
+      }
+
+      nav a {
+        display: block;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .hero h1 { font-size: 2.2em; }
+      h2.section-title { font-size: 1.8em; }
+      
+      .mission-vision-section,
+      .anthem-pledge-section,
+      .sop-section {
+        padding: 50px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .floating-apply-btn {
+        left: 10px;
+        bottom: 20px;
+        padding: 12px 16px;
+        font-size: 0.85em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="logo-section">
+        <img src="https://i.imgur.com/QsV8xs6.webp" alt="Koyoyo College Logo" class="logo-img">
+        <div class="college-title">
+          <h1>KOYOYO COLLEGE</h1>
+          <span>AFRICA</span>
+        </div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#programs">Programs</a></li>
+          <li><a href="admissions.html">Admissions</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="students.html">Students</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero">
+    <h1>About Koyoyo College</h1>
+    <p>Discover our mission, vision, and core values</p>
+  </div>
+
+  <!-- Mission & Vision Section -->
+  <section class="mission-vision-section" id="mission-vision">
+    <div class="container">
+      <h2 class="section-title">Mission & Vision</h2>
+      <div class="mission-vision-grid">
+        <div class="mission-card">
+          <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+          <p>To provide quality, accessible, and transformative education that empowers students with knowledge, skills, and values necessary to excel in academic pursuits, careers, and life. We are committed to fostering innovation, critical thinking, and ethical leadership in a supportive and inclusive environment.</p>
+        </div>
+        <div class="vision-card">
+          <h3><i class="fas fa-telescope"></i> Our Vision</h3>
+          <p>To be a leading educational institution recognized locally and internationally for excellence, innovation, and the holistic development of students. We envision a future where Koyoyo College graduates become transformative leaders and skilled professionals contributing meaningfully to society and driving sustainable development.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Anthem & Pledge Section -->
+  <section class="anthem-pledge-section" id="anthem-pledge">
+    <div class="container">
+      <h2 class="section-title">Anthem & Pledge</h2>
+      <div class="anthem-pledge-grid">
+        <div class="anthem-card">
+          <h3><i class="fas fa-music"></i> College Anthem</h3>
+          <p>Rise up, Koyoyo! Reach for the sky,
+With knowledge and wisdom we'll never deny,
+Excellence is our pledge, our solemn vow,
+We'll make our college proud, starting now.
+
+In Nima's heart, our college stands so tall,
+For every student answering the call,
+From humble beginnings to heights unknown,
+We'll build our future on a foundation strong.
+
+United in purpose, diverse in voice,
+In Koyoyo College, we celebrate choice,
+With minds that question and hearts that care,
+We're changing futures, everywhere, everywhere.
+
+Rise up, Koyoyo! Let our banner fly,
+As we strive together, we'll reach the sky,
+Excellence, integrity, and vision clear,
+Koyoyo College—our home, our dear!</p>
+        </div>
+        <div class="pledge-card">
+          <h3><i class="fas fa-handshake"></i> College Pledge</h3>
+          <p>As a member of Koyoyo College, I solemnly pledge:
+
+To uphold the values of integrity, excellence, and respect in all my endeavors;
+
+To pursue knowledge with diligence and curiosity, embracing learning as a lifelong journey;
+
+To treat all members of our college community with dignity and compassion, fostering an environment of inclusivity and mutual support;
+
+To act with honesty and accountability in my academic and personal conduct, setting an example of ethical behavior;
+
+To contribute positively to our college community and society at large, using my education to serve the greater good;
+
+To respect the diversity of cultures, beliefs, and perspectives within our college, celebrating what makes each individual unique;
+
+To strive for excellence in all my endeavors, while acknowledging my limitations and seeking continuous improvement;
+
+To uphold the reputation and traditions of Koyoyo College with pride and dedication;
+
+To remain committed to these values throughout my time at Koyoyo College and beyond, becoming a responsible and contributing member of society.
+
+In this pledge, I commit to embodying the spirit of Koyoyo College.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOP Section -->
+  <section class="sop-section" id="sop">
+    <div class="container">
+      <div class="sop-content">
+        <h2 class="section-title">College Standard Operating Procedures</h2>
+        <div class="sop-grid">
+          <div class="sop-card">
+            <div class="icon"><i class="fas fa-book-open"></i></div>
+            <h3>Academic Excellence</h3>
+            <p>Our academic standards ensure quality learning:</p>
+            <ul>
+              <li>Regular assessment and evaluation</li>
+              <li>Evidence-based teaching methods</li>
+              <li>Continuous curriculum review</li>
+              <li>Student-centered learning approach</li>
+              <li>Professional development for staff</li>
+            </ul>
+          </div>
+
+          <div class="sop-card">
+            <div class="icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Discipline & Conduct</h3>
+            <p>We maintain a safe and respectful environment:</p>
+            <ul>
+              <li>Clear code of conduct for all</li>
+              <li>Fair disciplinary procedures</li>
+              <li>Zero tolerance for violence</li>
+              <li>Regular monitoring and support</li>
+              <li>Restorative justice practices</li>
+            </ul>
+          </div>
+
+          <div class="sop-card">
+            <div class="icon"><i class="fas fa-heart"></i></div>
+            <h3>Student Welfare</h3>
+            <p>We prioritize student wellbeing:</p>
+            <ul>
+              <li>Counseling and mentorship programs</li>
+              <li>Health and safety protocols</li>
+              <li>Financial assistance schemes</li>
+              <li>Mental health support services</li>
+              <li>Student grievance management</li>
+            </ul>
+          </div>
+
+          <div class="sop-card">
+            <div class="icon"><i class="fas fa-clipboard-check"></i></div>
+            <h3>Admissions & Enrollment</h3>
+            <p>Our admissions process is transparent:</p>
+            <ul>
+              <li>Merit-based selection criteria</li>
+              <li>Fair and equitable assessment</li>
+              <li>Clear enrollment procedures</li>
+              <li>Accessible admission information</li>
+              <li>Support for new students</li>
+            </ul>
+          </div>
+
+          <div class="sop-card">
+            <div class="icon"><i class="fas fa-graduation-cap"></i></div>
+            <h3>Teaching & Learning</h3>
+            <p>We employ best teaching practices:</p>
+            <ul>
+              <li>Interactive learning methods</li>
+              <li>Technology-enhanced education</li>
+              <li>Collaborative learning spaces</li>
+              <li>Inclusive teaching strategies</li>
+              <li>Regular feedback mechanisms</li>
+            </ul>
+          </div>
+
+          <div class="sop-card">
+            <div class="icon"><i class="fas fa-handshake"></i></div>
+            <h3>Community Engagement</h3>
+            <p>We foster community partnerships:</p>
+            <ul>
+              <li>Industry collaboration programs</li>
+              <li>Community service initiatives</li>
+              <li>Alumni network engagement</li>
+              <li>Parent involvement in education</li>
+              <li>Corporate social responsibility</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">KOYOYO COLLEGE</div>
+        <p>We Serve All...</p>
+      </div>
+      <div class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="students.html">Students</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="social-icons">
+        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank">
+          <i class="fab fa-tiktok"></i>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KOYOYO COLLEGE. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Apply Button -->
+  <a href="https://tally.so/r/n09joA" class="floating-apply-btn">
+    <span>Apply Now</span>
+    <i class="fas fa-arrow-right"></i>
+  </a>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const nav = document.querySelector('nav');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      nav.classList.toggle('active');
+    });
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+      });
+    });
+  </script>
+</body>
+</html>
