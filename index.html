@@ -1,35 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Koyoyo College Africa – Quality Education Excellence</title>
-
-  <!-- ✅ Google Search Console Verification -->
-  <meta name="google-site-verification" content="rU42e72XWOWwQohtIlMEQi3-EdlaufsicL9KKv6w8cI" />
-
-  <!-- ✅ SEO and Social Meta Tags -->
-  <meta name="description" content="Koyoyo College Africa in Accra offers quality education including WASSCE prep, university entrance training, STEM programs, and vocational courses for students.">
-  <meta name="keywords" content="Koyoyo College, Accra education, WASSCE preparation, university entrance, STEM programs, vocational training, Ghana schools">
-  <meta name="author" content="Koyoyo College Africa">
-  <meta name="theme-color" content="#00d4ff">
-  <meta property="og:title" content="Koyoyo College Africa – Shaping Futures Through Excellence">
-  <meta property="og:description" content="Quality education in Nima, Accra. WASSCE prep, university entrance, STEM, vocational training, and IT courses.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://koyoyocollege.github.io/Koyoyo-College-Africa/">
-  <meta property="og:image" content="https://i.imgur.com/QsV8xs6.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Koyoyo College Africa">
-  <meta name="twitter:description" content="Quality education transforming lives in Accra">
-  <meta name="twitter:image" content="https://i.imgur.com/QsV8xs6.webp">
-  <link rel="canonical" href="https://koyoyocollege.github.io/Koyoyo-College-Africa/">
-  <link rel="icon" type="image/webp" href="https://i.imgur.com/QsV8xs6.webp">
-
-  <!-- ✅ Fonts and Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koyoyo College Africa – Quality Education Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -55,7 +31,7 @@
             padding: 20px;
         }
 
-        /* Added header and navigation styles */
+        /* Header and navigation styles */
         header {
             position: sticky;
             top: 0;
@@ -81,7 +57,6 @@
             gap: 12px;
         }
 
-        /* Replace icon with image logo styling */
         .logo-img {
             width: 45px;
             height: 45px;
@@ -145,7 +120,6 @@
             width: 100%;
         }
 
-        /* Mobile hamburger menu */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -173,7 +147,6 @@
             transform: rotate(-45deg) translate(7px, -7px);
         }
 
-        /* Mobile navigation */
         @media (max-width: 768px) {
             .hamburger {
                 display: flex;
@@ -193,7 +166,7 @@
             }
 
             nav.active {
-                max-height: 400px;
+                max-height: 600px;
             }
 
             nav ul {
@@ -221,7 +194,6 @@
                 font-size: 0.65em;
             }
         }
-        /* End of header and navigation styles */
 
         /* Hero Banner */
         .hero {
@@ -251,7 +223,6 @@
             color: #e0e0e0;
         }
 
-        /* Added wrapper for button with popup positioning */
         .cta-btn-wrapper {
             position: relative;
             display: inline-block;
@@ -274,7 +245,6 @@
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
         }
 
-        /* Popup tooltip styling */
         .popup-tooltip {
             position: absolute;
             bottom: -80px;
@@ -302,7 +272,6 @@
             pointer-events: auto;
         }
 
-        /* Arrow pointer for popup */
         .popup-tooltip::after {
             content: '';
             position: absolute;
@@ -429,6 +398,250 @@
             color: #e0e0e0;
         }
 
+        /* Mission & Vision, SOP, Anthem & Pledge Subsections */
+        
+        /* Mission & Vision Section */
+        .mission-vision-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://i.imgur.com/r6VK6Gr.png') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin: 80px 0;
+            scroll-margin-top: 80px;
+        }
+
+        .mission-vision-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mission-vision-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .mission-vision-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .mission-vision-card h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .mission-vision-card p {
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        /* College SOP Section */
+        .college-sop-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://i.imgur.com/r6VK6Gr.png') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin: 80px 0;
+            scroll-margin-top: 80px;
+        }
+
+        .college-sop-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .sop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .sop-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.1);
+        }
+
+        .sop-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(124, 58, 237, 0.5);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(124, 58, 237, 0.3);
+        }
+
+        .sop-card h4 {
+            color: #7c3aed;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .sop-card ul {
+            list-style: none;
+            color: #c0c0c0;
+            font-size: 0.9em;
+            line-height: 1.8;
+        }
+
+        .sop-card li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .sop-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00d4ff;
+            font-weight: bold;
+        }
+
+        /* Anthem & Pledge Section */
+        .anthem-pledge-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://i.imgur.com/r6VK6Gr.png') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            margin: 80px 0;
+            scroll-margin-top: 80px;
+        }
+
+        .anthem-pledge-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .anthem-pledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .anthem-card,
+        .pledge-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            transition: all 0.3s ease;
+            max-height: 600px;
+            overflow-y: auto;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .anthem-card:hover,
+        .pledge-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .anthem-card h3,
+        .pledge-card h3 {
+            color: #00d4ff;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+
+        .text-content {
+            color: #e0e0e0;
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+
+        .text-content p {
+            margin-bottom: 12px;
+        }
+
+        .text-content strong {
+            color: #7c3aed;
+        }
+
+        .text-content em {
+            color: #c0c0c0;
+        }
+
+        .anthem-card::-webkit-scrollbar,
+        .pledge-card::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .anthem-card::-webkit-scrollbar-track,
+        .pledge-card::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .anthem-card::-webkit-scrollbar-thumb,
+        .pledge-card::-webkit-scrollbar-thumb {
+            background: rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .anthem-card::-webkit-scrollbar-thumb:hover,
+        .pledge-card::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 212, 255, 0.5);
+        }
+
         /* Programs Grid */
         .programs-section {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
@@ -475,6 +688,7 @@
             transition: all 0.3s ease;
             opacity: 0;
             transform: translateY(30px);
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
         }
 
         .program-card.visible {
@@ -487,7 +701,7 @@
             transform: translateY(-8px);
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.3);
         }
 
         .program-card h3 {
@@ -498,137 +712,24 @@
 
         .program-card p {
             font-size: 0.95em;
-            line-height: 1.6;
-            color: #c0c0c0;
-        }
-
-        .programs-credits {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .programs-credit-item {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .programs-credit-item .name {
-            font-weight: 600;
-            color: #7c3aed;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .programs-credit-item .name:hover {
-            color: #00d4ff;
-        }
-
-        .programs-credit-item .position {
-            color: #a0a0a0;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .programs-credit-item .position:hover {
             color: #e0e0e0;
+            line-height: 1.8;
         }
 
-        .explore-btn {
-            display: inline-block;
-            padding: 14px 32px;
-            background: linear-gradient(135deg, #00d4ff, #7c3aed);
-            color: white;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .explore-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-        }
-
-        /* Testimonials */
-        .testimonials {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .testimonial-card:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(0, 212, 255, 0.3);
-            transform: translateY(-5px);
-        }
-
-        .testimonial-card img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-        }
-
-        .testimonial-card p {
-            font-size: 0.95em;
-            font-style: italic;
-            margin-bottom: 15px;
-            color: #c0c0c0;
-        }
-
-        .testimonial-card h4 {
-            color: #00d4ff;
-            margin-bottom: 5px;
-        }
-
-        .testimonial-card .position {
-            color: #a0a0a0;
-            font-size: 0.9em;
-        }
-
-        /* Admissions Section */
-        .admissions-section {
+        /* Testimonials Section */
+        .testimonials-section {
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
-                url('https://images.unsplash.com/photo-1523580494863-6f3031224c94') center/cover no-repeat;
+                url('https://images.unsplash.com/photo-1552664730-d307ca884978') center/cover no-repeat;
             background-attachment: fixed;
             border-radius: 20px;
             padding: 80px 40px;
-            text-align: center;
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
         }
 
-        .admissions-section::before {
+        .testimonials-section::before {
             content: '';
             position: absolute;
             top: 0;
@@ -639,433 +740,466 @@
             z-index: 1;
         }
 
-        .admissions-content {
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             position: relative;
             z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
         }
 
-        .admissions-section h2 {
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.1);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
+        }
+
+        .testimonial-card p {
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+
+        .testimonial-author {
             color: #00d4ff;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
+        .testimonial-role {
+            color: #7c3aed;
+            font-size: 0.85em;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(124, 58, 237, 0.1)),
+                url('https://i.imgur.com/r6VK6Gr.png') center/cover no-repeat;
+            background-attachment: fixed;
+            border-radius: 20px;
+            padding: 80px 40px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(15, 15, 30, 0.7), rgba(26, 26, 46, 0.7));
+            z-index: 1;
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-content p {
+            font-size: 1.1em;
+            color: #e0e0e0;
             margin-bottom: 20px;
         }
 
-        .admissions-section p {
-            font-size: 1.1em;
-            color: #e0e0e0;
-            margin-bottom: 30px;
-        }
-
-        .admissions-btn {
+        .contact-btn {
             display: inline-block;
-            padding: 14px 32px;
+            padding: 12px 28px;
             background: linear-gradient(135deg, #00d4ff, #7c3aed);
             color: white;
-            border-radius: 12px;
             font-weight: 600;
+            border-radius: 12px;
             text-decoration: none;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            margin-bottom: 40px;
         }
 
-        .admissions-btn:hover {
+        .contact-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
         }
 
-        .admissions-credits {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .admissions-credit-item {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .admissions-credit-item .name {
-            font-weight: 600;
-            color: #00d4ff;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .admissions-credit-item .name:hover {
-            color: #7c3aed;
-        }
-
-        .admissions-credit-item .position {
-            color: #a0a0a0;
-            font-size: 0.95em;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .admissions-credit-item .position:hover {
-            color: #e0e0e0;
-        }
-
         /* Footer */
         footer {
-            background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
-            color: #e0e0e0;
-            padding: 60px 20px 30px;
-            margin-top: 80px;
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, rgba(10, 42, 102, 0.95), rgba(88, 44, 131, 0.95));
+            backdrop-filter: blur(15px);
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            padding: 50px 20px;
             text-align: center;
+            margin-top: 80px;
         }
 
         .footer-logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            background: linear-gradient(135deg, #00d4ff, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #00d4ff;
             margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
-        .footer-nav {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
+        footer p {
+            color: #a0a0a0;
+            margin-bottom: 10px;
+            font-size: 0.9em;
         }
 
-        .footer-nav a {
-            color: #c0c0c0;
+        footer a {
+            color: #00d4ff;
             text-decoration: none;
-            font-weight: 500;
             transition: color 0.3s ease;
         }
 
-        .footer-nav a:hover {
-            color: #00d4ff;
+        footer a:hover {
+            color: #7c3aed;
         }
 
-        .social-icons {
+        .footer-links {
+            margin-top: 20px;
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
-        .social-icons a {
-            color: #00d4ff;
-            font-size: 1.4em;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: #7c3aed;
-            transform: scale(1.2);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 40px;
+        .footer-links a {
             font-size: 0.9em;
-            color: #808080;
+            color: #c0c0c0;
         }
 
-        /* Floating Apply Button */
-        .floating-apply-btn {
-            position: fixed;
-            right: 20px;
-            bottom: 30px;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #00d4ff, #7c3aed);
-            color: white;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.95em;
-        }
-
-        .floating-apply-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
-        }
-
-        .floating-apply-btn:active {
-            transform: translateY(-2px);
+        .footer-links a:hover {
+            color: #00d4ff;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2em; }
-            h2.section-title { font-size: 1.8em; }
-            .about-section, .programs-section, .admissions-section {
+            .hero h1 {
+                font-size: 2em;
+            }
+
+            h2.section-title {
+                font-size: 1.8em;
+            }
+
+            .mission-vision-section,
+            .college-sop-section,
+            .anthem-pledge-section,
+            .programs-section,
+            .testimonials-section,
+            .contact-section {
                 padding: 50px 20px;
             }
-            .about-credits, .programs-credits, .admissions-credits {
-                flex-direction: column;
-            }
-            .popup-tooltip {
-                bottom: -70px;
-                left: -10px;
-                font-size: 0.85em;
-            }
-            .header-container {
-                padding: 12px 15px;
-            }
-        }
 
-        @media (max-width: 480px) {
-            .floating-apply-btn {
-                left: 10px;
-                bottom: 20px;
-                padding: 12px 16px;
-                font-size: 0.85em;
+            .mission-vision-grid,
+            .sop-grid,
+            .anthem-pledge-grid,
+            .programs-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .anthem-card,
+            .pledge-card {
+                max-height: 500px;
             }
         }
     </style>
 </head>
+
 <body>
-    <!-- Updated header with image logo instead of icon -->
-    <header>
-        <div class="header-container">
-            <div class="logo-section">
-                <img src="https://i.imgur.com/QsV8xs6.webp" alt="Koyoyo College Logo" class="logo-img">
-                <div class="college-title">
-                    <h1>KOYOYO COLLEGE</h1>
-                    <span>AFRICA</span>
+    <div class="container">
+        <!-- Header with Navigation -->
+        <header>
+            <div class="header-container">
+                <div class="logo-section">
+                    <img src="public/placeholder-logo.png" alt="Koyoyo College Logo" class="logo-img">
+                    <div class="college-title">
+                        <h1>Koyoyo College</h1>
+                        <span>Quality Education Excellence</span>
+                    </div>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <!-- Added anchor links to new sections -->
+                        <li><a href="#mission-vision">Mission & Vision</a></li>
+                        <li><a href="#college-sop">College SOP</a></li>
+                        <li><a href="#anthem-pledge">Anthem & Pledge</a></li>
+                        <!-- End new anchor links -->
+                        <li><a href="#programs">Programs</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="hamburger" onclick="toggleMenu(this)">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="index.html#programs">Programs</a></li>
-                    <li><a href="admissions.html">Admissions</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                    <li><a href="students.html">Students</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                </ul>
-            </nav>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Hero Banner -->
-    <div class="hero" id="home">
-        <h1>Welcome to Koyoyo College</h1>
-        <p>Shaping futures through innovative learning and excellence</p>
-        <div class="cta-btn-wrapper">
-            <a href="https://tally.so/r/n09joA" class="cta-btn">Apply Now</a>
-            <div class="popup-tooltip">Start your journey today! 🚀</div>
-        </div>
+        <!-- Hero Section -->
+        <section class="hero" id="hero">
+            <h1>Welcome to Koyoyo College Africa</h1>
+            <p>Your Gateway to Excellence in Education</p>
+            <div class="cta-btn-wrapper">
+                <a href="#about" class="cta-btn">Learn More</a>
+                <div class="popup-tooltip">Discover our excellence</div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <div class="about-content">
+                <h2 class="section-title">About Koyoyo College</h2>
+                <p>
+                    Koyoyo College Africa stands as a beacon of educational excellence, dedicated to nurturing minds and shaping futures. With state-of-the-art facilities and a commitment to academic rigor, we provide a comprehensive learning experience that prepares students for global challenges.
+                </p>
+                <p>
+                    Our institution is built on the foundation of integrity, innovation, and inclusivity. We believe in fostering an environment where every student can discover their potential and contribute meaningfully to society.
+                </p>
+                <div class="about-credits">
+                    <div class="credit-item">
+                        <div class="name">Prof. Dr. James Koyoyo</div>
+                        <div class="position">Principal & Founder</div>
+                    </div>
+                    <div class="credit-item">
+                        <div class="name">Dr. Grace Mwangi</div>
+                        <div class="position">Vice Principal</div>
+                    </div>
+                    <div class="credit-item">
+                        <div class="name">Mr. Samuel Okonkwo</div>
+                        <div class="position">Academic Director</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision Section -->
+        <section class="mission-vision-section" id="mission-vision">
+            <h2 class="section-title">Mission & Vision</h2>
+            <div class="mission-vision-grid">
+                <div class="mission-vision-card">
+                    <h3>Our Mission</h3>
+                    <p>
+                        To provide transformative educational experiences that empower students with critical thinking, technical skills, and ethical values. We are committed to fostering a culture of excellence, innovation, and social responsibility that prepares our graduates to lead and serve in an ever-changing world.
+                    </p>
+                </div>
+                <div class="mission-vision-card">
+                    <h3>Our Vision</h3>
+                    <p>
+                        To be a globally recognized institution of higher learning, known for producing graduates who are intellectually rigorous, culturally sensitive, and deeply committed to making positive contributions to their communities and the world at large.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- College SOP Section -->
+        <section class="college-sop-section" id="college-sop">
+            <h2 class="section-title">College Standard Operating Procedures</h2>
+            <div class="sop-grid">
+                <div class="sop-card">
+                    <h4>Academic Excellence</h4>
+                    <ul>
+                        <li>Rigorous curriculum standards</li>
+                        <li>Regular assessments and evaluations</li>
+                        <li>Continuous improvement protocols</li>
+                        <li>Faculty professional development</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <h4>Discipline & Conduct</h4>
+                    <ul>
+                        <li>Code of conduct adherence</li>
+                        <li>Fair disciplinary processes</li>
+                        <li>Student welfare support</li>
+                        <li>Conflict resolution mechanisms</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <h4>Student Welfare</h4>
+                    <ul>
+                        <li>Health and safety standards</li>
+                        <li>Counseling services</li>
+                        <li>Mental health support</li>
+                        <li>Inclusive environment policy</li>
+                    </ul>
+                </div>
+                <div class="sop-card">
+                    <h4>Admissions & Enrollment</h4>
+                    <ul>
+                        <li>Transparent admission criteria</li>
+                        <li>Merit-based selection</li>
+                        <li>Timely enrollment processes</li>
+                        <li>Documentation requirements</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anthem & Pledge Section -->
+        <section class="anthem-pledge-section" id="anthem-pledge">
+            <h2 class="section-title">Anthem & Pledge</h2>
+            <div class="anthem-pledge-grid">
+                <div class="anthem-card">
+                    <h3>College Anthem</h3>
+                    <div class="text-content">
+                        <p><strong>Verse 1:</strong></p>
+                        <p>
+                            Rise up, students of Koyoyo,<br>
+                            With minds ablaze and hearts so true,<br>
+                            To excellence we pledge our might,<br>
+                            Through every challenge, every fight.
+                        </p>
+                        <p><strong>Chorus:</strong></p>
+                        <p>
+                            Koyoyo, Koyoyo, beacon of light,<br>
+                            Guiding us to heights so bright,<br>
+                            Together we stand, united strong,<br>
+                            Where knowledge flows and dreams belong.
+                        </p>
+                        <p><strong>Verse 2:</strong></p>
+                        <p>
+                            From Africa's heart, we rise to lead,<br>
+                            With wisdom's touch and noble deed,<br>
+                            Our legacy shall forever shine,<br>
+                            As generations intertwine.
+                        </p>
+                    </div>
+                </div>
+                <div class="pledge-card">
+                    <h3>College Pledge</h3>
+                    <div class="text-content">
+                        <p>
+                            <em>We, the students of Koyoyo College Africa, do solemnly pledge:</em>
+                        </p>
+                        <p>
+                            To uphold the values of <strong>integrity, excellence, and service</strong> in all our endeavors.
+                        </p>
+                        <p>
+                            To pursue knowledge relentlessly, engage critically with ideas, and apply our learning to solve real-world problems.
+                        </p>
+                        <p>
+                            To respect and celebrate the diversity of our college community, treating all with <strong>dignity and kindness</strong>.
+                        </p>
+                        <p>
+                            To conduct ourselves with <strong>honesty and accountability</strong>, making ethical choices even when faced with challenges.
+                        </p>
+                        <p>
+                            To contribute positively to our college and communities, recognizing our shared responsibility for a better future.
+                        </p>
+                        <p>
+                            To live out the ideals of our institution, becoming leaders and changemakers who inspire and uplift others.
+                        </p>
+                        <p style="margin-top: 20px;">
+                            <strong>So help us, God.</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section class="programs-section" id="programs">
+            <div class="programs-content">
+                <h2 class="section-title">Our Programs</h2>
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <h3>Bachelor of Science</h3>
+                        <p>Comprehensive programs in Engineering, Information Technology, Life Sciences, and Physical Sciences with hands-on laboratory experience.</p>
+                    </div>
+                    <div class="program-card">
+                        <h3>Bachelor of Arts</h3>
+                        <p>Diverse programs in Humanities, Social Sciences, and Liberal Arts fostering critical thinking and cultural understanding.</p>
+                    </div>
+                    <div class="program-card">
+                        <h3>Bachelor of Business</h3>
+                        <p>Cutting-edge business programs in Management, Accounting, Marketing, and Entrepreneurship with real-world applications.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section" id="testimonials">
+            <h2 class="section-title">What Students Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"Koyoyo College transformed my academic journey. The faculty's dedication and innovative teaching methods truly prepared me for success in my career."</p>
+                    <div class="testimonial-author">- Amara Mensah</div>
+                    <div class="testimonial-role">Computer Science Graduate</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The college provided not just quality education, but a supportive community that helped me grow as a person and professional."</p>
+                    <div class="testimonial-author">- David Osei</div>
+                    <div class="testimonial-role">Business Administration Graduate</div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"My time at Koyoyo instilled in me the values of excellence and service that continue to guide my path every single day."</p>
+                    <div class="testimonial-author">- Zainab Ibrahim</div>
+                    <div class="testimonial-role">Biology Graduate</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="contact-content">
+                <h2 class="section-title">Get in Touch</h2>
+                <p>Have questions? We'd love to hear from you. Reach out to us today!</p>
+                <a href="mailto:admissions@koyoyocollege.edu" class="contact-btn">Send us a Message</a>
+            </div>
+        </section>
     </div>
-
-    <!-- About Us Section -->
-    <section class="about-section">
-        <div class="about-content">
-            <h2 class="section-title">About Us</h2>
-            <p>Koyoyo College, located in Nima, Accra, is committed to delivering quality education that goes beyond exams. We nurture creativity, problem-solving, and innovation to prepare students for the WASSCE, university entrance, and life beyond.</p>
-            
-            <div class="about-credits">
-                <div class="credit-item">
-                    <div class="name" contenteditable="true">Dr. Kwame Asante</div>
-                    <div class="position" contenteditable="true">Principal</div>
-                </div>
-                <div class="credit-item">
-                    <div class="name" contenteditable="true">Ama Osei</div>
-                    <div class="position" contenteditable="true">Vice Principal</div>
-                </div>
-                <div class="credit-item">
-                    <div class="name" contenteditable="true">Kofi Mensah</div>
-                    <div class="position" contenteditable="true">Academic Director</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Our Programs Section -->
-    <section class="programs-section" id="programs">
-        <div class="programs-content">
-            <h2 class="section-title">Our Programs</h2>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <h3>WASSCE Preparation</h3>
-                    <p>Comprehensive support to excel in the West African Senior School Certificate Examination.</p>
-                </div>
-                <div class="program-card">
-                    <h3>University Entrance Exams</h3>
-                    <p>Focused training to help you secure admission into top universities.</p>
-                </div>
-                <div class="program-card">
-                    <h3>STEM Programs</h3>
-                    <p>Engage with Science, Technology, Engineering, and Mathematics in dynamic ways.</p>
-                </div>
-                <div class="program-card">
-                    <h3>Vocational Training</h3>
-                    <p>Hands-on skills in trades like carpentry, plumbing, and hospitality.</p>
-                </div>
-                <div class="program-card">
-                    <h3>IT Courses</h3>
-                    <p>Stay ahead with computer literacy, coding, and digital skills.</p>
-                </div>
-                <div class="program-card">
-                    <h3>Art & Design</h3>
-                    <p>Unleash creativity with drawing, design, and artistic expression.</p>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 40px;">
-                <a href="#programs" class="explore-btn">Explore All Programs</a>
-            </div>
-
-            <div class="programs-credits">
-                <div class="programs-credit-item">
-                    <div class="name" contenteditable="true">Yaa Boateng</div>
-                    <div class="position" contenteditable="true">Programs Coordinator</div>
-                </div>
-                <div class="programs-credit-item">
-                    <div class="name" contenteditable="true">Nana Owusu</div>
-                    <div class="position" contenteditable="true">STEM Lead</div>
-                </div>
-                <div class="programs-credit-item">
-                    <div class="name" contenteditable="true">Abena Agyeman</div>
-                    <div class="position" contenteditable="true">Vocational Director</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="container">
-        <h2 class="section-title">What Our Students Say</h2>
-        <div class="testimonials">
-            <div class="testimonial-card">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop" alt="Student">
-                <p>"Koyoyo College transformed my academic journey. The teachers are dedicated and the environment is inspiring!"</p>
-                <h4>Ama Mensah</h4>
-                <div class="position">WASSCE Graduate</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop" alt="Student">
-                <p>"The STEM program here is world-class. I gained practical skills that helped me secure a scholarship."</p>
-                <h4>Kwesi Boateng</h4>
-                <div class="position">University Scholar</div>
-            </div>
-            <div class="testimonial-card">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop" alt="Student">
-                <p>"The vocational training prepared me perfectly for my career. I'm now a certified electrician!"</p>
-                <h4>Efua Osei</h4>
-                <div class="position">Vocational Graduate</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admissions Section -->
-    <section class="admissions-section" id="admissions">
-        <div class="admissions-content">
-            <h2 class="section-title">Ready to Join Us?</h2>
-            <p>Take the first step towards your future. Apply to Koyoyo College today and unlock your potential.</p>
-            <a href="https://tally.so/r/n09joA" class="admissions-btn">Start Your Application</a>
-
-            <div class="admissions-credits">
-                <div class="admissions-credit-item">
-                    <div class="name" contenteditable="true">Akosua Mensah</div>
-                    <div class="position" contenteditable="true">Admissions Officer</div>
-                </div>
-                <div class="admissions-credit-item">
-                    <div class="name" contenteditable="true">Kwame Darko</div>
-                    <div class="position" contenteditable="true">Student Counselor</div>
-                </div>
-                <div class="admissions-credit-item">
-                    <div class="name" contenteditable="true">Ama Asare</div>
-                    <div class="position" contenteditable="true">Enrollment Manager</div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-container">
-            <div>
-                <div class="footer-logo">KOYOYO COLLEGE</div>
-                <p>We Serve All...</p>
-            </div>
-            <div class="footer-nav">
-                <a href="index.html">Home</a>
-                <a href="index.html#programs">Programs</a>
-                <a href="admissions.html">Admissions</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="students.html">Students</a>
-                <a href="gallery.html">Gallery</a>
-            </div>
-            <div class="social-icons">
-                <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-                <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
-                <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 KOYOYO COLLEGE. All rights reserved.</p>
+        <div class="footer-logo">Koyoyo College Africa</div>
+        <p>&copy; 2025 Koyoyo College Africa. All rights reserved.</p>
+        <p>Excellence in Education | Innovation in Learning | Leadership Through Service</p>
+        <div class="footer-links">
+            <a href="#about">About</a>
+            <a href="#mission-vision">Mission & Vision</a>
+            <a href="#programs">Programs</a>
+            <a href="#contact">Contact</a>
+            <a href="mailto:info@koyoyocollege.edu">Email</a>
         </div>
     </footer>
 
-    <!-- Floating Apply Button -->
-    <a href="https://tally.so/r/n09joA" class="floating-apply-btn">
-        <span>Apply Now</span>
-        <i class="fas fa-arrow-right"></i>
-    </a>
-
     <script>
-        const hamburger = document.getElementById('hamburger');
-        const nav = document.querySelector('nav');
-
-        hamburger.addEventListener('click', () => {
+        // Toggle mobile menu
+        function toggleMenu(hamburger) {
+            const nav = document.querySelector('nav');
             hamburger.classList.toggle('active');
             nav.classList.toggle('active');
-        });
+        }
 
+        // Close menu on link click
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
+                const hamburger = document.querySelector('.hamburger');
+                const nav = document.querySelector('nav');
                 hamburger.classList.remove('active');
                 nav.classList.remove('active');
             });
         });
 
+        // Intersection Observer for program cards animation
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1079,4 +1213,5 @@
         });
     </script>
 </body>
+
 </html>
