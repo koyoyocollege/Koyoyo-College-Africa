@@ -147,7 +147,7 @@
     }
 
     .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
+      transform: rotate(45deg) translate(10px, 10px);
     }
 
     .hamburger.active span:nth-child(2) {
@@ -155,7 +155,7 @@
     }
 
     .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
+      transform: rotate(-45deg) translate(7px, -7px);
     }
 
     @media (max-width: 768px) {
@@ -406,10 +406,7 @@
     }
 
     .dropdown-menu {
-      position: absolute; /* Changed from fixed to be relative to card */
-      top: 110%; /* Position below the button */
-      left: 0;
-      right: 0;
+      position: fixed;
       background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.6) 100%);
       backdrop-filter: blur(30px);
       border: 1.5px solid rgba(6, 182, 212, 0.4);
@@ -417,18 +414,24 @@
       box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
       opacity: 0;
       visibility: hidden;
-      transform: translateY(10px);
+      transform: translateX(20px);
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 10;
-      min-width: 100%;
-      max-height: 250px;
+      z-index: 999999 !important;
+      min-width: 300px;
+      animation: slideUp 0.3s ease forwards;
+      will-change: z-index;
+      transform: translateZ(0) translateX(20px);
+      pointer-events: auto;
+      max-height: 500px;
       overflow-y: auto;
+      right: 28px;
+      top: 120px;
     }
 
     .dropdown-menu.active {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0);
+      transform: translateZ(0) translateX(0);
     }
 
     .dropdown-item {
@@ -470,7 +473,7 @@
     }
 
     .btn-dropdown::after {
-      content: '▼';
+      content: '▲';
       font-size: 0.7rem;
       margin-left: 4px;
       transition: transform 0.3s ease;
@@ -641,6 +644,12 @@
       .calendar-container iframe {
         height: 400px;
       }
+
+      .dropdown-menu {
+        right: 16px;
+        min-width: 280px;
+        max-height: 400px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -670,6 +679,11 @@
         height: 300px;
       }
 
+      .dropdown-menu {
+        right: 12px;
+        min-width: 260px;
+      }
+
       .floating-apply-btn {
         left: 10px;
         bottom: 20px;
@@ -680,7 +694,7 @@
 
     /* NEW STYLES FOR LOGIN/DASHBOARD */
     .portal-content-wrapper {
-        min-height: calc(100vh - 70px - 250px); /* Adjust based on header/footer height */
+        min-height: calc(100vh - 70px - 100px); /* Adjust based on header/footer height */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -692,7 +706,7 @@
         backdrop-filter: blur(25px);
         border: 1.5px solid rgba(6, 182, 212, 0.2);
         border-radius: 16px;
-        padding: 40px 32px;
+        padding: 32px 24px;
         box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
         text-align: center;
         max-width: 450px;
@@ -704,15 +718,11 @@
         font-family: 'Outfit', sans-serif;
         font-size: 1.8rem;
         font-weight: 700;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
         background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-    }
-
-    .auth-card .input-group {
-        margin-bottom: 20px;
     }
 
     .auth-card label {
@@ -721,29 +731,29 @@
         margin-bottom: 8px;
         font-weight: 500;
         color: var(--text-secondary);
-        font-size: 0.9rem;
     }
 
     .auth-card input[type="email"],
     .auth-card input[type="password"] {
-        width: 100%;
+        width: calc(100% - 24px); /* Account for padding */
         padding: 12px;
-        border: 1.5px solid rgba(96, 165, 250, 0.3);
+        margin-bottom: 15px;
+        border: 1px solid rgba(96, 165, 250, 0.3);
         border-radius: 8px;
-        background-color: rgba(15, 23, 42, 0.5);
+        background-color: rgba(0, 0, 0, 0.2);
         color: var(--text-primary);
         font-size: 1rem;
-        transition: all 0.3s ease;
+        transition: border-color 0.3s ease;
     }
 
     .auth-card input[type="email"]:focus,
     .auth-card input[type="password"]:focus {
         outline: none;
         border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.3);
+        box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3);
     }
 
-    .auth-card button[type="submit"] {
+    .auth-card button {
         background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
         color: white;
         padding: 12px 25px;
@@ -754,10 +764,9 @@
         cursor: pointer;
         transition: all 0.3s ease;
         width: 100%;
-        margin-top: 10px;
     }
 
-    .auth-card button[type="submit"]:hover {
+    .auth-card button:hover {
         background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
         transform: translateY(-2px);
         box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4);
@@ -767,39 +776,35 @@
         color: var(--gold); /* Using gold for error messages */
         margin-top: 15px;
         font-size: 0.9rem;
-        min-height: 1.2em;
     }
 
     #dashboard-container {
         width: 100%; /* Ensure dashboard takes full width of container */
         text-align: left;
-        animation: fadeInDown 0.8s ease;
     }
 
-    #dashboard-container .dashboard-info {
+    #dashboard-container h2 {
         text-align: center;
-        margin-bottom: 20px;
-        color: var(--text-secondary);
-        font-size: 1.1rem;
-    }
-    
-    #dashboard-container .dashboard-info h2 {
         font-family: 'Outfit', sans-serif;
-        font-size: 2.2rem;
+        font-size: 2rem;
         font-weight: 700;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
         background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
+    #dashboard-container .dashboard-info {
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+
     #dashboard-container #logout-button {
-        display: block;
-        margin: 40px auto 0; /* Center the button */
+        margin-top: 40px;
         background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Red for logout */
-        width: auto; /* Allow button to size to content */
-        padding: 12px 30px;
     }
     #dashboard-container #logout-button:hover {
         background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
@@ -813,9 +818,6 @@
         }
         .auth-card h2 {
             font-size: 1.5rem;
-        }
-        #dashboard-container .dashboard-info h2 {
-            font-size: 1.8rem;
         }
         .auth-card button {
             font-size: 1rem;
@@ -850,20 +852,16 @@
   </header>
 
   <!-- NEW: Wrapper for Login/Dashboard Content -->
-  <main class="portal-content-wrapper">
+  <div class="portal-content-wrapper">
     <!-- Login Form Section -->
-    <div id="login-container" class="auth-card" style="display: none;">
+    <div id="login-container" class="auth-card">
         <h2>Koyoyo Portal Login</h2>
         <form id="login-form">
-            <div class="input-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" required autocomplete="email">
-            </div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
 
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" required autocomplete="current-password">
-            </div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
 
             <button type="submit">Log In</button>
         </form>
@@ -874,14 +872,14 @@
     <div id="dashboard-container" style="display: none;">
         <div class="dashboard-info">
             <h2>Welcome, <span id="user-email-display"></span>!</h2>
-            <p>Your central hub for academic resources and updates.</p>
+            <p>Access your learning resources, schedules, and important updates all in one place.</p>
         </div>
 
         <!-- ORIGINAL content of students.html's .container starts here -->
         <div class="container">
             <section class="hero">
-              <h1>Students Dashboard</h1>
-              <p>Access your learning resources, schedules, and important updates all in one place.</p>
+              <h1>Students Portal</h1>
+              <p>Access your learning resources, schedules, and important updates all in one place</p>
             </section>
 
             <div class="cards-grid">
@@ -959,7 +957,7 @@
 
         <button id="logout-button" class="btn">Log Out</button>
     </div>
-  </main>
+  </div>
 
   <footer>
     <div class="footer-container">
@@ -993,30 +991,25 @@
     <i class="fas fa-arrow-right"></i>
   </a>
 
-  <!-- ORIGINAL Firebase SDK and NEW Login/Dashboard JavaScript -->
+  <!-- Firebase SDKs and Initialization Script -->
   <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-    // NEW: Import Authentication and Firestore modules
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-    import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
       authDomain: "koyoyocollegeafrica.firebaseapp.com",
       projectId: "koyoyocollegeafrica",
-      storageBucket: "koyoyocollegeafrica.appspot.com",
+      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
       messagingSenderId: "501491274694",
       appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
       measurementId: "G-3F9CM217HQ"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
-    // NEW: Initialize Firebase Authentication and Cloud Firestore
     const auth = getAuth(app);
     const db = getFirestore(app);
 
@@ -1030,124 +1023,125 @@
     const userEmailDisplay = document.getElementById('user-email-display');
     const logoutButton = document.getElementById('logout-button');
 
-    // --- Authentication Logic ---
-
-    // This function runs whenever the user's login state changes.
-    // It's the central controller for showing/hiding the login form or the dashboard.
-    onAuthStateChanged(auth, (user) => {
+    // Function to update UI based on login state
+    const updateUI = async (user) => {
         if (user) {
-            // User is signed in.
+            // User is logged in
             loginContainer.style.display = 'none';
             dashboardContainer.style.display = 'block';
-            userEmailDisplay.textContent = user.email; // Display the user's email
 
-            // Future-proofing: You could add functions here to load user-specific data
-            // from Firestore, like their specific courses or exam results.
-            // e.g., loadUserCourses(user.uid);
+            // Fetch username from Firestore
+            const userRef = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userRef);
 
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                userEmailDisplay.textContent = userData.username || user.email; // Display username if available, else email
+                console.log("Logged in as:", userData.username || user.email);
+            } else {
+                console.warn("User profile not found in Firestore for UID:", user.uid, ". Displaying email instead.");
+                userEmailDisplay.textContent = user.email;
+            }
+
+            // TODO: Here you would typically call a function to load user-specific data from Firestore
+            // For example: loadCourseMaterials(user.uid);
+            // For example: loadExamResults(user.uid);
         } else {
-            // User is signed out.
+            // No user is logged in
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
             userEmailDisplay.textContent = ''; // Clear email display
             errorMessage.textContent = ''; // Clear any previous login errors
-            if (loginForm) loginForm.reset(); // Clear form fields
+            emailInput.value = ''; // Clear form fields
+            passwordInput.value = '';
         }
+    };
+
+    // Listen for authentication state changes (handles page load and login/logout)
+    onAuthStateChanged(auth, (user) => {
+        updateUI(user);
     });
 
     // Event Listener for Login Form Submission
-    if (loginForm) {
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Prevent form from reloading the page
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // Prevent default form submission and page reload
 
-            const email = emailInput.value;
-            const password = passwordInput.value;
-            errorMessage.textContent = ''; // Clear previous errors
+        const email = emailInput.value;
+        const password = passwordInput.value;
+        errorMessage.textContent = ''; // Clear previous errors
 
-            try {
-                // Attempt to sign in with Firebase Auth
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                // If successful, the onAuthStateChanged listener above will automatically
-                // hide the login form and show the dashboard.
-                console.log("User logged in:", userCredential.user.email);
-            } catch (error) {
-                console.error("Login failed:", error.code, error.message);
-                let userFacingMessage = "Login failed. Please check your credentials.";
-                // Provide more specific (but still safe) error messages
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-                    userFacingMessage = "Invalid email or password.";
-                } else if (error.code === 'auth/too-many-requests') {
-                    userFacingMessage = "Access temporarily disabled due to many failed login attempts. Please try again later.";
-                }
-                errorMessage.textContent = userFacingMessage;
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            // The onAuthStateChanged listener above will handle updating the UI
+            console.log("User logged in (Auth success).");
+        } catch (error) {
+            console.error("Login failed:", error.code, error.message);
+            let userFacingMessage = "Login failed. Please check your email and password.";
+            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+                userFacingMessage = "Invalid email or password.";
+            } else if (error.code === 'auth/too-many-requests') {
+                userFacingMessage = "Too many failed login attempts. Please try again later.";
             }
-        });
-    }
-
+            errorMessage.textContent = userFacingMessage;
+        }
+    });
 
     // Event Listener for Logout Button
-    if (logoutButton) {
-        logoutButton.addEventListener('click', async () => {
-            try {
-                await signOut(auth);
-                // If successful, the onAuthStateChanged listener will automatically
-                // hide the dashboard and show the login form.
-                console.log("User logged out.");
-            } catch (error) {
-                console.error("Logout failed:", error);
-                alert("An error occurred during logout. Please try again.");
-            }
-        });
-    }
+    logoutButton.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
+            // The onAuthStateChanged listener above will handle updating the UI
+            console.log("User logged out.");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    });
   </script>
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-        const classroomBtn = document.getElementById('classroomBtn');
-        const classroomMenu = document.getElementById('classroomMenu');
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const classroomBtn = document.getElementById('classroomBtn');
+    const classroomMenu = document.getElementById('classroomMenu');
 
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', function() {
-              hamburger.classList.toggle('active');
-              navLinks.classList.toggle('active');
-            });
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
 
-            const navItems = navLinks.querySelectorAll('.nav-link');
-            navItems.forEach(item => {
-              item.addEventListener('click', function() {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-              });
-            });
-        }
+    const navItems = navLinks.querySelectorAll('.nav-link');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
 
-        // This code now only runs when the dashboard is visible
-        if(classroomBtn && classroomMenu) {
-            classroomBtn.addEventListener('click', function(e) {
-              e.stopPropagation(); // Prevent the document click from firing immediately
-              const isActive = classroomMenu.classList.contains('active');
-              // Close all other dropdowns if any exist in the future
-              document.querySelectorAll('.dropdown-menu.active').forEach(menu => menu.classList.remove('active'));
-              document.querySelectorAll('.btn-dropdown.active').forEach(btn => btn.classList.remove('active'));
-              
-              if (!isActive) {
-                classroomBtn.classList.add('active');
-                classroomMenu.classList.add('active');
-              }
-            });
-        }
+    // Ensure these only run if the elements exist (i.e., when dashboard is shown)
+    // This assumes classroomBtn and classroomMenu are part of the content that's hidden/shown with the dashboard
+    if(classroomBtn && classroomMenu) {
+        classroomBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          classroomBtn.classList.toggle('active');
+          classroomMenu.classList.toggle('active');
+        });
 
-        // Global click listener to close dropdowns
         document.addEventListener('click', function(e) {
           if (!e.target.closest('.dropdown-container')) {
-            if (classroomBtn) classroomBtn.classList.remove('active');
-            if (classroomMenu) classroomMenu.classList.remove('active');
+            classroomBtn.classList.remove('active');
+            classroomMenu.classList.remove('active');
           }
         });
-    });
+
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', function() {
+            classroomBtn.classList.remove('active');
+            classroomMenu.classList.remove('active');
+          });
+        });
+    }
   </script>
 
 </body>
