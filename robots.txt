@@ -1,11 +1,5 @@
 User-agent: *
 Allow: /
-Allow: /index.html
-Allow: /admissions.html
-Allow: /contact.html
-Allow: /students.html
-Allow: /gallery.html
-Allow: /about.html
 
 # Disallow sensitive areas if needed
 Disallow: /admin/
