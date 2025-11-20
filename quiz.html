@@ -9,10 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Paste ALL of the <style> content from your students.html here,
-       INCLUDING the `:root`, `body`, `.container`, `header`, `footer`,
-       and all card/button styles. This ensures quiz.html looks consistent. */
-
+    /* ALL YOUR EXISTING STYLES */
     :root {
       --primary: #0066ff;
       --secondary: #7c3aed;
@@ -893,6 +890,31 @@
             width: 100%;
         }
     }
+
+    /* NEW STYLES FOR TIMER DISPLAY */
+    #timer-display {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 25px; /* Slightly more space */
+        color: var(--accent); /* Default color from your theme */
+        text-align: center; /* Center the timer */
+        padding: 5px 10px; /* A little padding */
+        border-radius: 5px; /* Slightly rounded corners */
+        background-color: rgba(6, 182, 212, 0.1); /* A subtle background */
+        display: block; /* Ensure it takes full width */
+        transition: color 0.3s ease, background-color 0.3s ease; /* Smooth transitions */
+    }
+
+    /* Timer alert state (red for last minute) */
+    #timer-display.alert {
+        color: red;
+        background-color: rgba(255, 0, 0, 0.1); /* Light red background */
+        animation: pulseRed 1s infinite alternate; /* Optional: subtle pulse effect */
+    }
+    @keyframes pulseRed {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(1.02); opacity: 0.9; } /* Subtle pulse */
+    }
   </style>
 
   <!-- MathJax for rendering LaTeX equations -->
@@ -939,11 +961,10 @@
   <div class="portal-content-wrapper">
     <div id="quiz-app" class="quiz-card">
       <h2>Loading Quiz...</h2>
-      <!-- NEW: Timer Display -->
-      <div id="timer-display" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: var(--accent);">
+      <!-- Timer Display -->
+      <div id="timer-display">
         Time Remaining: 00:00
       </div>
-      <!-- End NEW Timer Display -->
       <div id="quiz-content">
         <!-- Questions will be dynamically loaded here -->
         <p>Please wait while the quiz loads.</p>
@@ -1020,7 +1041,7 @@
     let questions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
-    const defaultQuizId = "WASSCE_Math_60"; // <-- This is your WASSCE Math 60-question quiz ID
+    const defaultQuizId = "WASSCE_Math_60"; // Corrected Quiz ID
 
     // --- Timer Variables ---
     const QUIZ_DURATION_MINUTES = 60; // Set to 60 minutes for a 1-hour quiz
@@ -1048,10 +1069,10 @@
 
     function updateTimerDisplay() {
         timerDisplay.textContent = `Time Remaining: ${formatTime(timeRemainingSeconds)}`;
-        if (timeRemainingSeconds <= 60) { // Highlight red for last minute
-            timerDisplay.style.color = 'red';
+        if (timeRemainingSeconds <= 60 && timeRemainingSeconds > 0) { // Highlight red for last minute
+            timerDisplay.classList.add('alert');
         } else {
-            timerDisplay.style.color = 'var(--accent)';
+            timerDisplay.classList.remove('alert');
         }
     }
 
@@ -1113,7 +1134,7 @@
                     score: score,
                     totalQuestions: questions.length,
                     timestamp: serverTimestamp(),
-                    // userAnswers: userAnswers // Optionally, save userAnswers if you need detailed review later
+                    // userAnswers: userAnswers // Placeholder: uncomment and save if you implement quiz review
                 });
                 console.log("Quiz results saved with ID:", resultDocRef.id);
             } catch (error) {
@@ -1226,7 +1247,9 @@
             if (questions.length > 0) {
                 quizNavigation.style.display = 'flex';
                 displayQuestion();
-                startTimer(); // Start the timer after questions are loaded and displayed!
+                // Reset and start the timer when quiz starts
+                timeRemainingSeconds = QUIZ_DURATION_MINUTES * 60; 
+                startTimer(); 
             } else {
                 quizAppTitle.textContent = "Quiz Unavailable";
                 timerDisplay.style.display = 'none'; // Hide timer if no quiz
@@ -1252,6 +1275,7 @@
 
     // Optional: Warn user if they try to leave the page during the quiz
     window.addEventListener('beforeunload', (event) => {
+        // Only warn if timer is active AND quiz content is visible (i.e., not submitted yet)
         if (timerInterval && timeRemainingSeconds > 0 && quizContent.style.display !== 'none' && quizResultsContainer.style.display === 'none') {
             event.preventDefault();
             event.returnValue = 'You have an active quiz. Are you sure you want to leave? Your progress might be lost.';
