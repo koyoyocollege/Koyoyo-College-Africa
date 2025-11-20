@@ -894,6 +894,21 @@
         }
     }
   </style>
+
+  <!-- MathJax for rendering LaTeX equations -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']], // Recognize \( ... \) for inline math
+        displayMath: [['\\[', '\\]']]  // Recognize \[ ... \] for display math
+      },
+      svg: {
+        fontCache: 'global' // For better performance and consistent rendering
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
   <header>
@@ -974,12 +989,11 @@
     <i class="fas fa-arrow-right"></i>
   </a>
 
- // Firebase SDKs and Initialization Script
-<script type="module">
+  <!-- Firebase SDKs and Initialization Script -->
+  <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
     import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    // NEW IMPORTS: addDoc, serverTimestamp
     import { getFirestore, collection, getDocs, query, where, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
     const firebaseConfig = {
@@ -1001,8 +1015,7 @@
     let questions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
-    const defaultQuizId = "WASSCE_Math_60"; // Now loading the WASSCE Math quiz
-// Declare quizId globally or pass as param
+    const defaultQuizId = "WASSCE_Math_60"; // <-- UPDATED: Now loading the WASSCE Math quiz
 
     // --- HTML Element References ---
     const quizAppTitle = document.querySelector('#quiz-app h2');
@@ -1024,7 +1037,7 @@
             const querySnapshot = await getDocs(q);
             
             if (querySnapshot.empty) {
-                quizErrorMessage.textContent = "No questions found for this quiz!";
+                quizErrorMessage.textContent = `No questions found for quiz "${quizId}"!`;
                 return [];
             }
 
@@ -1067,6 +1080,11 @@
         submitQuizBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
 
         quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+        // NEW: Tell MathJax to render the newly added content
+        if (typeof MathJax !== 'undefined') {
+            MathJax.typesetPromise([quizContent]); // Tell MathJax to typeset only the quizContent div
+        }
     }
 
     function saveCurrentAnswer() {
@@ -1172,8 +1190,7 @@
         }
     });
 
-</script>
-
+  </script>
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
   <script>
