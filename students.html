@@ -693,13 +693,13 @@
     }
 
     /* NEW STYLES FOR LOGIN/DASHBOARD */
-    .portal-content-wrapper {
-        min-height: calc(100vh - 70px - 100px); /* Adjust based on header/footer height */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 28px;
-    }
+   .portal-content-wrapper {
+    min-height: calc(100vh - 70px - 100px);
+    display: flex;
+    flex-direction: column; /* Ensure vertical stacking */
+    padding: 28px;
+    /* Remove justify-content and align-items so wide content isn't centered/shrunk */
+}
 
     .auth-card {
         background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.5) 100%);
