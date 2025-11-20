@@ -1128,18 +1128,34 @@
         window.location.href = "students.html"; // Navigate back to the dashboard
     });
 
-    // --- Submit Quiz Logic Placeholder ---
+        // --- Submit Quiz Logic ---
     submitQuizBtn.addEventListener('click', () => {
         saveCurrentAnswer(); // Save the answer for the last question
         
         let score = 0;
+        console.log("--- Starting Quiz Scoring ---");
+        console.log("Questions Array:", questions); // Inspect all loaded questions
+        console.log("User Answers Array:", userAnswers); // Inspect all user-selected answers
+
         for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] === questions[i].correctAnswerIndex) {
+            const question = questions[i];
+            const userAnswer = userAnswers[i];
+            const correctAnswer = question.correctAnswerIndex;
+
+            console.log(`Question ${i + 1}:`);
+            console.log(`  User Answer Index: ${userAnswer} (Type: ${typeof userAnswer})`);
+            console.log(`  Correct Answer Index: ${correctAnswer} (Type: ${typeof correctAnswer})`);
+
+            if (userAnswer === correctAnswer) {
+                console.log(`  MATCH! Score +1.`);
                 score++;
+            } else {
+                console.log(`  NO MATCH. User answered: ${userAnswer}, Correct was: ${correctAnswer}`);
             }
         }
         
-        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
+        console.log("--- Quiz Scoring Complete ---");
+        console.log(`Final Score: ${score} out of ${questions.length}`);
 
         quizContent.style.display = 'none';
         quizNavigation.style.display = 'none';
