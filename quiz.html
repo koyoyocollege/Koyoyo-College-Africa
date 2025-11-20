@@ -974,12 +974,13 @@
     <i class="fas fa-arrow-right"></i>
   </a>
 
-  <!-- Firebase SDKs and Initialization Script -->
-  <script type="module">
+ // Firebase SDKs and Initialization Script
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
     import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+    // NEW IMPORTS: addDoc, serverTimestamp
+    import { getFirestore, collection, getDocs, query, where, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
@@ -1000,6 +1001,7 @@
     let questions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
+    const defaultQuizId = "Intro_maths"; // Declare quizId globally or pass as param
 
     // --- HTML Element References ---
     const quizAppTitle = document.querySelector('#quiz-app h2');
@@ -1103,8 +1105,7 @@
             quizNavigation.style.display = 'none';
             quizResultsContainer.style.display = 'none'; // Ensure results are hidden
 
-            const defaultQuizId = "Intro_maths"; // Using your specified quizId
-            questions = await fetchQuestions(defaultQuizId);
+            questions = await fetchQuestions(defaultQuizId); // Use the global defaultQuizId
             userAnswers = Array(questions.length).fill(-1); // Initialize answers array
 
             if (questions.length > 0) {
@@ -1128,47 +1129,50 @@
         window.location.href = "students.html"; // Navigate back to the dashboard
     });
 
-         // --- Submit Quiz Logic ---
-    submitQuizBtn.addEventListener('click', () => {
+    // --- Submit Quiz Logic (UPDATED) ---
+    submitQuizBtn.addEventListener('click', async () => { // Make function async to await Firestore write
         saveCurrentAnswer(); // Save the answer for the last question
         
         let score = 0;
-        console.log("--- Starting Quiz Scoring ---");
-        console.log("Questions Array:", questions);
-        console.log("User Answers Array:", userAnswers);
-
         for (let i = 0; i < questions.length; i++) {
-            const question = questions[i];
-            const userAnswer = userAnswers[i];
-            const correctAnswer = question.correctAnswerIndex;
-
-            console.log(`Question ${i + 1}:`);
-            console.log(`  User Answer Index: ${userAnswer} (Type: ${typeof userAnswer})`);
-            console.log(`  Correct Answer Index: ${correctAnswer} (Type: ${typeof correctAnswer})`);
-
-            if (userAnswer === correctAnswer) {
-                console.log(`  MATCH! Score +1.`);
+            if (userAnswers[i] === questions[i].correctAnswerIndex) {
                 score++;
-            } else {
-                console.log(`  NO MATCH. User answered: ${userAnswer}, Correct was: ${correctAnswer}`);
             }
         }
         
-        console.log("--- Quiz Scoring Complete ---");
-        console.log(`Final Score: ${score} out of ${questions.length}`);
+        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
 
         quizContent.style.display = 'none';
         quizNavigation.style.display = 'none';
         quizResultsContainer.style.display = 'block';
-
-        // THESE ARE THE CHANGED LINES
         document.querySelector('#quiz-results .score').textContent = score;
         document.querySelector('#quiz-results .total-questions').textContent = questions.length;
-        
         quizAppTitle.textContent = "Quiz Complete!";
+
+        // NEW: Save results to Firestore
+        if (currentUserId && questions.length > 0) {
+            try {
+                const resultDocRef = await addDoc(collection(db, "quizResults"), {
+                    userId: currentUserId,
+                    quizId: defaultQuizId, // Using the quizId that was loaded
+                    score: score,
+                    totalQuestions: questions.length,
+                    timestamp: serverTimestamp(), // Firestore automatically provides a server timestamp
+                    // Optionally, save userAnswers if you need detailed review later:
+                    // userAnswers: userAnswers
+                });
+                console.log("Quiz results saved with ID:", resultDocRef.id);
+            } catch (error) {
+                console.error("Error saving quiz results:", error);
+                quizErrorMessage.textContent = "Error saving quiz results. Please check console.";
+            }
+        } else {
+            console.warn("Could not save quiz results: User not logged in or no questions loaded.");
+        }
     });
 
-  </script>
+</script>
+
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
   <script>
