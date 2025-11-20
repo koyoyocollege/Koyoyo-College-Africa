@@ -8,9 +8,6 @@
   <!-- Re-use your main styling -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- IMPORTANT: Link to your custom styles. If your styles are in a separate CSS file, link it here.
-       If they are embedded directly in students.html, you'll need to copy them here or extract to a shared.css.
-       For this example, I'll include the necessary styles directly for simplicity, assuming they were embedded. -->
   <style>
     /* Paste ALL of the <style> content from your students.html here,
        INCLUDING the `:root`, `body`, `.container`, `header`, `footer`,
@@ -979,14 +976,11 @@
 
   <!-- Firebase SDKs and Initialization Script -->
   <script type="module">
-    // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-    // NEW: Import Authentication and Firestore modules
     import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    import { getFirestore, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js'; // Added collection, query, where, getDocs
+    import { getFirestore, collection, getDocs, query, where } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
-    // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
       authDomain: "koyoyocollegeafrica.firebaseapp.com",
@@ -997,29 +991,17 @@
       measurementId: "G-3F9CM217HQ"
     };
 
-    // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    let currentUserId = null; // To store the logged-in user's UID
+    let currentUserId = null;
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
 
-    // Check authentication status on page load
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log("User is logged in on quiz.html:", user.email);
-            currentUserId = user.uid; // Store UID
-            // Once user is logged in, you can start loading quiz questions
-            // For now, we'll just log it. The actual loading logic comes next.
-        } else {
-            console.log("No user is logged in on quiz.html. Redirecting to students.html for login.");
-            window.location.href = "students.html"; // Redirect to login page if not logged in
-        }
-    });
-
-    // TODO: Quiz logic will go here in the next steps!
-    // Elements for the quiz
+    // --- HTML Element References ---
     const quizAppTitle = document.querySelector('#quiz-app h2');
     const quizContent = document.getElementById('quiz-content');
     const quizNavigation = document.getElementById('quiz-navigation');
@@ -1030,23 +1012,142 @@
     const quizErrorMessage = document.getElementById('quiz-error-message');
     const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
 
+    // --- Core Quiz Functions ---
+
+    async function fetchQuestions(quizId) {
+        quizErrorMessage.textContent = '';
+        try {
+            const q = query(collection(db, "questions"), where("quizId", "==", quizId));
+            const querySnapshot = await getDocs(q);
+            
+            if (querySnapshot.empty) {
+                quizErrorMessage.textContent = "No questions found for this quiz!";
+                return [];
+            }
+
+            const fetchedQuestions = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            console.log("Fetched questions:", fetchedQuestions);
+            return fetchedQuestions;
+
+        } catch (error) {
+            console.error("Error fetching questions:", error);
+            quizErrorMessage.textContent = "Failed to load quiz questions. Please try again.";
+            return [];
+        }
+    }
+
+    function displayQuestion() {
+        if (questions.length === 0) {
+            quizContent.innerHTML = "<p>No questions to display.</p>";
+            quizNavigation.style.display = 'none';
+            return;
+        }
+
+        const question = questions[currentQuestionIndex];
+        let optionsHtml = question.options.map((option, index) => `
+            <label>
+                <input type="radio" name="answer" value="${index}" 
+                       ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                ${option}
+            </label>
+        `).join('');
+
+        quizContent.innerHTML = `
+            ${question.imageUrl ? `<img src="${question.imageUrl}" alt="Question image" class="question-image">` : ''}
+            <p class="question-text">${currentQuestionIndex + 1}. ${question.text}</p>
+            <div class="options-container">${optionsHtml}</div>
+        `;
+
+        // Update navigation button visibility
+        prevQuestionBtn.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
+        nextQuestionBtn.style.display = currentQuestionIndex < questions.length - 1 ? 'block' : 'none';
+        submitQuizBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+
+        quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
+    }
+
+    function saveCurrentAnswer() {
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        if (selectedOption) {
+            userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
+        } else {
+            userAnswers[currentQuestionIndex] = -1; // Indicate no answer selected
+        }
+    }
+
+    prevQuestionBtn.addEventListener('click', () => {
+        saveCurrentAnswer(); // Save current answer before moving
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            displayQuestion();
+        }
+    });
+
+    nextQuestionBtn.addEventListener('click', () => {
+        saveCurrentAnswer(); // Save current answer before moving
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+    });
+
+    // --- Authentication Check and Quiz Initialization ---
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            console.log("User is logged in on quiz.html:", user.email);
+            currentUserId = user.uid;
+
+            quizAppTitle.textContent = "Loading Quiz...";
+            quizContent.innerHTML = "<p>Loading your quiz questions...</p>";
+            quizNavigation.style.display = 'none';
+            quizResultsContainer.style.display = 'none'; // Ensure results are hidden
+
+            const defaultQuizId = "Intro_maths"; // Using your specified quizId
+            questions = await fetchQuestions(defaultQuizId);
+            userAnswers = Array(questions.length).fill(-1); // Initialize answers array
+
+            if (questions.length > 0) {
+                quizNavigation.style.display = 'flex';
+                displayQuestion();
+            } else {
+                quizAppTitle.textContent = "Quiz Unavailable";
+                quizContent.innerHTML = `<p>We couldn't load any quiz questions right now. Please try again later.</p>
+                                        <button id="retry-load-btn" class="btn">Retry Loading Quiz</button>`;
+                document.getElementById('retry-load-btn').addEventListener('click', () => location.reload());
+            }
+
+        } else {
+            console.log("No user is logged in on quiz.html. Redirecting to students.html for login.");
+            window.location.href = "students.html";
+        }
+    });
+
+    // Event Listener for "Back to Dashboard" button (from results or error state)
     backToDashboardBtn.addEventListener('click', () => {
         window.location.href = "students.html"; // Navigate back to the dashboard
     });
 
-    // Dummy initial state for quiz content
-    quizAppTitle.textContent = "Welcome to the Quiz!";
-    quizContent.innerHTML = "<p>Get ready to test your knowledge.</p><button id='start-quiz-btn' class='btn'>Start Quiz</button>";
-    quizNavigation.style.display = 'none';
-    quizResultsContainer.style.display = 'none';
+    // --- Submit Quiz Logic Placeholder ---
+    submitQuizBtn.addEventListener('click', () => {
+        saveCurrentAnswer(); // Save the answer for the last question
+        
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === questions[i].correctAnswerIndex) {
+                score++;
+            }
+        }
+        
+        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
 
-    // Placeholder for starting the quiz (will load questions later)
-    document.getElementById('start-quiz-btn').addEventListener('click', () => {
-        quizAppTitle.textContent = "Loading Questions...";
-        quizContent.innerHTML = "<p>Loading your quiz questions...</p>";
-        // In the next step, we'll replace this with actual Firestore question loading
+        quizContent.style.display = 'none';
+        quizNavigation.style.display = 'none';
+        quizResultsContainer.style.display = 'block';
+        document.querySelector('.quiz-results .score').textContent = score;
+        document.querySelector('.quiz-results .total-questions').textContent = questions.length;
+        quizAppTitle.textContent = "Quiz Complete!";
     });
-
 
   </script>
 
@@ -1054,8 +1155,6 @@
   <script>
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('navLinks');
-    // NOTE: classroomBtn and classroomMenu are dashboard-specific and might not exist on quiz.html
-    // Added checks to prevent errors.
     const classroomBtn = document.getElementById('classroomBtn');
     const classroomMenu = document.getElementById('classroomMenu');
 
