@@ -181,7 +181,7 @@
       backdrop-filter: blur(30px);
       border: 2px solid transparent;
       background-clip: padding-box;
-      border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.5) 0%, rgba(0, 102, 255, 0.5) 100%) 1;
+      border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.5) 0%, rgba(0, 102, 255, 0.5) 1;
       border-radius: 20px;
       padding: 60px 40px;
       text-align: center;
@@ -939,6 +939,11 @@
   <div class="portal-content-wrapper">
     <div id="quiz-app" class="quiz-card">
       <h2>Loading Quiz...</h2>
+      <!-- NEW: Timer Display -->
+      <div id="timer-display" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: var(--accent);">
+        Time Remaining: 00:00
+      </div>
+      <!-- End NEW Timer Display -->
       <div id="quiz-content">
         <!-- Questions will be dynamically loaded here -->
         <p>Please wait while the quiz loads.</p>
@@ -1015,10 +1020,16 @@
     let questions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
-    const defaultQuizId = "WASSCE_Math_60"; // <-- UPDATED: Now loading the WASSCE Math quiz
+    const defaultQuizId = "WASSCE_Math_60"; // <-- This is your WASSCE Math 60-question quiz ID
+
+    // --- Timer Variables ---
+    const QUIZ_DURATION_MINUTES = 60; // Set to 60 minutes for a 1-hour quiz
+    let timeRemainingSeconds = QUIZ_DURATION_MINUTES * 60;
+    let timerInterval = null;
 
     // --- HTML Element References ---
     const quizAppTitle = document.querySelector('#quiz-app h2');
+    const timerDisplay = document.getElementById('timer-display');
     const quizContent = document.getElementById('quiz-content');
     const quizNavigation = document.getElementById('quiz-navigation');
     const prevQuestionBtn = document.getElementById('prev-question-btn');
@@ -1028,7 +1039,92 @@
     const quizErrorMessage = document.getElementById('quiz-error-message');
     const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
 
-    // --- Core Quiz Functions ---
+    // --- Timer Functions ---
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    function updateTimerDisplay() {
+        timerDisplay.textContent = `Time Remaining: ${formatTime(timeRemainingSeconds)}`;
+        if (timeRemainingSeconds <= 60) { // Highlight red for last minute
+            timerDisplay.style.color = 'red';
+        } else {
+            timerDisplay.style.color = 'var(--accent)';
+        }
+    }
+
+    function startTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval); // Clear any existing timer
+        }
+        updateTimerDisplay(); // Initial display
+
+        timerInterval = setInterval(() => {
+            timeRemainingSeconds--;
+            updateTimerDisplay();
+
+            if (timeRemainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                timeRemainingSeconds = 0; // Ensure it doesn't go negative
+                updateTimerDisplay();
+                alert("Time's up! Your quiz will be submitted automatically.");
+                // Automatically submit the quiz when time runs out
+                submitQuiz(); 
+            }
+        }, 1000); // Update every second
+    }
+
+    function stopTimer() {
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+    }
+
+    // Helper function to encapsulate quiz submission logic
+    async function submitQuiz() {
+        stopTimer(); // Stop the timer when quiz is submitted
+        saveCurrentAnswer(); // Save the answer for the last question
+        
+        let score = 0;
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === questions[i].correctAnswerIndex) {
+                score++;
+            }
+        }
+        
+        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
+
+        quizContent.style.display = 'none';
+        quizNavigation.style.display = 'none';
+        quizResultsContainer.style.display = 'block';
+        document.querySelector('#quiz-results .score').textContent = score;
+        document.querySelector('#quiz-results .total-questions').textContent = questions.length;
+        quizAppTitle.textContent = "Quiz Complete!";
+
+        // Save results to Firestore
+        if (currentUserId && questions.length > 0) {
+            try {
+                const resultDocRef = await addDoc(collection(db, "quizResults"), {
+                    userId: currentUserId,
+                    quizId: defaultQuizId,
+                    score: score,
+                    totalQuestions: questions.length,
+                    timestamp: serverTimestamp(),
+                    // userAnswers: userAnswers // Optionally, save userAnswers if you need detailed review later
+                });
+                console.log("Quiz results saved with ID:", resultDocRef.id);
+            } catch (error) {
+                console.error("Error saving quiz results:", error);
+                quizErrorMessage.textContent = "Error saving quiz results. Please check console.";
+            }
+        } else {
+            console.warn("Could not save quiz results: User not logged in or no questions loaded.");
+        }
+    }
+
 
     async function fetchQuestions(quizId) {
         quizErrorMessage.textContent = '';
@@ -1081,9 +1177,8 @@
 
         quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
 
-        // NEW: Tell MathJax to render the newly added content
         if (typeof MathJax !== 'undefined') {
-            MathJax.typesetPromise([quizContent]); // Tell MathJax to typeset only the quizContent div
+            MathJax.typesetPromise([quizContent]);
         }
     }
 
@@ -1097,7 +1192,7 @@
     }
 
     prevQuestionBtn.addEventListener('click', () => {
-        saveCurrentAnswer(); // Save current answer before moving
+        saveCurrentAnswer();
         if (currentQuestionIndex > 0) {
             currentQuestionIndex--;
             displayQuestion();
@@ -1105,7 +1200,7 @@
     });
 
     nextQuestionBtn.addEventListener('click', () => {
-        saveCurrentAnswer(); // Save current answer before moving
+        saveCurrentAnswer();
         if (currentQuestionIndex < questions.length - 1) {
             currentQuestionIndex++;
             displayQuestion();
@@ -1120,18 +1215,21 @@
             currentUserId = user.uid;
 
             quizAppTitle.textContent = "Loading Quiz...";
+            timerDisplay.textContent = "Time Remaining: --:--"; // Clear timer during load
             quizContent.innerHTML = "<p>Loading your quiz questions...</p>";
             quizNavigation.style.display = 'none';
-            quizResultsContainer.style.display = 'none'; // Ensure results are hidden
+            quizResultsContainer.style.display = 'none';
 
-            questions = await fetchQuestions(defaultQuizId); // Use the global defaultQuizId
-            userAnswers = Array(questions.length).fill(-1); // Initialize answers array
+            questions = await fetchQuestions(defaultQuizId);
+            userAnswers = Array(questions.length).fill(-1);
 
             if (questions.length > 0) {
                 quizNavigation.style.display = 'flex';
                 displayQuestion();
+                startTimer(); // Start the timer after questions are loaded and displayed!
             } else {
                 quizAppTitle.textContent = "Quiz Unavailable";
+                timerDisplay.style.display = 'none'; // Hide timer if no quiz
                 quizContent.innerHTML = `<p>We couldn't load any quiz questions right now. Please try again later.</p>
                                         <button id="retry-load-btn" class="btn">Retry Loading Quiz</button>`;
                 document.getElementById('retry-load-btn').addEventListener('click', () => location.reload());
@@ -1145,48 +1243,18 @@
 
     // Event Listener for "Back to Dashboard" button (from results or error state)
     backToDashboardBtn.addEventListener('click', () => {
-        window.location.href = "students.html"; // Navigate back to the dashboard
+        stopTimer(); // Ensure timer stops if user navigates back
+        window.location.href = "students.html";
     });
 
-    // --- Submit Quiz Logic (UPDATED) ---
-    submitQuizBtn.addEventListener('click', async () => { // Make function async to await Firestore write
-        saveCurrentAnswer(); // Save the answer for the last question
-        
-        let score = 0;
-        for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] === questions[i].correctAnswerIndex) {
-                score++;
-            }
-        }
-        
-        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
+    // Event Listener for Manual Submit Button
+    submitQuizBtn.addEventListener('click', submitQuiz);
 
-        quizContent.style.display = 'none';
-        quizNavigation.style.display = 'none';
-        quizResultsContainer.style.display = 'block';
-        document.querySelector('#quiz-results .score').textContent = score;
-        document.querySelector('#quiz-results .total-questions').textContent = questions.length;
-        quizAppTitle.textContent = "Quiz Complete!";
-
-        // NEW: Save results to Firestore
-        if (currentUserId && questions.length > 0) {
-            try {
-                const resultDocRef = await addDoc(collection(db, "quizResults"), {
-                    userId: currentUserId,
-                    quizId: defaultQuizId, // Using the quizId that was loaded
-                    score: score,
-                    totalQuestions: questions.length,
-                    timestamp: serverTimestamp(), // Firestore automatically provides a server timestamp
-                    // Optionally, save userAnswers if you need detailed review later:
-                    // userAnswers: userAnswers
-                });
-                console.log("Quiz results saved with ID:", resultDocRef.id);
-            } catch (error) {
-                console.error("Error saving quiz results:", error);
-                quizErrorMessage.textContent = "Error saving quiz results. Please check console.";
-            }
-        } else {
-            console.warn("Could not save quiz results: User not logged in or no questions loaded.");
+    // Optional: Warn user if they try to leave the page during the quiz
+    window.addEventListener('beforeunload', (event) => {
+        if (timerInterval && timeRemainingSeconds > 0 && quizContent.style.display !== 'none' && quizResultsContainer.style.display === 'none') {
+            event.preventDefault();
+            event.returnValue = 'You have an active quiz. Are you sure you want to leave? Your progress might be lost.';
         }
     });
 
