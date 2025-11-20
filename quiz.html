@@ -1128,14 +1128,14 @@
         window.location.href = "students.html"; // Navigate back to the dashboard
     });
 
-        // --- Submit Quiz Logic ---
+         // --- Submit Quiz Logic ---
     submitQuizBtn.addEventListener('click', () => {
         saveCurrentAnswer(); // Save the answer for the last question
         
         let score = 0;
         console.log("--- Starting Quiz Scoring ---");
-        console.log("Questions Array:", questions); // Inspect all loaded questions
-        console.log("User Answers Array:", userAnswers); // Inspect all user-selected answers
+        console.log("Questions Array:", questions);
+        console.log("User Answers Array:", userAnswers);
 
         for (let i = 0; i < questions.length; i++) {
             const question = questions[i];
@@ -1160,8 +1160,11 @@
         quizContent.style.display = 'none';
         quizNavigation.style.display = 'none';
         quizResultsContainer.style.display = 'block';
-        document.querySelector('.quiz-results .score').textContent = score;
-        document.querySelector('.quiz-results .total-questions').textContent = questions.length;
+
+        // THESE ARE THE CHANGED LINES
+        document.querySelector('#quiz-results .score').textContent = score;
+        document.querySelector('#quiz-results .total-questions').textContent = questions.length;
+        
         quizAppTitle.textContent = "Quiz Complete!";
     });
 
