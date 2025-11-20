@@ -315,6 +315,8 @@
     .card:nth-child(3) { animation-delay: 0.3s; }
     .card:nth-child(4) { animation-delay: 0.4s; }
     .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; } /* For the new quiz card */
+
 
     .card:hover {
       background: linear-gradient(135deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
@@ -693,13 +695,13 @@
     }
 
     /* NEW STYLES FOR LOGIN/DASHBOARD */
-   .portal-content-wrapper {
-    min-height: calc(100vh - 70px - 100px);
-    display: flex;
-    flex-direction: column; /* Ensure vertical stacking */
-    padding: 28px;
-    /* Remove justify-content and align-items so wide content isn't centered/shrunk */
-}
+    .portal-content-wrapper {
+        min-height: calc(100vh - 70px - 100px); /* Adjust based on header/footer height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 28px;
+    }
 
     .auth-card {
         background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.5) 100%);
@@ -811,17 +813,89 @@
         box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
     }
 
-    /* Responsive adjustments for auth card */
-    @media (max-width: 480px) {
-        .auth-card {
-            padding: 24px 16px;
+    /* New styles for Quiz History table */
+    .quiz-history-section {
+        margin-top: 60px;
+        padding: 24px;
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.4) 100%);
+        backdrop-filter: blur(25px);
+        border: 1.5px solid rgba(6, 182, 212, 0.2);
+        border-radius: 16px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        text-align: center;
+    }
+    .quiz-history-section h3 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .quiz-history-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        color: var(--text-secondary);
+    }
+    .quiz-history-table th, .quiz-history-table td {
+        padding: 12px;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+        text-align: left;
+    }
+    .quiz-history-table th {
+        background-color: rgba(0, 102, 255, 0.15);
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+    .quiz-history-table tr:hover {
+        background-color: rgba(96, 165, 250, 0.05);
+    }
+    .quiz-history-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+    .quiz-history-message {
+        color: var(--text-secondary);
+        font-style: italic;
+        margin-top: 20px;
+    }
+
+    /* Responsive adjustments for quiz history */
+    @media (max-width: 768px) {
+        .quiz-history-table, .quiz-history-table tbody, .quiz-history-table tr, .quiz-history-table td {
+            display: block;
+            width: 100%;
         }
-        .auth-card h2 {
-            font-size: 1.5rem;
+        .quiz-history-table thead {
+            display: none;
         }
-        .auth-card button {
-            font-size: 1rem;
-            padding: 10px 20px;
+        .quiz-history-table tr {
+            margin-bottom: 15px;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .quiz-history-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border-bottom: 1px dashed rgba(96, 165, 250, 0.1);
+        }
+        .quiz-history-table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 10px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .quiz-history-table tr:last-child td {
+            border-bottom: none;
         }
     }
   </style>
@@ -841,7 +915,6 @@
         </button>
         <div class="nav-links" id="navLinks">
           <a href="index.html" class="nav-link">Home</a>
-          <a href="about.html" class="nav-link">About Us</a>
           <a href="index.html#programs" class="nav-link">Programs</a>
           <a href="admissions.html" class="nav-link">Admissions</a>
           <a href="contact.html" class="nav-link">Contact Us</a>
@@ -852,7 +925,6 @@
     </div>
   </header>
 
-  <!-- NEW: Wrapper for Login/Dashboard Content -->
   <div class="portal-content-wrapper">
     <!-- Login Form Section -->
     <div id="login-container" class="auth-card">
@@ -938,8 +1010,8 @@
                 <p>Download the handbook, rules, and exam guidelines.</p>
                 <a href="#" class="btn">View Documents</a>
               </div>
-            </div>
-          <!-- NEW: Take Quiz Card -->
+
+              <!-- NEW: Take Quiz Card -->
               <div class="card">
                 <div class="card-icon"><i class="fas fa-question-circle"></i></div>
                 <h3>Take a Quiz</h3>
@@ -961,6 +1033,24 @@
                 </iframe>
               </div>
             </section>
+
+            <!-- NEW: Quiz History Section -->
+            <section class="quiz-history-section">
+                <h3>Your Quiz History</h3>
+                <p id="quiz-history-message" class="quiz-history-message" style="display:none;">Loading quiz history...</p>
+                <table class="quiz-history-table" id="quiz-history-table" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>Quiz</th>
+                            <th>Score</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="quiz-history-body">
+                        <!-- Quiz results will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </section>
         </div>
         <!-- ORIGINAL content of students.html's .container ends here -->
 
@@ -976,7 +1066,6 @@
       </div>
       <div class="footer-nav">
         <a href="index.html">Home</a>
-        <a href="about.html">About Us</a>
         <a href="index.html#programs">Programs</a>
         <a href="admissions.html">Admissions</a>
         <a href="contact.html">Contact Us</a>
@@ -1006,7 +1095,8 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+    // NEW IMPORTS FOR QUIZ HISTORY: query, where, orderBy, getDocs
+    import { getFirestore, doc, getDoc, collection, query, where, orderBy, getDocs } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
     const firebaseConfig = {
       apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
@@ -1023,7 +1113,7 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Get references to HTML elements for Login/Dashboard
+    // Get references to HTML elements
     const loginForm = document.getElementById('login-form');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
@@ -1032,6 +1122,53 @@
     const dashboardContainer = document.getElementById('dashboard-container');
     const userEmailDisplay = document.getElementById('user-email-display');
     const logoutButton = document.getElementById('logout-button');
+    // NEW: References for Quiz History elements
+    const quizHistoryMessage = document.getElementById('quiz-history-message');
+    const quizHistoryTable = document.getElementById('quiz-history-table');
+    const quizHistoryBody = document.getElementById('quiz-history-body');
+
+
+    // Function to load and display quiz history
+    async function loadQuizHistory(userId) {
+        quizHistoryMessage.textContent = "Loading quiz history...";
+        quizHistoryMessage.style.display = 'block';
+        quizHistoryTable.style.display = 'none';
+        quizHistoryBody.innerHTML = ''; // Clear previous results
+
+        try {
+            const q = query(
+                collection(db, "quizResults"),
+                where("userId", "==", userId),
+                orderBy("timestamp", "desc") // Order by newest first
+            );
+            const querySnapshot = await getDocs(q);
+
+            if (querySnapshot.empty) {
+                quizHistoryMessage.textContent = "No quiz history found yet.";
+                quizHistoryMessage.style.display = 'block';
+            } else {
+                quizHistoryMessage.style.display = 'none';
+                quizHistoryTable.style.display = 'table'; // Show table
+                querySnapshot.forEach((doc) => {
+                    const result = doc.data();
+                    const date = result.timestamp ? result.timestamp.toDate().toLocaleDateString() : 'N/A';
+                    const time = result.timestamp ? result.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+
+                    const row = quizHistoryBody.insertRow();
+                    row.innerHTML = `
+                        <td data-label="Quiz">${result.quizId || 'Unknown Quiz'}</td>
+                        <td data-label="Score">${result.score !== undefined ? result.score : 'N/A'} / ${result.totalQuestions || 'N/A'}</td>
+                        <td data-label="Date">${date} ${time}</td>
+                    `;
+                });
+            }
+        } catch (error) {
+            console.error("Error loading quiz history:", error);
+            quizHistoryMessage.textContent = "Error loading quiz history.";
+            quizHistoryMessage.style.display = 'block';
+        }
+    }
+
 
     // Function to update UI based on login state
     const updateUI = async (user) => {
@@ -1053,9 +1190,9 @@
                 userEmailDisplay.textContent = user.email;
             }
 
-            // TODO: Here you would typically call a function to load user-specific data from Firestore
-            // For example: loadCourseMaterials(user.uid);
-            // For example: loadExamResults(user.uid);
+            // NEW: Load quiz history for the logged-in user
+            loadQuizHistory(user.uid);
+
         } else {
             // No user is logged in
             loginContainer.style.display = 'block';
@@ -1082,7 +1219,7 @@
 
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            // The onAuthStateChanged listener above will handle updating the UI
+            // The onAuthStateChanged listener above will handle updating the UI and loading quiz history
             console.log("User logged in (Auth success).");
         } catch (error) {
             console.error("Login failed:", error.code, error.message);
@@ -1128,8 +1265,6 @@
       });
     });
 
-    // Ensure these only run if the elements exist (i.e., when dashboard is shown)
-    // This assumes classroomBtn and classroomMenu are part of the content that's hidden/shown with the dashboard
     if(classroomBtn && classroomMenu) {
         classroomBtn.addEventListener('click', function(e) {
           e.stopPropagation();
