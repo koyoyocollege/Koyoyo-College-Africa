@@ -1015,7 +1015,8 @@
     let questions = [];
     let currentQuestionIndex = 0;
     let userAnswers = [];
-    const defaultQuizId = "WASSCE_Math_60"; // <-- UPDATED: Now loading the WASSCE Math quiz
+    const urlParams = new URLSearchParams(window.location.search);
+    const defaultQuizId = urlParams.get('id') || "WASSCE_Math_60"; // <-- UPDATED: Now loading the WASSCE Math quiz
 
     // --- HTML Element References ---
     const quizAppTitle = document.querySelector('#quiz-app h2');
