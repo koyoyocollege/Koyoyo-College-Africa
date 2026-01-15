@@ -1013,12 +1013,24 @@
 
               <!-- NEW: Take Quiz Card -->
               <div class="card">
-                <div class="card-icon"><i class="fas fa-question-circle"></i></div>
-                <h3>Take a Quiz</h3>
-                <p>Test your knowledge with our subject-specific quizzes.</p>
-                <a href="quiz.html" class="btn">Start Quiz Now</a>
-              </div>
-            </div>
+  <div class="card-icon"><i class="fas fa-question-circle"></i></div>
+  <h3>Available Quizzes</h3>
+  <p>Select a subject to begin your test.</p>
+  
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <a href="quiz.html?id=WASSCE_Math_60" class="btn" style="text-align: left; padding: 12px;">
+      <i class="fas fa-calculator"></i> Mathematics Quiz
+    </a>
+
+    <a href="quiz.html?id=WASSCE_English_2025" class="btn" style="text-align: left; padding: 12px;">
+      <i class="fas fa-book"></i> English Language Quiz
+    </a>
+
+    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" style="text-align: left; padding: 12px;">
+      <i class="fas fa-flask"></i> Integrated Science Quiz
+    </a>
+  </div>
+</div>
 
             <section class="calendar-section" id="calendar">
               <h2>Academic Calendar</h2>
