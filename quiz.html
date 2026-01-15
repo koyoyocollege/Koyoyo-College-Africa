@@ -1071,7 +1071,7 @@
 
         quizContent.innerHTML = `
             ${question.imageUrl ? `<img src="${question.imageUrl}" alt="Question image" class="question-image">` : ''}
-            <p class="question-text">${currentQuestionIndex + 1}. ${question.text}</p>
+            <p class="question-text">${currentQuestionIndex + 1}. ${question.text || question.question}</p>
             <div class="options-container">${optionsHtml}</div>
         `;
 
