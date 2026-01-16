@@ -1014,6 +1014,22 @@
                 <iframe src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
             </div>
         </section>
+        <section class="quiz-history-section" style="margin-top: 40px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">Your Quiz History</h2>
+            <p id="quiz-history-message" style="color: #666;">No quiz history found yet.</p>
+            
+            <table id="quiz-history-table" style="width: 100%; border-collapse: collapse; display: none;">
+                <thead>
+                    <tr style="background: #f8f9fa; border-bottom: 2px solid #eee;">
+                        <th style="padding: 12px; text-align: left;">Quiz Subject</th>
+                        <th style="padding: 12px; text-align: left;">Score</th>
+                        <th style="padding: 12px; text-align: left;">Date</th>
+                    </tr>
+                </thead>
+                <tbody id="quiz-history-body">
+                    </tbody>
+            </table>
+        </section>
 
         <button id="logout-button" class="btn" style="background: #e11d48; margin-top: 20px;">Log Out</button>
     </div>
