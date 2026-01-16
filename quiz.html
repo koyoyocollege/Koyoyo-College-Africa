@@ -3,73 +3,937 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Students Portal – Koyoyo College Africa | Learning Resources</title>
+  <title>Quiz Page – Koyoyo College Africa</title>
 
-  <meta name="description" content="Koyoyo College Students Portal – Access Google Classroom, study materials, academic calendar, exam results, and student resources.">
-  <meta name="keywords" content="student portal, Google Classroom, study resources, academic calendar, exam results, Koyoyo College students">
-  <meta name="author" content="Koyoyo College Africa">
-  <meta name="theme-color" content="#0066ff">
-  <meta property="og:title" content="Students Portal – Koyoyo College">
-  <meta property="og:description" content="Access your learning resources and stay updated with your academic progress">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://koyoyocollege.github.io/Koyoyo-College-Africa/students.html">
-  <meta property="og:image" content="https://i.imgur.com/QsV8xs6.webp">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Students Portal">
-  <meta name="twitter:description" content="Access learning resources at Koyoyo College">
-  <meta name="twitter:image" content="https://i.imgur.com/QsV8xs6.webp">
-  <link rel="canonical" href="https://koyoyocollege.github.io/Koyoyo-College-Africa/students.html">
-  <link rel="icon" type="image/webp" href="https://i.imgur.com/QsV8xs6.webp">
-
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
-
+  <!-- Re-use your main styling -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-    /* --- START OF YOUR ORIGINAL CSS (Unchanged) --- 
-    */
-    :root {
-      --primary: #0066ff; --secondary: #7c3aed; --background: #0f172a;
-      --surface: rgba(30, 41, 59, 0.7); --surface-light: rgba(51, 65, 85, 0.5);
-      --text-primary: #f1f5f9; --text-secondary: #cbd5e1; --accent: #06b6d4; --gold: #fbbf24;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', Arial, sans-serif; background: linear-gradient(135deg, var(--background) 0%, #1a1f3a 100%); color: var(--text-primary); min-height: 100vh; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 28px; }
-    header { background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95)); backdrop-filter: blur(10px); padding: 16px 20px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); border-bottom: 1px solid rgba(96, 165, 250, 0.2); }
-    .header-content { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .logo-section { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-img { width: 45px; height: 45px; object-fit: contain; border-radius: 8px; }
-    .logo-text { color: white; font-size: 1.2em; font-weight: 700; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    nav { display: flex; align-items: center; gap: 8px; }
-    .nav-links { display: flex; gap: 4px; }
-    .nav-link { color: #e0e7ff; text-decoration: none; padding: 8px 12px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease; }
-    .nav-link:hover, .nav-link.active { color: #60a5fa; background: rgba(96, 165, 250, 0.1); }
-    .hamburger { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; }
-    .hamburger span { width: 24px; height: 2px; background: #60a5fa; border-radius: 1px; transition: all 0.3s ease; }
-    
-    /* ... (Rest of your original 1200 lines of CSS) ... */
-    /* Only adding necessary Quiz Engine styles here */
-    #quiz-engine-view { display: none; margin-bottom: 40px; }
-    .quiz-card { background: var(--surface); padding: 30px; border-radius: 20px; border: 1.5px solid var(--accent); position: relative; }
-    .timer-box { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; border: 1px solid var(--gold); text-align: center; margin-bottom: 20px; }
-    #timer-display { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--gold); }
-    .question-step { display: none; animation: fadeIn 0.4s ease; }
-    .question-step.active { display: block; }
-    .option-label { display: flex; align-items: center; padding: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: 0.3s; }
-    .option-label:hover { background: rgba(0, 102, 255, 0.1); border-color: var(--primary); }
-    .quiz-nav { display: flex; justify-content: space-between; margin-top: 25px; gap: 15px; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    /* Paste ALL of the <style> content from your students.html here,
+       INCLUDING the `:root`, `body`, `.container`, `header`, `footer`,
+       and all card/button styles. This ensures quiz.html looks consistent. */
 
-    /* (All your Hero, Cards-Grid, Calendar, Footer styles remain here unchanged) */
-    .hero { background: linear-gradient(135deg, var(--surface) 0%, rgba(51, 65, 85, 0.3) 100%), url('https://i.imgur.com/ZuXOyGn.png') center/cover no-repeat; background-attachment: fixed; backdrop-filter: blur(30px); border-radius: 20px; padding: 60px 40px; text-align: center; margin-bottom: 60px; margin-top: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin: 60px 0; }
-    /* ... (Skipping visual repetition of CSS for brevity, but it is all in your file) ... */
+    :root {
+      --primary: #0066ff;
+      --secondary: #7c3aed;
+      --background: #0f172a;
+      --surface: rgba(30, 41, 59, 0.7);
+      --surface-light: rgba(51, 65, 85, 0.5);
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --accent: #06b6d4;
+      --gold: #fbbf24;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--background) 0%, #1a1f3a 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 28px;
+    }
+
+    header {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95));
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+    }
+
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: 45px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+      color: white;
+      font-size: 1.2em;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    .nav-link {
+      color: #e0e7ff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95em;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: #60a5fa;
+      background: rgba(96, 165, 250, 0.1);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #60a5fa;
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.98));
+        backdrop-filter: blur(20px);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.2);
+      }
+
+      .nav-links.active {
+        max-height: 400px;
+      }
+
+      .nav-link {
+        padding: 14px 20px;
+        border-radius: 0;
+        border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+      }
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--surface) 0%, rgba(51, 65, 85, 0.3) 100%),
+                  url('https://i.imgur.com/ZuXOyGn.png') center/cover no-repeat;
+      background-attachment: fixed;
+      backdrop-filter: blur(30px);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.5) 0%, rgba(0, 102, 255, 0.5) 100%) 1;
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      margin-bottom: 60px;
+      margin-top: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      animation: fadeInDown 0.8s ease;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes popUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes slideInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(60px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 60px 0;
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.4) 100%);
+      backdrop-filter: blur(25px);
+      border: 1.5px solid rgba(6, 182, 212, 0.2);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      animation: popUp 0.6s ease forwards;
+      position: relative;
+      overflow: visible;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(0, 102, 255, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      border-radius: 16px;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; } /* For the new quiz card */
+
+
+    .card:hover {
+      background: linear-gradient(135deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
+      border-color: rgba(6, 182, 212, 0.6);
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 25px 70px rgba(6, 182, 212, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      transition: all 0.4s ease;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.2) rotate(5deg);
+      color: var(--primary);
+      filter: drop-shadow(0 0 10px rgba(0, 102, 255, 0.4));
+    }
+
+    .card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    .card:hover h3 {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .dropdown-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 102, 255, 0.2);
+      width: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 102, 255, 0.4);
+    }
+
+    .btn.secondary {
+      background: transparent;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      box-shadow: none;
+    }
+
+    .btn.secondary:hover {
+      background: rgba(6, 182, 212, 0.15);
+      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
+    }
+
+    .dropdown-menu {
+      position: fixed;
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.6) 100%);
+      backdrop-filter: blur(30px);
+      border: 1.5px solid rgba(6, 182, 212, 0.4);
+      border-radius: 14px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(20px);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 999999 !important;
+      min-width: 300px;
+      animation: slideUp 0.3s ease forwards;
+      will-change: z-index;
+      transform: translateZ(0) translateX(20px);
+      pointer-events: auto;
+      max-height: 500px;
+      overflow-y: auto;
+      right: 28px;
+      top: 120px;
+    }
+
+    .dropdown-menu.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateZ(0) translateX(0);
+    }
+
+    .dropdown-item {
+      padding: 14px 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown-item:hover {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(0, 102, 255, 0.1) 100%);
+      padding-left: 24px;
+      color: var(--accent);
+    }
+
+    .dropdown-item i {
+      color: var(--accent);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover i {
+      transform: scale(1.15) rotate(5deg);
+      filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));
+    }
+
+    .btn-dropdown {
+      position: relative;
+    }
+
+    .btn-dropdown::after {
+      content: '▲';
+      font-size: 0.7rem;
+      margin-left: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .btn-dropdown.active::after {
+      transform: rotate(180deg);
+    }
+
+    .calendar-section {
+      margin: 80px 0;
+      opacity: 0;
+      animation: slideInUp 0.8s ease forwards;
+      animation-delay: 0.6s;
+    }
+
+    .calendar-section h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .calendar-container {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.4) 100%);
+      backdrop-filter: blur(25px);
+      border: 1.5px solid rgba(6, 182, 212, 0.2);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+      transition: all 0.4s ease;
+    }
+
+    .calendar-container:hover {
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .calendar-container iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 12px;
+    }
+
+    footer {
+      background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
+      color: #e0e0e0;
+      padding: 60px 20px 30px;
+      margin-top: 80px;
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.8em;
+      font-weight: bold;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+    }
+
+    .footer-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .footer-nav a {
+      color: #c0c0c0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .footer-nav a:hover {
+      color: #00d4ff;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .social-icons a {
+      color: #00d4ff;
+      font-size: 1.4em;
+      transition: all 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #7c3aed;
+      transform: scale(1.2);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #808080;
+    }
+
+    .floating-apply-btn {
+      position: fixed;
+      right: 20px;
+      bottom: 30px;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #00d4ff, #7c3aed);
+      color: white;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95em;
+    }
+
+    .floating-apply-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+    }
+
+    .floating-apply-btn:active {
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 40px 24px;
+        min-height: 300px;
+        background-attachment: scroll;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .calendar-container iframe {
+        height: 400px;
+      }
+
+      .dropdown-menu {
+        right: 16px;
+        min-width: 280px;
+        max-height: 400px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 30px 16px;
+        min-height: 250px;
+        background-attachment: scroll;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+
+      .card {
+        padding: 24px 16px;
+      }
+
+      .card h3 {
+        font-size: 1.1rem;
+      }
+
+      .calendar-container iframe {
+        height: 300px;
+      }
+
+      .dropdown-menu {
+        right: 12px;
+        min-width: 260px;
+      }
+
+      .floating-apply-btn {
+        left: 10px;
+        bottom: 20px;
+        padding: 12px 16px;
+        font-size: 0.85em;
+      }
+    }
+    #quiz-timer-container {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    background: rgba(15, 23, 42, 0.95);
+    border: 2px solid var(--gold);
+    padding: 12px 20px;
+    border-radius: 12px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    text-align: center;
+}
+#timer-display {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    font-weight: 700;
+}
+    
+    /* NEW STYLES FOR LOGIN/DASHBOARD/QUIZ */
+    .portal-content-wrapper {
+        min-height: calc(100vh - 70px - 100px); /* Adjust based on header/footer height */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 28px;
+    }
+
+    .auth-card, .quiz-card { /* Combined style for consistency */
+        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.5) 100%);
+        backdrop-filter: blur(25px);
+        border: 1.5px solid rgba(6, 182, 212, 0.2);
+        border-radius: 16px;
+        padding: 32px 24px;
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        text-align: center;
+        max-width: 600px; /* Increased max-width for quiz content */
+        width: 100%;
+        animation: fadeInDown 0.8s ease;
+    }
+
+    .auth-card h2, .quiz-card h2 {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .auth-card label {
+        display: block;
+        text-align: left;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+
+    .auth-card input[type="email"],
+    .auth-card input[type="password"] {
+        width: calc(100% - 24px); /* Account for padding */
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid rgba(96, 165, 250, 0.3);
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.2);
+        color: var(--text-primary);
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+    }
+
+    .auth-card input[type="email"]:focus,
+    .auth-card input[type="password"]:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3);
+    }
+
+    .auth-card button, .quiz-card .btn {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        text-decoration: none; /* For quiz buttons that might be links */
+        display: block; /* For quiz buttons to stack */
+    }
+
+    .auth-card button:hover, .quiz-card .btn:hover {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4);
+    }
+
+    #login-error-message {
+        color: var(--gold); /* Using gold for error messages */
+        margin-top: 15px;
+        font-size: 0.9rem;
+    }
+
+    #dashboard-container {
+        width: 100%; /* Ensure dashboard takes full width of container */
+        text-align: left;
+    }
+
+    #dashboard-container h2 {
+        text-align: center;
+        font-family: 'Outfit', sans-serif;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    #dashboard-container .dashboard-info {
+        text-align: center;
+        margin-bottom: 40px;
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
+
+    #dashboard-container #logout-button {
+        margin-top: 40px;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Red for logout */
+    }
+    #dashboard-container #logout-button:hover {
+        background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
+    }
+
+    /* Quiz-specific styles */
+    .quiz-card .question-image {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+    .quiz-card .question-text {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: var(--text-primary);
+    }
+    .quiz-card .options-container label {
+        display: block;
+        background-color: rgba(96, 165, 250, 0.1);
+        padding: 15px 20px;
+        margin-bottom: 12px;
+        border-radius: 8px;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: 1px solid transparent;
+    }
+    .quiz-card .options-container label:hover {
+        background-color: rgba(96, 165, 250, 0.2);
+        border-color: var(--primary);
+    }
+    .quiz-card .options-container input[type="radio"] {
+        margin-right: 15px;
+        accent-color: var(--primary); /* Styles the radio button itself */
+    }
+    .quiz-navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        gap: 15px;
+    }
+    .quiz-navigation button {
+        width: 48%; /* Adjust width for prev/next buttons */
+    }
+    .quiz-navigation #submit-quiz-btn {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .quiz-results {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .quiz-results p {
+        margin-bottom: 10px;
+    }
+    .quiz-results .score {
+        font-size: 2em;
+        font-weight: 700;
+        color: var(--accent);
+    }
+    .back-to-dashboard-btn {
+      margin-top: 25px;
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%) !important;
+    }
+
+
+    /* Responsive adjustments for auth card / quiz card */
+    @media (max-width: 480px) {
+        .auth-card, .quiz-card {
+            padding: 24px 16px;
+        }
+        .auth-card h2, .quiz-card h2 {
+            font-size: 1.5rem;
+        }
+        .auth-card button, .quiz-card .btn {
+            font-size: 1rem;
+            padding: 10px 20px;
+        }
+        .quiz-card .question-text {
+            font-size: 1.2rem;
+        }
+        .quiz-card .options-container label {
+            padding: 12px 15px;
+            font-size: 0.9rem;
+        }
+        .quiz-navigation {
+            flex-direction: column;
+            gap: 10px;
+        }
+        .quiz-navigation button {
+            width: 100%;
+        }
+    }
   </style>
+
+  <!-- MathJax for rendering LaTeX equations -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)']], // Recognize \( ... \) for inline math
+        displayMath: [['\\[', '\\]']]  // Recognize \[ ... \] for display math
+      },
+      svg: {
+        fontCache: 'global' // For better performance and consistent rendering
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </head>
 <body>
-
+  <div id="quiz-timer-container">
+    <div style="font-size: 0.7rem; color: #cbd5e1; letter-spacing: 1px; margin-bottom: 4px;">TIME REMAINING</div>
+    <div id="timer-display">120:00</div>
+</div>
   <header>
     <div class="header-content">
       <a href="index.html" class="logo-section">
@@ -77,200 +941,359 @@
         <div class="logo-text">KOYOYO COLLEGE AFRICA</div>
       </a>
       <nav>
-        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+        <button class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div class="nav-links" id="navLinks">
           <a href="index.html" class="nav-link">Home</a>
-          <a href="students.html" class="nav-link active">Students</a>
-          </div>
+          <a href="index.html#programs" class="nav-link">Programs</a>
+          <a href="admissions.html" class="nav-link">Admissions</a>
+          <a href="contact.html" class="nav-link">Contact Us</a>
+          <a href="students.html" class="nav-link">Students</a> <!-- Not active on quiz page -->
+          <a href="gallery.html" class="nav-link">Gallery</a>
+        </div>
       </nav>
     </div>
   </header>
 
-  <div id="login-root">
-    <div class="portal-content-wrapper">
-        <div id="login-container" class="auth-card">
-            <h2>Koyoyo Portal Login</h2>
-            <form id="login-form">
-                <label for="email">Email:</label>
-                <input type="email" id="email" required placeholder="student@example.com">
-                <label for="password">Password:</label>
-                <input type="password" id="password" required placeholder="••••••••">
-                <button type="submit">Log In</button>
-            </form>
-            <p id="login-error-message"></p>
-        </div>
+  <!-- Main content area for the quiz -->
+  <div class="portal-content-wrapper">
+    <div id="quiz-app" class="quiz-card">
+      <h2>Loading Quiz...</h2>
+      <div id="quiz-content">
+        <!-- Questions will be dynamically loaded here -->
+        <p>Please wait while the quiz loads.</p>
+      </div>
+      <div id="quiz-navigation" style="display: none;">
+          <button id="prev-question-btn" class="btn secondary">Previous</button>
+          <button id="next-question-btn" class="btn">Next</button>
+          <button id="submit-quiz-btn" class="btn" style="display: none;">Submit Quiz</button>
+      </div>
+      <div id="quiz-results" style="display: none;">
+          <h3>Quiz Results</h3>
+          <p>You scored: <span class="score">0</span> out of <span class="total-questions">0</span></p>
+          <button id="back-to-dashboard-btn" class="btn back-to-dashboard-btn">Back to Dashboard</button>
+      </div>
+      <p id="quiz-error-message" style="color: var(--gold); margin-top: 15px;"></p>
     </div>
   </div>
 
-  <div id="dashboard-container" style="display: none;">
-    <div class="container">
-
-        <div id="quiz-engine-view">
-            <div class="timer-box">
-                <div style="font-size: 0.9rem; color: var(--text-secondary); letter-spacing: 2px;">TIME REMAINING</div>
-                <div id="timer-display">10:00</div>
-            </div>
-            <div class="quiz-card">
-                <h2 id="quiz-title-header" style="margin-bottom: 20px; color: var(--accent);"></h2>
-                <div id="questions-container"></div>
-                <div class="quiz-nav">
-                    <button type="button" id="prev-btn" class="btn secondary" style="width: 48%;">Previous</button>
-                    <button type="button" id="next-btn" class="btn" style="width: 48%;">Next Question</button>
-                    <button type="button" id="submit-quiz-btn" class="btn" style="display:none; background: #10b981; width: 48%;">Finish Quiz</button>
-                </div>
-            </div>
-            <hr style="margin: 40px 0; border: 0; border-top: 1px solid rgba(255,255,255,0.1);">
-        </div>
-
-        <section class="hero" id="portal-hero">
-            <h1>Welcome, <span id="user-email-display"></span>!</h1>
-            <p>Access your learning resources, schedules, and important updates all in one place</p>
-        </section>
-
-        <div class="cards-grid">
-            <div class="card">
-                <div class="card-icon"><i class="fas fa-question-circle"></i></div>
-                <h3>Available Quizzes</h3>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="quiz.html?id=Maths Test 1" class="btn" style="text-align: left;"><i class="fas fa-calculator"></i> Mathematics Quiz</a>
-                    <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left;"><i class="fas fa-book"></i> ICT Quiz</a>
-                </div>
-            </div>
-        </div>
-
-        <button id="logout-button" class="btn" style="background: #e11d48; margin-top: 20px; max-width: 200px;">Log Out</button>
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">KOYOYO COLLEGE</div>
+        <p>We Serve All...</p>
+      </div>
+      <div class="footer-nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#programs">Programs</a>
+        <a href="admissions.html">Admissions</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="students.html">Students</a>
+        <a href="gallery.html">Gallery</a>
+      </div>
+      <div class="social-icons">
+        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank"><i class="fab fa-tiktok"></i></a>
+      </div>
     </div>
-  </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 KOYOYO COLLEGE. All rights reserved.</p>
+    </div>
+  </footer>
 
+  <a href="https://tally.so/r/n09joA" class="floating-apply-btn">
+    <span>Apply Now</span>
+    <i class="fas fa-arrow-right"></i>
+  </a>
+
+  <!-- Firebase SDKs and Initialization Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc, collection, query, where, orderBy, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
+    import { getFirestore, collection, getDocs, query, where, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
-    // ... (Your firebaseConfig) ...
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
+      authDomain: "koyoyocollegeafrica.firebaseapp.com",
+      projectId: "koyoyocollegeafrica",
+      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
+      messagingSenderId: "501491274694",
+      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
+      measurementId: "G-3F9CM217HQ"
+    };
+
     const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Quiz Global Variables
-    let quizQuestions = [];
-    let currentStep = 0;
+    let currentUserId = null;
+    let questions = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
     const urlParams = new URLSearchParams(window.location.search);
-    const quizId = urlParams.get('id');
+    const defaultQuizId = urlParams.get('id') || "WASSCE_Math_60"; // <-- UPDATED: Now loading the WASSCE Math quiz
 
-    // Authentication Observer
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            document.getElementById('login-root').style.display = 'none';
-            document.getElementById('dashboard-container').style.display = 'block';
-            document.getElementById('user-email-display').textContent = user.email;
+    // --- HTML Element References ---
+    const quizAppTitle = document.querySelector('#quiz-app h2');
+    const quizContent = document.getElementById('quiz-content');
+    const quizNavigation = document.getElementById('quiz-navigation');
+    const prevQuestionBtn = document.getElementById('prev-question-btn');
+    const nextQuestionBtn = document.getElementById('next-question-btn');
+    const submitQuizBtn = document.getElementById('submit-quiz-btn');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizErrorMessage = document.getElementById('quiz-error-message');
+    const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
+
+    // --- Core Quiz Functions ---
+
+    async function fetchQuestions(quizId) {
+        quizErrorMessage.textContent = '';
+        try {
+            const q = query(collection(db, "questions"), where("quizId", "==", quizId));
+            const querySnapshot = await getDocs(q);
             
-            // IF a Quiz ID is in the URL, initialize the quiz engine
-            if (quizId) {
-                document.getElementById('quiz-engine-view').style.display = 'block';
-                document.getElementById('portal-hero').style.display = 'none'; // Only hide hero to focus on quiz
-                loadQuizQuestions(quizId, user.uid);
+            if (querySnapshot.empty) {
+                quizErrorMessage.textContent = `No questions found for quiz "${quizId}"!`;
+                return [];
             }
-            
-            loadQuizHistory(user.uid);
+
+            const fetchedQuestions = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            console.log("Fetched questions:", fetchedQuestions);
+            return fetchedQuestions;
+
+        } catch (error) {
+            console.error("Error fetching questions:", error);
+            quizErrorMessage.textContent = "Failed to load quiz questions. Please try again.";
+            return [];
+        }
+    }
+
+    function displayQuestion() {
+        if (questions.length === 0) {
+            quizContent.innerHTML = "<p>No questions to display.</p>";
+            quizNavigation.style.display = 'none';
+            return;
+        }
+
+        const question = questions[currentQuestionIndex];
+        let optionsHtml = question.options.map((option, index) => `
+            <label>
+                <input type="radio" name="answer" value="${index}" 
+                       ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                ${option}
+            </label>
+        `).join('');
+
+        quizContent.innerHTML = `
+            ${question.imageUrl ? `<img src="${question.imageUrl}" alt="Question image" class="question-image">` : ''}
+            <p class="question-text">${currentQuestionIndex + 1}. ${question.text || question.question}</p>
+            <div class="options-container">${optionsHtml}</div>
+        `;
+
+        // Update navigation button visibility
+        prevQuestionBtn.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
+        nextQuestionBtn.style.display = currentQuestionIndex < questions.length - 1 ? 'block' : 'none';
+        submitQuizBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+
+        quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+        // NEW: Tell MathJax to render the newly added content
+        if (typeof MathJax !== 'undefined') {
+            MathJax.typesetPromise([quizContent]); // Tell MathJax to typeset only the quizContent div
+        }
+    }
+
+    function saveCurrentAnswer() {
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        if (selectedOption) {
+            userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
         } else {
-            document.getElementById('login-root').style.display = 'block';
-            document.getElementById('dashboard-container').style.display = 'none';
+            userAnswers[currentQuestionIndex] = -1; // Indicate no answer selected
+        }
+    }
+
+    prevQuestionBtn.addEventListener('click', () => {
+        saveCurrentAnswer(); // Save current answer before moving
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            displayQuestion();
         }
     });
 
-    // --- NEW: LOAD QUESTIONS LOGIC ---
-    async function loadQuizQuestions(id, uid) {
-        document.getElementById('quiz-title-header').textContent = "Exam: " + id;
-        const q = query(collection(db, "questions"), where("quizId", "==", id));
-        const querySnapshot = await getDocs(q);
-        
-        const container = document.getElementById('questions-container');
-        querySnapshot.forEach((doc, index) => {
-            const data = doc.data();
-            quizQuestions.push({ id: doc.id, ...data });
+    nextQuestionBtn.addEventListener('click', () => {
+        saveCurrentAnswer(); // Save current answer before moving
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            displayQuestion();
+        }
+    });
 
-            const stepDiv = document.createElement('div');
-            stepDiv.className = `question-step ${index === 0 ? 'active' : ''}`;
-            stepDiv.id = `q-step-${index}`;
-            stepDiv.innerHTML = `
-                <p style="font-size: 1.25rem; margin-bottom: 25px; line-height: 1.6;">${data.question}</p>
-                ${data.options.map(opt => `
-                    <label class="option-label">
-                        <input type="radio" name="q${index}" value="${opt}" style="margin-right: 15px; transform: scale(1.3);">
-                        <span>${opt}</span>
-                    </label>
-                `).join('')}
-            `;
-            container.appendChild(stepDiv);
-        });
+    // --- Authentication Check and Quiz Initialization ---
 
-        startQuizTimer(uid);
-        updateQuizNavigation();
-    }
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            console.log("User is logged in on quiz.html:", user.email);
+            currentUserId = user.uid;
 
-    // --- NEW: TIMER LOGIC ---
-    function startQuizTimer(uid) {
-        let timeLeft = 600; // 10 Minutes
-        const timerInterval = setInterval(() => {
-            timeLeft--;
-            const mins = Math.floor(timeLeft / 60);
-            const secs = timeLeft % 60;
-            document.getElementById('timer-display').textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
-            
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                submitFinalResults(uid);
+            quizAppTitle.textContent = "Loading Quiz...";
+            quizContent.innerHTML = "<p>Loading your quiz questions...</p>";
+            quizNavigation.style.display = 'none';
+            quizResultsContainer.style.display = 'none'; // Ensure results are hidden
+
+            questions = await fetchQuestions(defaultQuizId); // Use the global defaultQuizId
+            userAnswers = Array(questions.length).fill(-1); // Initialize answers array
+
+            if (questions.length > 0) {
+                quizNavigation.style.display = 'flex';
+                displayQuestion();
+              const urlParams = new URLSearchParams(window.location.search);
+                const quizId = urlParams.get('id') || defaultQuizId;
+                startPersistentTimer(quizId, user.uid);
+            } else {
+                quizAppTitle.textContent = "Quiz Unavailable";
+                quizContent.innerHTML = `<p>We couldn't load any quiz questions right now. Please try again later.</p>
+                                        <button id="retry-load-btn" class="btn">Retry Loading Quiz</button>`;
+                document.getElementById('retry-load-btn').addEventListener('click', () => location.reload());
             }
-        }, 1000);
-    }
 
-    function updateQuizNavigation() {
-        document.getElementById('prev-btn').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
-        const isLast = currentStep === quizQuestions.length - 1;
-        document.getElementById('next-btn').style.display = isLast ? 'none' : 'block';
-        document.getElementById('submit-quiz-btn').style.display = isLast ? 'block' : 'none';
+        } else {
+            console.log("No user is logged in on quiz.html. Redirecting to students.html for login.");
+            window.location.href = "students.html";
+        }
+    });
+
+    // Event Listener for "Back to Dashboard" button (from results or error state)
+    backToDashboardBtn.addEventListener('click', () => {
+        window.location.href = "students.html"; // Navigate back to the dashboard
+    });
+
+    // --- Submit Quiz Logic (UPDATED) ---
+    submitQuizBtn.addEventListener('click', async () => { // Make function async to await Firestore write
+        saveCurrentAnswer(); // Save the answer for the last question
         
-        if (window.MathJax) MathJax.typesetPromise();
-    }
-
-    document.getElementById('next-btn').onclick = () => {
-        document.getElementById(`q-step-${currentStep}`).classList.remove('active');
-        currentStep++;
-        document.getElementById(`q-step-${currentStep}`).classList.add('active');
-        updateQuizNavigation();
-    };
-
-    document.getElementById('prev-btn').onclick = () => {
-        document.getElementById(`q-step-${currentStep}`).classList.remove('active');
-        currentStep--;
-        document.getElementById(`q-step-${currentStep}`).classList.add('active');
-        updateQuizNavigation();
-    };
-
-    async function submitFinalResults(uid) {
         let score = 0;
-        quizQuestions.forEach((q, i) => {
-            const selected = document.querySelector(`input[name="q${i}"]:checked`)?.value;
-            if (selected === q.answer) score++;
-        });
+        for (let i = 0; i < questions.length; i++) {
+            if (userAnswers[i] === questions[i].correctAnswerIndex) {
+                score++;
+            }
+        }
+        
+        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
 
-        await addDoc(collection(db, "quizResults"), {
-            userId: uid,
-            quizId: quizId,
-            score: score,
-            totalQuestions: quizQuestions.length,
-            timestamp: serverTimestamp()
-        });
+        quizContent.style.display = 'none';
+        quizNavigation.style.display = 'none';
+        quizResultsContainer.style.display = 'block';
+        document.querySelector('#quiz-results .score').textContent = score;
+        document.querySelector('#quiz-results .total-questions').textContent = questions.length;
+        quizAppTitle.textContent = "Quiz Complete!";
 
-        alert("Quiz Submitted! Your score: " + score);
-        window.location.href = "quiz.html"; // Go back to dashboard
+        // NEW: Save results to Firestore
+        if (currentUserId && questions.length > 0) {
+            try {
+                const resultDocRef = await addDoc(collection(db, "quizResults"), {
+                    userId: currentUserId,
+                    quizId: defaultQuizId, // Using the quizId that was loaded
+                    score: score,
+                    totalQuestions: questions.length,
+                    timestamp: serverTimestamp(), // Firestore automatically provides a server timestamp
+                    // Optionally, save userAnswers if you need detailed review later:
+                    // userAnswers: userAnswers
+                });
+                console.log("Quiz results saved with ID:", resultDocRef.id);
+            } catch (error) {
+                console.error("Error saving quiz results:", error);
+                quizErrorMessage.textContent = "Error saving quiz results. Please check console.";
+            }
+        } else {
+            console.warn("Could not save quiz results: User not logged in or no questions loaded.");
+        }
+    });
+
+    function startPersistentTimer(quizId, userId) {
+    const timerContainer = document.getElementById('quiz-timer-container');
+    const display = document.getElementById('timer-display');
+    const storageKey = `quiz_end_${userId}_${quizId}`;
+    
+    let endTime = localStorage.getItem(storageKey);
+
+    if (!endTime) {
+        endTime = Date.now() + (10 * 60 * 1000); // 10 minutes
+        localStorage.setItem(storageKey, endTime);
     }
 
-    document.getElementById('submit-quiz-btn').onclick = () => submitFinalResults(auth.currentUser.uid);
+    timerContainer.style.display = 'block';
 
-    // (Remaining login and history functions from your original code...)
+    const countdown = setInterval(() => {
+        const now = Date.now();
+        const timeLeft = endTime - now;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            display.textContent = "0:00";
+            localStorage.removeItem(storageKey);
+            alert("Time is up!");
+            // Add your submitQuiz() call here
+            return;
+        }
+
+        const minutes = Math.floor(timeLeft / (1000 * 60));
+        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        display.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }, 1000);
+} 
   </script>
 
-  </body>
+  <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const classroomBtn = document.getElementById('classroomBtn');
+    const classroomMenu = document.getElementById('classroomMenu');
+
+    hamburger.addEventListener('click', function() {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('active');
+    });
+
+    const navItems = navLinks.querySelectorAll('.nav-link');
+    navItems.forEach(item => {
+      item.addEventListener('click', function() {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('active');
+      });
+    });
+
+    if(classroomBtn && classroomMenu) {
+        classroomBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          classroomBtn.classList.toggle('active');
+          classroomMenu.classList.toggle('active');
+        });
+
+        document.addEventListener('click', function(e) {
+          if (!e.target.closest('.dropdown-container')) {
+            classroomBtn.classList.remove('active');
+            classroomMenu.classList.remove('active');
+          }
+        });
+
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+          item.addEventListener('click', function() {
+            classroomBtn.classList.remove('active');
+            classroomMenu.classList.remove('active');
+          });
+        });
+    }
+  </script>
+
+</body>
 </html>
