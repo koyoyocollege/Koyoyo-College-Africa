@@ -1076,49 +1076,68 @@
         }
     }
 
-    function displayQuestion() {
-        if (questions.length === 0) {
-            quizContent.innerHTML = "<p>No questions to display.</p>";
-            quizNavigation.style.display = 'none';
-            return;
-        }
+   function displayQuestion() {
+    if (questions.length === 0) {
+        quizContent.innerHTML = "<p>No questions to display.</p>";
+        quizNavigation.style.display = 'none';
+        return;
+    }
 
-        const question = questions[currentQuestionIndex];
-        let optionsHtml = question.options.map((option, index) => `
-            <label>
-                <input type="radio" name="answer" value="${index}" 
-                       ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
-                ${option}
-            </label>
-        `).join('');
+    const question = questions[currentQuestionIndex];
+    let inputHtml = '';
 
-        quizContent.innerHTML = `
-            ${question.imageUrl ? `<img src="${question.imageUrl}" alt="Question image" class="question-image">` : ''}
-            <p class="question-text">${currentQuestionIndex + 1}. ${question.text || question.question}</p>
-            <div class="options-container">${optionsHtml}</div>
+    // LOGIC: If options exist, show radio buttons. If not, show a text area.
+    if (question.options && question.options.length > 0) {
+        // --- OBJECTIVE VIEW ---
+        inputHtml = `<div class="options-container">` + 
+            question.options.map((option, index) => `
+                <label>
+                    <input type="radio" name="answer" value="${index}" 
+                           ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
+                    ${option}
+                </label>
+            `).join('') + `</div>`;
+    } else {
+        // --- THEORY VIEW ---
+        const savedText = (userAnswers[currentQuestionIndex] !== -1) ? userAnswers[currentQuestionIndex] : '';
+        inputHtml = `
+            <div class="theory-container">
+                <textarea id="theory-answer" placeholder="Write your full answer here..." 
+                    style="width: 100%; min-height: 150px; padding: 15px; border: 2px solid var(--gold); border-radius: 8px; background: #1e293b; color: white; font-family: inherit; font-size: 1rem; resize: vertical;"
+                >${savedText}</textarea>
+            </div>
         `;
-
-        // Update navigation button visibility
-        prevQuestionBtn.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
-        nextQuestionBtn.style.display = currentQuestionIndex < questions.length - 1 ? 'block' : 'none';
-        submitQuizBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
-
-        quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
-
-        // NEW: Tell MathJax to render the newly added content
-        if (typeof MathJax !== 'undefined') {
-            MathJax.typesetPromise([quizContent]); // Tell MathJax to typeset only the quizContent div
-        }
     }
 
+    quizContent.innerHTML = `
+        ${question.imageUrl ? `<img src="${question.imageUrl}" alt="Question image" class="question-image">` : ''}
+        <p class="question-text">${currentQuestionIndex + 1}. ${question.text || question.question}</p>
+        ${inputHtml}
+    `;
+
+    // Update navigation button visibility
+    prevQuestionBtn.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
+    nextQuestionBtn.style.display = currentQuestionIndex < questions.length - 1 ? 'block' : 'none';
+    submitQuizBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+
+    quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+    if (typeof MathJax !== 'undefined') {
+        MathJax.typesetPromise([quizContent]);
+    }
+}
     function saveCurrentAnswer() {
+    const question = questions[currentQuestionIndex];
+    
+    // Check if we are saving a radio button selection or a textarea
+    if (question.options && question.options.length > 0) {
         const selectedOption = document.querySelector('input[name="answer"]:checked');
-        if (selectedOption) {
-            userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
-        } else {
-            userAnswers[currentQuestionIndex] = -1; // Indicate no answer selected
-        }
+        userAnswers[currentQuestionIndex] = selectedOption ? parseInt(selectedOption.value) : -1;
+    } else {
+        const theoryBox = document.getElementById('theory-answer');
+        userAnswers[currentQuestionIndex] = theoryBox ? theoryBox.value : "";
     }
+}
 
     prevQuestionBtn.addEventListener('click', () => {
         saveCurrentAnswer(); // Save current answer before moving
@@ -1202,12 +1221,13 @@ async function submitQuizResults() {
             const actualQuizId = new URLSearchParams(window.location.search).get('id') || defaultQuizId;
 
             const resultDocRef = await addDoc(collection(db, "quizResults"), {
-                userId: currentUserId,
-                quizId: actualQuizId, // <--- Using the detected ID here
-                score: score,
-                totalQuestions: questions.length,
-                timestamp: serverTimestamp()
-            });
+    userId: currentUserId,
+    quizId: actualQuizId,
+    score: score, // This will only count the objective ones automatically
+    totalQuestions: questions.length,
+    responses: userAnswers, // This saves the text answers for you to read!
+    timestamp: serverTimestamp()
+});
             console.log("Quiz results saved:", resultDocRef.id);
         } catch (error) {
             console.error("Error saving quiz results:", error);
