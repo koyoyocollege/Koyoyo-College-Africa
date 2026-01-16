@@ -1227,7 +1227,7 @@ async function submitQuizResults() {
     let endTime = localStorage.getItem(storageKey);
 
     if (!endTime) {
-        endTime = Date.now() + (11 * 60 * 1000); // 2 Hours
+        endTime = Date.now() + (120 * 60 * 1000); // 2 Hours
         localStorage.setItem(storageKey, endTime);
     }
 
