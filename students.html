@@ -928,7 +928,7 @@
     </div>
   </header>
 
- <div class="portal-content-wrapper">
+        <div class="portal-content-wrapper" id="login-wrapper">
     <div id="login-container" class="auth-card">
         <h2>Koyoyo Portal Login</h2>
         <form id="login-form">
@@ -942,12 +942,12 @@
         </form>
         <p id="login-error-message"></p>
     </div>
-
-
-   <section class="hero">
-    <h1>Welcome, <span id="user-email-display"></span>!</h1>
-    <p>Access your learning resources, schedules, and important updates all in one place</p>
-</section>
+</div> <div id="dashboard-container" style="display: none;">
+    <div class="container">
+        <section class="hero">
+            <h1>Welcome, <span id="user-email-display"></span>!</h1>
+            <p>Access your learning resources, schedules, and important updates all in one place</p>
+        </section>
 
         <div class="cards-grid">
             <div class="card">
@@ -957,22 +957,10 @@
                 <div class="dropdown-container">
                     <button class="btn btn-dropdown" id="classroomBtn">Select a Class</button>
                     <div class="dropdown-menu" id="classroomMenu">
-                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                            <i class="fas fa-book"></i>
-                            <span>MAWUKO HALL</span>
-                        </a>
-                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                            <i class="fas fa-flask"></i>
-                            <span>MALORFA HALL</span>
-                        </a>
-                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                            <i class="fas fa-globe"></i>
-                            <span>HATSU HALL</span>
-                        </a>
-                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                            <i class="fas fa-microscope"></i>
-                            <span>BRAIDE HALL</span>
-                        </a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item"><i class="fas fa-book"></i> <span>MAWUKO HALL</span></a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item"><i class="fas fa-flask"></i> <span>MALORFA HALL</span></a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item"><i class="fas fa-globe"></i> <span>HATSU HALL</span></a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item"><i class="fas fa-microscope"></i> <span>BRAIDE HALL</span></a>
                     </div>
                 </div>
             </div>
@@ -1010,31 +998,18 @@
                 <h3>Available Quizzes</h3>
                 <p>Select a subject to begin your test.</p>
                 <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="quiz.html?id=Maths Test 1" class="btn" style="text-align: left; padding: 12px;">
-                        <i class="fas fa-calculator"></i> Mathematics Quiz
-                    </a>
-                    <a href="quiz.html?id=WASSCE_English_2025" class="btn" style="text-align: left; padding: 12px;">
-                        <i class="fas fa-book"></i> English Language Quiz
-                    </a>
-                    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" style="text-align: left; padding: 12px;">
-                        <i class="fas fa-flask"></i> Integrated Science Quiz
-                    </a>
-                    <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left; padding: 12px;">
-                        <i class="fas fa-book"></i> ICT Quiz
-                    </a>
+                    <a href="quiz.html?id=Maths Test 1" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-calculator"></i> Mathematics Quiz</a>
+                    <a href="quiz.html?id=WASSCE_English_2025" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> English Language Quiz</a>
+                    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-flask"></i> Integrated Science Quiz</a>
+                    <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> ICT Quiz</a>
                 </div>
             </div>
-        </div> <section class="calendar-section" id="calendar">
+        </div>
+
+        <section class="calendar-section" id="calendar">
             <h2>Academic Calendar</h2>
             <div class="calendar-container">
-                <iframe
-                  src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra"
-                  style="border: 0"
-                  width="100%"
-                  height="600"
-                  frameborder="0"
-                  scrolling="no">
-                </iframe>
+                <iframe src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra" style="border: 0" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
             </div>
         </section>
 
@@ -1043,19 +1018,15 @@
             <p id="quiz-history-message" class="quiz-history-message" style="display:none;">Loading quiz history...</p>
             <table class="quiz-history-table" id="quiz-history-table" style="display:none;">
                 <thead>
-                    <tr>
-                        <th>Quiz</th>
-                        <th>Score</th>
-                        <th>Date</th>
-                    </tr>
+                    <tr><th>Quiz</th><th>Score</th><th>Date</th></tr>
                 </thead>
                 <tbody id="quiz-history-body"></tbody>
             </table>
         </section>
 
         <button id="logout-button" class="btn">Log Out</button>
-    </div> 
-</div>
+    </div>
+</div> 
 
   <footer>
     <div class="footer-container">
