@@ -1176,56 +1176,58 @@
     });
 
     // --- Submit Quiz Logic (UPDATED) ---
-    submitQuizBtn.addEventListener('click', async () => { // Make function async to await Firestore write
-        saveCurrentAnswer(); // Save the answer for the last question
-        
-        let score = 0;
-        for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] === questions[i].correctAnswerIndex) {
-                score++;
-            }
+    // This function handles the actual scoring and saving
+async function submitQuizResults() {
+    saveCurrentAnswer(); // Save the answer for the last question
+    
+    let score = 0;
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].correctAnswerIndex) {
+            score++;
         }
-        
-        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
+    }
+    
+    // UI Updates
+    quizContent.style.display = 'none';
+    quizNavigation.style.display = 'none';
+    quizResultsContainer.style.display = 'block';
+    document.querySelector('#quiz-results .score').textContent = score;
+    document.querySelector('#quiz-results .total-questions').textContent = questions.length;
+    quizAppTitle.textContent = "Quiz Complete!";
 
-        quizContent.style.display = 'none';
-        quizNavigation.style.display = 'none';
-        quizResultsContainer.style.display = 'block';
-        document.querySelector('#quiz-results .score').textContent = score;
-        document.querySelector('#quiz-results .total-questions').textContent = questions.length;
-        quizAppTitle.textContent = "Quiz Complete!";
+    // Save to Firestore
+    if (currentUserId && questions.length > 0) {
+        try {
+            // This detects the actual quiz ID from the URL
+            const actualQuizId = new URLSearchParams(window.location.search).get('id') || defaultQuizId;
 
-        // NEW: Save results to Firestore
-        if (currentUserId && questions.length > 0) {
-            try {
-                const resultDocRef = await addDoc(collection(db, "quizResults"), {
-                    userId: currentUserId,
-                    quizId: defaultQuizId, // Using the quizId that was loaded
-                    score: score,
-                    totalQuestions: questions.length,
-                    timestamp: serverTimestamp(), // Firestore automatically provides a server timestamp
-                    // Optionally, save userAnswers if you need detailed review later:
-                    // userAnswers: userAnswers
-                });
-                console.log("Quiz results saved with ID:", resultDocRef.id);
-            } catch (error) {
-                console.error("Error saving quiz results:", error);
-                quizErrorMessage.textContent = "Error saving quiz results. Please check console.";
-            }
-        } else {
-            console.warn("Could not save quiz results: User not logged in or no questions loaded.");
+            const resultDocRef = await addDoc(collection(db, "quizResults"), {
+                userId: currentUserId,
+                quizId: actualQuizId, // <--- Using the detected ID here
+                score: score,
+                totalQuestions: questions.length,
+                timestamp: serverTimestamp()
+            });
+            console.log("Quiz results saved:", resultDocRef.id);
+        } catch (error) {
+            console.error("Error saving quiz results:", error);
         }
-    });
+    }
+    
+    // Hide the timer because the quiz is over
+    document.getElementById('quiz-timer-container').style.display = 'none';
+}
 
     function startPersistentTimer(quizId, userId) {
     const timerContainer = document.getElementById('quiz-timer-container');
     const display = document.getElementById('timer-display');
     const storageKey = `quiz_end_${userId}_${quizId}`;
-    
+      
+    let hasWarned = false;
     let endTime = localStorage.getItem(storageKey);
 
     if (!endTime) {
-        endTime = Date.now() + (120 * 60 * 1000); // 2 Hours
+        endTime = Date.now() + (11 * 60 * 1000); // 2 Hours
         localStorage.setItem(storageKey, endTime);
     }
 
@@ -1253,7 +1255,7 @@
             display.textContent = "0:00:00";
             localStorage.removeItem(storageKey);
             alert("Time is up!");
-            // Add your submitQuiz() call here
+            submitQuizResults(); 
             return;
         }
 
@@ -1265,6 +1267,8 @@
         display.textContent = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }, 1000);
 }
+    
+  submitQuizBtn.addEventListener('click', submitQuizResults);
   </script>
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
