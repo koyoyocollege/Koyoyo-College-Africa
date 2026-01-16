@@ -1,324 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Quiz – Koyoyo College Africa</title>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quiz – Koyoyo College Africa</title>
+  
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
-  <style>
-    :root {
-      --primary: #0066ff;
-      --accent: #06b6d4;
-      --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.7);
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-dark);
-      background-image: radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 35%),
-                        radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 35%);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #06b6d4;
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+    }
 
-    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 35%);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
 
-    /* Header & Navigation */
-    header {
-      background: rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(10px);
-      padding: 15px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .nav-container { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
 
-    /* Quiz Header/Timer Styles */
-    .quiz-info-bar {
-      margin-top: 40px;
-      padding: 24px;
-      background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(6, 182, 212, 0.3);
-      border-radius: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 90px;
-      z-index: 900;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
-    #timer-display { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent); }
+    header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; }
 
-    /* Question Styles */
-    .question-card {
-      background: var(--card-bg);
-      padding: 30px;
-      border-radius: 16px;
-      margin-top: 25px;
-      border: 1px solid rgba(255,255,255,0.05);
-      transition: transform 0.2s;
-    }
-    .question-card:hover { border-color: rgba(6, 182, 212, 0.3); }
-    .question-text { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; color: white; }
-    
-    .option-label {
-      display: flex;
-      align-items: center;
-      padding: 15px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 10px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .option-label:hover { background: rgba(0, 102, 255, 0.1); border-color: var(--primary); }
-    .option-label input { margin-right: 15px; width: 18px; height: 18px; accent-color: var(--primary); }
+    .quiz-info-bar {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #timer-display { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 700; color: var(--accent); }
 
-    /* Buttons */
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;
-      transition: all 0.3s; border: none; font-family: 'Outfit', sans-serif;
-    }
-    .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; width: 100%; font-size: 1.2rem; margin: 40px 0 100px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.3); }
+    /* Stepper View Styling */
+    .question-step { 
+      display: none; 
+      background: var(--card-bg); 
+      padding: 35px; 
+      border-radius: 16px; 
+      margin-top: 20px; 
+      border: 1px solid rgba(255,255,255,0.05); 
+      min-height: 300px;
+    }
+    .question-step.active { display: block; animation: slideIn 0.3s ease-out; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-    /* Login Box (Keep same as dashboard) */
-    .login-wrapper { min-height: 80vh; display: flex; align-items: center; justify-content: center; }
-    .login-box { background: var(--card-bg); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-    .login-box input { width: 100%; padding: 12px; margin-bottom: 20px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; }
-    
-    #loading-overlay { text-align: center; margin-top: 100px; }
-  </style>
+    .question-text { font-size: 1.3rem; font-weight: 600; margin-bottom: 25px; line-height: 1.6; }
+    
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .option-label:hover { background: rgba(0, 102, 255, 0.1); border-color: var(--primary); }
+    .option-label input { margin-right: 15px; transform: scale(1.2); accent-color: var(--primary); }
+
+    .nav-btns { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
+    .btn { 
+      padding: 14px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; 
+      border: none; font-family: 'Outfit', sans-serif; transition: 0.3s; 
+    }
+    .btn-next { background: var(--primary); color: white; flex: 1; }
+    .btn-prev { background: #334155; color: white; }
+    .btn-submit { background: #10b981; color: white; flex: 1; display: none; }
+
+    #progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin-top: 15px; overflow: hidden; }
+    #progress-fill { height: 100%; background: var(--accent); width: 0%; transition: width 0.3s; }
+
+    .login-box { background: var(--card-bg); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; margin: 100px auto; border: 1px solid rgba(255,255,255,0.1); }
+    .login-box input { width: 100%; padding: 12px; margin-bottom: 15px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 8px; }
+  </style>
 </head>
 <body>
 
-  <header>
-    <div class="container nav-container">
-      <a href="students.html" class="logo">
-        <i class="fas fa-graduation-cap"></i>
-        <span>KOYOYO <span style="color: var(--primary)">QUIZ</span></span>
-      </a>
-    </div>
-  </header>
+  <header><div class="container"><a href="students.html" class="logo">KOYOYO <span style="color:var(--primary)">QUIZ</span></a></div></header>
 
-  <div id="login-root" class="login-wrapper">
-    <div class="login-box">
-      <h2 style="text-align:center; margin-bottom:20px;">Student Login</h2>
-      <form id="login-form">
-        <input type="email" id="email" placeholder="Student Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button type="submit" class="btn" style="background: var(--primary); color: white; width: 100%;">Enter Quiz Room</button>
-        <p id="login-error-message" style="color: #ef4444; margin-top: 10px; text-align: center;"></p>
-      </form>
-    </div>
-  </div>
+  <div id="login-root">
+    <div class="login-box">
+      <h2 style="text-align:center; margin-bottom:20px;">Student Login</h2>
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit" class="btn btn-next" style="width:100%">Enter Quiz</button>
+      </form>
+    </div>
+  </div>
 
-  <div id="dashboard-container" style="display: none;">
-    <div class="container">
-      <div class="quiz-info-bar">
-        <div>
-          <h2 id="quiz-title-display" style="color: white; margin:0;">Quiz Session</h2>
-          <p id="user-email-display" style="color: var(--text-secondary); margin:0; font-size: 0.9rem;"></p>
-        </div>
-        <div style="text-align: right;">
-          <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Time Left</div>
-          <div id="timer-display">10:00</div>
-        </div>
-      </div>
+  <div id="dashboard-container" style="display: none;">
+    <div class="container">
+      <div class="quiz-info-bar">
+        <div>
+          <h2 id="quiz-title-display" style="font-size:1.1rem; color: white;">Quiz</h2>
+          <span id="q-counter" style="font-size: 0.8rem; color: var(--text-secondary);">Question 1 of ...</span>
+        </div>
+        <div id="timer-display">10:00</div>
+      </div>
+      <div id="progress-bar"><div id="progress-fill"></div></div>
 
-      <div id="loading-overlay">
-        <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary)"></i>
-        <p style="margin-top: 15px;">Loading your questions...</p>
-      </div>
+      <form id="quiz-form">
+        <div id="questions-container"></div>
+        <div class="nav-btns" id="quiz-navigation" style="display:none;">
+          <button type="button" id="prev-btn" class="btn btn-prev">Previous</button>
+          <button type="button" id="next-btn" class="btn btn-next">Next Question</button>
+          <button type="submit" id="submit-btn" class="btn btn-submit">Finish & Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-      <form id="quiz-form">
-        <div id="questions-container"></div>
-        <button type="submit" id="submit-btn" class="btn btn-submit" style="display: none;">Submit My Answers</button>
-      </form>
-    </div>
-  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
+    import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
+      authDomain: "koyoyocollegeafrica.firebaseapp.com",
+      projectId: "koyoyocollegeafrica",
+      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
+      messagingSenderId: "501491274694",
+      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7"
+    };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
-      authDomain: "koyoyocollegeafrica.firebaseapp.com",
-      projectId: "koyoyocollegeafrica",
-      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
-      messagingSenderId: "501491274694",
-      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7"
-    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+    let currentStep = 0;
+    let quizData = [];
+    const urlParams = new URLSearchParams(window.location.search);
+    const quizId = urlParams.get('id');
 
-    let timeLeft = 600; 
-    let timerInterval;
-    let quizData = [];
-    const urlParams = new URLSearchParams(window.location.search);
-    const quizId = urlParams.get('id');
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById('login-root').style.display = 'none';
+        document.getElementById('dashboard-container').style.display = 'block';
+        if(quizId) fetchQuestions(user.uid);
+      }
+    });
 
-    // 1. Authentication Logic
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        document.getElementById('login-root').style.display = 'none';
-        document.getElementById('dashboard-container').style.display = 'block';
-        document.getElementById('user-email-display').textContent = user.email;
-        if(quizId) {
-          fetchQuestions(user.uid);
-        } else {
-          alert("No quiz selected. Returning to portal.");
-          window.location.href = "students.html";
-        }
-      } else {
-        document.getElementById('login-root').style.display = 'flex';
-        document.getElementById('dashboard-container').style.display = 'none';
-      }
-    });
+    async function fetchQuestions(userId) {
+      const q = query(collection(db, "questions"), where("quizId", "==", quizId));
+      const querySnapshot = await getDocs(q);
+      const container = document.getElementById('questions-container');
+      
+      querySnapshot.forEach((doc, index) => {
+        const data = doc.data();
+        quizData.push(data);
+        const stepDiv = document.createElement('div');
+        stepDiv.className = `question-step ${index === 0 ? 'active' : ''}`;
+        stepDiv.id = `step-${index}`;
+        stepDiv.innerHTML = `
+          <div class="question-text">${data.question}</div>
+          ${data.options.map(opt => `
+            <label class="option-label">
+              <input type="radio" name="q${index}" value="${opt}" required> <span>${opt}</span>
+            </label>
+          `).join('')}
+        `;
+        container.appendChild(stepDiv);
+      });
 
-    // 2. Fetch Questions from Firebase
-    async function fetchQuestions(userId) {
-      try {
-        const q = query(collection(db, "questions"), where("quizId", "==", quizId));
-        const querySnapshot = await getDocs(q);
-        const container = document.getElementById('questions-container');
-        
-        document.getElementById('quiz-title-display').textContent = quizId;
-        document.getElementById('loading-overlay').style.display = 'none';
-        document.getElementById('submit-btn').style.display = 'flex';
-        
-        if (querySnapshot.empty) {
-            container.innerHTML = `<p style="text-align:center; margin-top:50px;">No questions found for this quiz.</p>`;
-            return;
-        }
+      document.getElementById('quiz-title-display').textContent = quizId;
+      document.getElementById('quiz-navigation').style.display = 'flex';
+      showStep(0);
+      startTimer(userId);
+    }
 
-        querySnapshot.forEach((doc, index) => {
-          const data = doc.data();
-          quizData.push({ id: doc.id, ...data });
+    function showStep(step) {
+      document.querySelectorAll('.question-step').forEach(el => el.classList.remove('active'));
+      const activeCard = document.getElementById(`step-${step}`);
+      if(activeCard) activeCard.classList.add('active');
+      
+      currentStep = step;
+      document.getElementById('q-counter').textContent = `Question ${step + 1} of ${quizData.length}`;
+      document.getElementById('prev-btn').style.visibility = step === 0 ? 'hidden' : 'visible';
+      
+      if (step === quizData.length - 1) {
+        document.getElementById('next-btn').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'block';
+      } else {
+        document.getElementById('next-btn').style.display = 'block';
+        document.getElementById('submit-btn').style.display = 'none';
+      }
+      
+      const fill = document.getElementById('progress-fill');
+      fill.style.width = ((step + 1) / quizData.length * 100) + '%';
 
-          const card = document.createElement('div');
-          card.className = 'question-card';
-          card.innerHTML = `
-            <div class="question-text">${index + 1}. ${data.question}</div>
-            <div class="options-list">
-              ${data.options.map(opt => `
-                <label class="option-label">
-                  <input type="radio" name="q${index}" value="${opt}" required>
-                  <span>${opt}</span>
-                </label>
-              `).join('')}
-            </div>
-          `;
-          container.appendChild(card);
-        });
+      // LaTeX re-render command
+      if (window.MathJax && window.MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    }
 
-        startTimer(userId);
-      } catch (err) {
-        console.error(err);
-        alert("Error loading questions.");
-      }
-    }
+    document.getElementById('next-btn').onclick = () => { if(currentStep < quizData.length - 1) showStep(currentStep + 1); };
+    document.getElementById('prev-btn').onclick = () => { if(currentStep > 0) showStep(currentStep - 1); };
 
-    // 3. Timer Logic
-    function startTimer(userId) {
-    const display = document.getElementById('timer-display');
-    
-    // 1. Check if there is already a saved end time for this quiz
-    let quizEndTime = localStorage.getItem(`quiz_end_${quizId}`);
+    function startTimer(userId) {
+        const display = document.getElementById('timer-display');
+        let quizEndTime = localStorage.getItem(`quiz_end_${quizId}`);
 
-    if (!quizEndTime) {
-        // If no end time exists, set it to 10 minutes from NOW
-        quizEndTime = Date.now() + (10 * 60 * 1000); 
-        localStorage.setItem(`quiz_end_${quizId}`, quizEndTime);
-    }
+        if (!quizEndTime) {
+            quizEndTime = Date.now() + (10 * 60 * 1000); 
+            localStorage.setItem(`quiz_end_${quizId}`, quizEndTime);
+        }
 
-    timerInterval = setInterval(() => {
-        const currentTime = Date.now();
-        const remainingMs = quizEndTime - currentTime;
-        
-        // Calculate remaining seconds
-        timeLeft = Math.floor(remainingMs / 1000);
+        const timerInt = setInterval(() => {
+            let timeLeft = Math.floor((quizEndTime - Date.now()) / 1000);
+            if (timeLeft <= 0) {
+                clearInterval(timerInt);
+                localStorage.removeItem(`quiz_end_${quizId}`);
+                processSubmission(userId);
+            }
+            const m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+            display.textContent = `${m}:${s < 10 ? '0' : ''}${s}`;
+            if (timeLeft <= 60) display.style.color = "#ef4444";
+        }, 1000);
+    }
 
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            localStorage.removeItem(`quiz_end_${quizId}`); // Clear the timer
-            display.textContent = "0:00";
-            alert("Time's up! Submitting your work.");
-            processSubmission(userId);
-            return;
-        }
+    async function processSubmission(userId) {
+      localStorage.removeItem(`quiz_end_${quizId}`);
+      let score = 0;
+      quizData.forEach((q, i) => {
+        const sel = document.querySelector(`input[name="q${i}"]:checked`)?.value;
+        if(sel === q.answer) score++;
+      });
+      await addDoc(collection(db, "quizResults"), { 
+        userId, 
+        quizId, 
+        score, 
+        totalQuestions: quizData.length, 
+        timestamp: serverTimestamp() 
+      });
+      window.location.href = "students.html";
+    }
 
-        const mins = Math.floor(timeLeft / 60);
-        const secs = timeLeft % 60;
-        display.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    document.getElementById('quiz-form').onsubmit = (e) => {
+      e.preventDefault();
+      if(confirm("Are you sure you want to submit?")) processSubmission(auth.currentUser.uid);
+    };
 
-        if (timeLeft <= 60) display.style.color = "#ef4444";
-    }, 1000);
-}
-
-// Update your processSubmission to clear the storage when they finish early
-async function processSubmission(userId) {
-    localStorage.removeItem(`quiz_end_${quizId}`);
-      let score = 0;
-      const form = document.getElementById('quiz-form');
-      
-      quizData.forEach((q, index) => {
-        const selected = form.elements[`q${index}`].value;
-        if (selected === q.answer) score++;
-      });
-
-      try {
-        await addDoc(collection(db, "quizResults"), {
-          userId: userId,
-          quizId: quizId,
-          score: score,
-          totalQuestions: quizData.length,
-          timestamp: serverTimestamp()
-        });
-        alert(`Quiz Submitted! Score: ${score}/${quizData.length}`);
-        window.location.href = "students.html";
-      } catch (err) {
-        console.error(err);
-        alert("Submission failed, but your score was calculated.");
-      }
-    }
-
-    // Listeners
-    document.getElementById('login-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const pass = document.getElementById('password').value;
-      signInWithEmailAndPassword(auth, email, pass).catch(err => {
-        document.getElementById('login-error-message').textContent = "Login Failed: " + err.message;
-      });
-    });
-
-    document.getElementById('quiz-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      if(confirm("Submit your answers?")) {
-        clearInterval(timerInterval);
-        processSubmission(auth.currentUser.uid);
-      }
-    });
-  </script>
+    document.getElementById('login-form').onsubmit = (e) => {
+      e.preventDefault();
+      signInWithEmailAndPassword(auth, document.getElementById('email').value, document.getElementById('password').value);
+    };
+  </script>
 </body>
 </html>
