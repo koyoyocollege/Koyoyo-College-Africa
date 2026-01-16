@@ -638,10 +638,13 @@
         font-size: 2rem;
       }
 
-      .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
+      .cards-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 25px; 
+  margin-bottom: 40px; 
+  width: 100%; /* Ensures it uses the full container width */
+} 
 
       .calendar-container iframe {
         height: 400px;
@@ -695,13 +698,13 @@
     }
 
     /* NEW STYLES FOR LOGIN/DASHBOARD */
-    .portal-content-wrapper {
-        min-height: calc(100vh - 70px - 100px); /* Adjust based on header/footer height */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 28px;
-    }
+   .portal-content-wrapper { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 60vh; /* This ensures it only takes up part of the screen */
+  padding: 20px; 
+}
 
     .auth-card {
         background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.5) 100%);
@@ -925,8 +928,7 @@
     </div>
   </header>
 
-  <div class="portal-content-wrapper">
-    <!-- Login Form Section -->
+ <div class="portal-content-wrapper">
     <div id="login-container" class="auth-card">
         <h2>Koyoyo Portal Login</h2>
         <form id="login-form">
@@ -940,106 +942,96 @@
         </form>
         <p id="login-error-message"></p>
     </div>
+</div> <div id="dashboard-container" style="display: none;">
+    <div class="dashboard-info">
+        <h2>Welcome, <span id="user-email-display"></span>!</h2>
+        <p>Access your learning resources, schedules, and important updates all in one place.</p>
+    </div>
 
-    <!-- Dashboard Section (Initially Hidden) - Contains ALL previous content for students.html -->
-    <div id="dashboard-container" style="display: none;">
-        <div class="dashboard-info">
-            <h2>Welcome, <span id="user-email-display"></span>!</h2>
-            <p>Access your learning resources, schedules, and important updates all in one place.</p>
-        </div>
+    <div class="container">
+        <section class="hero">
+            <h1>Students Portal</h1>
+            <p>Access your learning resources, schedules, and important updates all in one place</p>
+        </section>
 
-        <!-- ORIGINAL content of students.html's .container starts here -->
-        <div class="container">
-            <section class="hero">
-              <h1>Students Portal</h1>
-              <p>Access your learning resources, schedules, and important updates all in one place</p>
-            </section>
-
-            <div class="cards-grid">
-              <div class="card">
+        <div class="cards-grid">
+            <div class="card">
                 <div class="card-icon"><i class="fas fa-chalkboard"></i></div>
                 <h3>Google Classroom</h3>
                 <p>Join your virtual classes and stay updated with assignments.</p>
                 <div class="dropdown-container">
-                  <button class="btn btn-dropdown" id="classroomBtn">Select a Class</button>
-                  <div class="dropdown-menu" id="classroomMenu">
-                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                      <i class="fas fa-book"></i>
-                      <span>MAWUKO HALL</span>
-                    </a>
-                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                      <i class="fas fa-flask"></i>
-                      <span>MALORFA HALL</span>
-                    </a>
-                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                      <i class="fas fa-globe"></i>
-                      <span>HATSU HALL</span>
-                    </a>
-                    <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
-                      <i class="fas fa-microscope"></i>
-                      <span>BRAIDE HALL</span>
-                    </a>
-                  </div>
+                    <button class="btn btn-dropdown" id="classroomBtn">Select a Class</button>
+                    <div class="dropdown-menu" id="classroomMenu">
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                            <i class="fas fa-book"></i>
+                            <span>MAWUKO HALL</span>
+                        </a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                            <i class="fas fa-flask"></i>
+                            <span>MALORFA HALL</span>
+                        </a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                            <i class="fas fa-globe"></i>
+                            <span>HATSU HALL</span>
+                        </a>
+                        <a href="https://classroom.google.com/c/NzgxMTY2OTkxNjk5?cjc=tvge6i63" target="_blank" class="dropdown-item">
+                            <i class="fas fa-microscope"></i>
+                            <span>BRAIDE HALL</span>
+                        </a>
+                    </div>
                 </div>
-              </div>
+            </div>
 
-              <div class="card">
+            <div class="card">
                 <div class="card-icon"><i class="fas fa-folder-open"></i></div>
                 <h3>Google Drive Resources</h3>
                 <p>Access study materials, past papers, and notes anytime.</p>
                 <a href="https://curriculumresources.edu.gh/year1/" target="_blank" class="btn">Open Drive</a>
-              </div>
+            </div>
 
-              <div class="card">
+            <div class="card">
                 <div class="card-icon"><i class="fas fa-file-alt"></i></div>
                 <h3>WASSCE Appeal</h3>
                 <p>Resolve any issues with your past WASSCE exam.</p>
                 <a href="https://forms.gle/beQ3WhHHzoR2PaCT8" target="_blank" class="btn">Fill the Form</a>
-              </div>
+            </div>
 
-              <div class="card">
+            <div class="card">
                 <div class="card-icon"><i class="fas fa-calendar-alt"></i></div>
                 <h3>Calendar</h3>
                 <p>View upcoming exams, holidays, and school events.</p>
                 <a href="#calendar" class="btn secondary">View Calendar</a>
-              </div>
+            </div>
 
-              <div class="card">
+            <div class="card">
                 <div class="card-icon"><i class="fas fa-book"></i></div>
                 <h3>Important Documents</h3>
                 <p>Download the handbook, rules, and exam guidelines.</p>
                 <a href="#" class="btn">View Documents</a>
-              </div>
+            </div>
 
-              <!-- NEW: Take Quiz Card -->
-              <div class="card">
-  <div class="card-icon"><i class="fas fa-question-circle"></i></div>
-  <h3>Available Quizzes</h3>
-  <p>Select a subject to begin your test.</p>
-  
-  <div style="display: flex; flex-direction: column; gap: 10px;">
-    <a href="quiz.html?id=Maths Test 1" class="btn" style="text-align: left; padding: 12px;">
-      <i class="fas fa-calculator"></i> Mathematics Quiz
-    </a>
-
-    <a href="quiz.html?id=WASSCE_English_2025" class="btn" style="text-align: left; padding: 12px;">
-      <i class="fas fa-book"></i> English Language Quiz
-    </a>
-
-    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" style="text-align: left; padding: 12px;">
-      <i class="fas fa-flask"></i> Integrated Science Quiz
-    </a>
-    
-    <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left; padding: 12px;">
-      <i class="fas fa-book"></i> ICT Quiz
-    </a>
-    
-  </div>
-</div>
-
-            <section class="calendar-section" id="calendar">
-              <h2>Academic Calendar</h2>
-              <div class="calendar-container">
+            <div class="card">
+                <div class="card-icon"><i class="fas fa-question-circle"></i></div>
+                <h3>Available Quizzes</h3>
+                <p>Select a subject to begin your test.</p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="quiz.html?id=Maths Test 1" class="btn" style="text-align: left; padding: 12px;">
+                        <i class="fas fa-calculator"></i> Mathematics Quiz
+                    </a>
+                    <a href="quiz.html?id=WASSCE_English_2025" class="btn" style="text-align: left; padding: 12px;">
+                        <i class="fas fa-book"></i> English Language Quiz
+                    </a>
+                    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" style="text-align: left; padding: 12px;">
+                        <i class="fas fa-flask"></i> Integrated Science Quiz
+                    </a>
+                    <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left; padding: 12px;">
+                        <i class="fas fa-book"></i> ICT Quiz
+                    </a>
+                </div>
+            </div>
+        </div> <section class="calendar-section" id="calendar">
+            <h2>Academic Calendar</h2>
+            <div class="calendar-container">
                 <iframe
                   src="https://calendar.google.com/calendar/embed?src=koyoyocollege%40gmail.com&ctz=Africa%2FAccra"
                   style="border: 0"
@@ -1048,32 +1040,27 @@
                   frameborder="0"
                   scrolling="no">
                 </iframe>
-              </div>
-            </section>
+            </div>
+        </section>
 
-            <!-- NEW: Quiz History Section -->
-            <section class="quiz-history-section">
-                <h3>Your Quiz History</h3>
-                <p id="quiz-history-message" class="quiz-history-message" style="display:none;">Loading quiz history...</p>
-                <table class="quiz-history-table" id="quiz-history-table" style="display:none;">
-                    <thead>
-                        <tr>
-                            <th>Quiz</th>
-                            <th>Score</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody id="quiz-history-body">
-                        <!-- Quiz results will be dynamically loaded here -->
-                    </tbody>
-                </table>
-            </section>
-        </div>
-        <!-- ORIGINAL content of students.html's .container ends here -->
+        <section class="quiz-history-section">
+            <h3>Your Quiz History</h3>
+            <p id="quiz-history-message" class="quiz-history-message" style="display:none;">Loading quiz history...</p>
+            <table class="quiz-history-table" id="quiz-history-table" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>Quiz</th>
+                        <th>Score</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="quiz-history-body"></tbody>
+            </table>
+        </section>
 
         <button id="logout-button" class="btn">Log Out</button>
-    </div>
-  </div>
+    </div> 
+</div>
 
   <footer>
     <div class="footer-container">
