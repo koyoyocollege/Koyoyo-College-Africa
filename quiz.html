@@ -932,7 +932,7 @@
 <body>
   <div id="quiz-timer-container">
     <div style="font-size: 0.7rem; color: #cbd5e1; letter-spacing: 1px; margin-bottom: 4px;">TIME REMAINING</div>
-    <div id="timer-display">120:00</div>
+    <div id="timer-display">2:00:00</div>
 </div>
   <header>
     <div class="header-content">
@@ -1225,7 +1225,7 @@
     let endTime = localStorage.getItem(storageKey);
 
     if (!endTime) {
-        endTime = Date.now() + (10 * 60 * 1000); // 10 minutes
+        endTime = Date.now() + (120 * 60 * 1000); // 2 Hours
         localStorage.setItem(storageKey, endTime);
     }
 
@@ -1235,20 +1235,36 @@
         const now = Date.now();
         const timeLeft = endTime - now;
 
+        // --- 1. RED ALERT LOGIC ---
+        // 10 minutes = 600,000 milliseconds
+        if (timeLeft <= 600000) { 
+            display.style.color = "#ff4444"; // Set text to RED
+            display.style.fontWeight = "bold";
+
+            // Trigger alert only once when the threshold is first hit
+            if (!hasWarned && timeLeft > 598000) { 
+                hasWarned = true;
+                alert("⚠️ Warning: You have 10 minutes remaining!");
+            }
+        }
+
         if (timeLeft <= 0) {
             clearInterval(countdown);
-            display.textContent = "0:00";
+            display.textContent = "0:00:00";
             localStorage.removeItem(storageKey);
             alert("Time is up!");
             // Add your submitQuiz() call here
             return;
         }
 
-        const minutes = Math.floor(timeLeft / (1000 * 60));
+        // --- 2. UPDATED DISPLAY FOR 2 HOURS (H:MM:SS) ---
+        const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        display.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        display.textContent = `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     }, 1000);
-} 
+}
   </script>
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
