@@ -1132,8 +1132,6 @@
                 const date = result.timestamp ? result.timestamp.toDate().toLocaleDateString() : 'N/A';
                 const time = result.timestamp ? result.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
                 
-                const row = quizHistoryBody.insertRow();
-                // ✅ We use hardcoded colors here for maximum visibility
                const row = quizHistoryBody.insertRow();
                 // ✅ Forced white and cyan colors for maximum contrast
                 row.innerHTML = `
