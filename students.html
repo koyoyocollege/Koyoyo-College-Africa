@@ -1056,7 +1056,6 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    // NEW IMPORTS FOR QUIZ HISTORY: query, where, orderBy, getDocs
     import { getFirestore, doc, getDoc, collection, query, where, orderBy, getDocs } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
     const firebaseConfig = {
@@ -1070,52 +1069,45 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // Get references to HTML elements
+    // ✅ FIXED: Correctly defined all variables at the top
+    const loginRoot = document.getElementById('login-root');
     const loginForm = document.getElementById('login-form');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const errorMessage = document.getElementById('login-error-message');
-    const loginContainer = document.getElementById('login-container');
     const dashboardContainer = document.getElementById('dashboard-container');
     const userEmailDisplay = document.getElementById('user-email-display');
     const logoutButton = document.getElementById('logout-button');
-    const loginRoot = document.getElementById('login-root');
-    // NEW: References for Quiz History elements
     const quizHistoryMessage = document.getElementById('quiz-history-message');
     const quizHistoryTable = document.getElementById('quiz-history-table');
     const quizHistoryBody = document.getElementById('quiz-history-body');
 
-
-    // Function to load and display quiz history
     async function loadQuizHistory(userId) {
         quizHistoryMessage.textContent = "Loading quiz history...";
         quizHistoryMessage.style.display = 'block';
         quizHistoryTable.style.display = 'none';
-        quizHistoryBody.innerHTML = ''; // Clear previous results
+        quizHistoryBody.innerHTML = ''; 
 
         try {
             const q = query(
                 collection(db, "quizResults"),
                 where("userId", "==", userId),
-                orderBy("timestamp", "desc") // Order by newest first
+                orderBy("timestamp", "desc")
             );
             const querySnapshot = await getDocs(q);
 
             if (querySnapshot.empty) {
                 quizHistoryMessage.textContent = "No quiz history found yet.";
-                quizHistoryMessage.style.display = 'block';
             } else {
                 quizHistoryMessage.style.display = 'none';
-                quizHistoryTable.style.display = 'table'; // Show table
+                quizHistoryTable.style.display = 'table';
                 querySnapshot.forEach((doc) => {
                     const result = doc.data();
                     const date = result.timestamp ? result.timestamp.toDate().toLocaleDateString() : 'N/A';
                     const time = result.timestamp ? result.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
-
                     const row = quizHistoryBody.insertRow();
                     row.innerHTML = `
                         <td data-label="Quiz">${result.quizId || 'Unknown Quiz'}</td>
@@ -1125,23 +1117,21 @@
                 });
             }
         } catch (error) {
-            console.error("Error loading quiz history:", error);
+            console.error("Error loading history:", error);
             quizHistoryMessage.textContent = "Error loading quiz history.";
-            quizHistoryMessage.style.display = 'block';
         }
     }
 
-
-    // Function to update UI based on login state
-   const updateUI = async (user) => {
+    // ✅ FIXED: Cleaned up the updateUI function (removed double braces)
+    const updateUI = async (user) => {
         if (user) {
-            // ✅ Hide the whole login area (Removes the top space)
-            if (loginRoot) loginRoot.style.display = 'none'; 
+            // Logged In: Remove login space entirely
+            if (loginRoot) loginRoot.style.display = 'none';
             dashboardContainer.style.display = 'block';
 
-            // Fetch user data from Firestore
-            const userDocRef = doc(db, "users", user.uid);
-            const userSnap = await getDoc(userDocRef);
+            // Fetch username
+            const userRef = doc(db, 'users', user.uid);
+            const userSnap = await getDoc(userRef);
 
             if (userSnap.exists()) {
                 const userData = userSnap.data();
@@ -1151,9 +1141,8 @@
             }
 
             loadQuizHistory(user.uid);
-
         } else {
-            // ❌ Show the login area when logged out
+            // Logged Out: Show login space
             if (loginRoot) loginRoot.style.display = 'block';
             dashboardContainer.style.display = 'none';
             userEmailDisplay.textContent = ''; 
@@ -1162,73 +1151,32 @@
             passwordInput.value = '';
         }
     };
-            // Fetch username from Firestore
-            const userRef = doc(db, 'users', user.uid);
-            const userSnap = await getDoc(userRef);
 
-            if (userSnap.exists()) {
-                const userData = userSnap.data();
-                userEmailDisplay.textContent = userData.username || user.email; // Display username if available, else email
-                console.log("Logged in as:", userData.username || user.email);
-            } else {
-                console.warn("User profile not found in Firestore for UID:", user.uid, ". Displaying email instead.");
-                userEmailDisplay.textContent = user.email;
-            }
-
-            // NEW: Load quiz history for the logged-in user
-            loadQuizHistory(user.uid);
-
-    }else {
-            // No user is logged in
-            loginContainer.style.display = 'block';
-            dashboardContainer.style.display = 'none';
-            userEmailDisplay.textContent = ''; // Clear email display
-            errorMessage.textContent = ''; // Clear any previous login errors
-            emailInput.value = ''; // Clear form fields
-            passwordInput.value = '';
-        }
-    };
-
-    // Listen for authentication state changes (handles page load and login/logout)
     onAuthStateChanged(auth, (user) => {
         updateUI(user);
     });
 
-    // Event Listener for Login Form Submission
     loginForm.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Prevent default form submission and page reload
-
+        e.preventDefault();
         const email = emailInput.value;
         const password = passwordInput.value;
-        errorMessage.textContent = ''; // Clear previous errors
+        errorMessage.textContent = '';
 
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            // The onAuthStateChanged listener above will handle updating the UI and loading quiz history
-            console.log("User logged in (Auth success).");
+            await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
-            console.error("Login failed:", error.code, error.message);
-            let userFacingMessage = "Login failed. Please check your email and password.";
-            if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
-                userFacingMessage = "Invalid email or password.";
-            } else if (error.code === 'auth/too-many-requests') {
-                userFacingMessage = "Too many failed login attempts. Please try again later.";
-            }
-            errorMessage.textContent = userFacingMessage;
+            errorMessage.textContent = "Invalid email or password.";
         }
     });
 
-    // Event Listener for Logout Button
     logoutButton.addEventListener('click', async () => {
         try {
             await signOut(auth);
-            // The onAuthStateChanged listener above will handle updating the UI
-            console.log("User logged out.");
         } catch (error) {
             console.error("Logout failed:", error);
         }
     });
-  </script>
+  </script> 
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
   <script>
