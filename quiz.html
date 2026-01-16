@@ -1,1241 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Quiz Page – Koyoyo College Africa</title>
-
-  <!-- Re-use your main styling -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* Paste ALL of the <style> content from your students.html here,
-       INCLUDING the `:root`, `body`, `.container`, `header`, `footer`,
-       and all card/button styles. This ensures quiz.html looks consistent. */
-
-    :root {
-      --primary: #0066ff;
-      --secondary: #7c3aed;
-      --background: #0f172a;
-      --surface: rgba(30, 41, 59, 0.7);
-      --surface-light: rgba(51, 65, 85, 0.5);
-      --text-primary: #f1f5f9;
-      --text-secondary: #cbd5e1;
-      --accent: #06b6d4;
-      --gold: #fbbf24;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', Arial, sans-serif;
-      background: linear-gradient(135deg, var(--background) 0%, #1a1f3a 100%);
-      color: var(--text-primary);
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 28px;
-    }
-
-    header {
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 58, 138, 0.95));
-      backdrop-filter: blur(10px);
-      padding: 16px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      border-bottom: 1px solid rgba(96, 165, 250, 0.2);
-    }
-
-    .header-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo-section {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .logo-img {
-      width: 45px;
-      height: 45px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .logo-text {
-      color: white;
-      font-size: 1.2em;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #60a5fa, #a78bfa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 4px;
-    }
-
-    .nav-link {
-      color: #e0e7ff;
-      text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-weight: 500;
-      font-size: 0.95em;
-      transition: all 0.3s ease;
-    }
-
-    .nav-link:hover, .nav-link.active {
-      color: #60a5fa;
-      background: rgba(96, 165, 250, 0.1);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: #60a5fa;
-      border-radius: 1px;
-      transition: all 0.3s ease;
-    }
-
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(10px, 10px);
-    }
-
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(7px, -7px);
-    }
-
-    @media (max-width: 768px) {
-      .hamburger {
-        display: flex;
-      }
-
-      .nav-links {
-        position: fixed;
-        top: 70px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 58, 138, 0.98));
-        backdrop-filter: blur(20px);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-        border-bottom: 1px solid rgba(96, 165, 250, 0.2);
-      }
-
-      .nav-links.active {
-        max-height: 400px;
-      }
-
-      .nav-link {
-        padding: 14px 20px;
-        border-radius: 0;
-        border-bottom: 1px solid rgba(96, 165, 250, 0.1);
-      }
-    }
-
-    .hero {
-      background: linear-gradient(135deg, var(--surface) 0%, rgba(51, 65, 85, 0.3) 100%),
-                  url('https://i.imgur.com/ZuXOyGn.png') center/cover no-repeat;
-      background-attachment: fixed;
-      backdrop-filter: blur(30px);
-      border: 2px solid transparent;
-      background-clip: padding-box;
-      border-image: linear-gradient(135deg, rgba(6, 182, 212, 0.5) 0%, rgba(0, 102, 255, 0.5) 100%) 1;
-      border-radius: 20px;
-      padding: 60px 40px;
-      text-align: center;
-      margin-bottom: 60px;
-      margin-top: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      animation: fadeInDown 0.8s ease;
-      min-height: 400px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    @keyframes fadeInDown {
-      0% {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes popUp {
-      0% {
-        opacity: 0;
-        transform: translateY(40px) scale(0.85);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    @keyframes slideInUp {
-      0% {
-        opacity: 0;
-        transform: translateY(60px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slideUp {
-      0% {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hero h1 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.5px;
-    }
-
-    .hero p {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin: 60px 0;
-    }
-
-    .card {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.4) 100%);
-      backdrop-filter: blur(25px);
-      border: 1.5px solid rgba(6, 182, 212, 0.2);
-      border-radius: 16px;
-      padding: 32px 24px;
-      text-align: center;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      opacity: 0;
-      animation: popUp 0.6s ease forwards;
-      position: relative;
-      overflow: visible;
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1) 0%, rgba(0, 102, 255, 0.05) 100%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-      border-radius: 16px;
-    }
-
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
-    .card:nth-child(4) { animation-delay: 0.4s; }
-    .card:nth-child(5) { animation-delay: 0.5s; }
-    .card:nth-child(6) { animation-delay: 0.6s; } /* For the new quiz card */
-
-
-    .card:hover {
-      background: linear-gradient(135deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 0.6) 100%);
-      border-color: rgba(6, 182, 212, 0.6);
-      transform: translateY(-12px) scale(1.02);
-      box-shadow: 0 25px 70px rgba(6, 182, 212, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card-icon {
-      font-size: 2.5rem;
-      color: var(--accent);
-      margin-bottom: 16px;
-      transition: all 0.4s ease;
-    }
-
-    .card:hover .card-icon {
-      transform: scale(1.2) rotate(5deg);
-      color: var(--primary);
-      filter: drop-shadow(0 0 10px rgba(0, 102, 255, 0.4));
-    }
-
-    .card h3 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.3rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text-primary);
-      transition: color 0.3s ease;
-    }
-
-    .card:hover h3 {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 20px;
-    }
-
-    .dropdown-container {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-    }
-
-    .btn {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-      color: #fff;
-      padding: 10px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      box-shadow: 0 8px 20px rgba(0, 102, 255, 0.2);
-      width: 100%;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(0, 102, 255, 0.4);
-    }
-
-    .btn.secondary {
-      background: transparent;
-      border: 1.5px solid var(--accent);
-      color: var(--accent);
-      box-shadow: none;
-    }
-
-    .btn.secondary:hover {
-      background: rgba(6, 182, 212, 0.15);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, 0.3);
-    }
-
-    .dropdown-menu {
-      position: fixed;
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.98) 0%, rgba(51, 65, 85, 0.6) 100%);
-      backdrop-filter: blur(30px);
-      border: 1.5px solid rgba(6, 182, 212, 0.4);
-      border-radius: 14px;
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(20px);
-      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-      z-index: 999999 !important;
-      min-width: 300px;
-      animation: slideUp 0.3s ease forwards;
-      will-change: z-index;
-      transform: translateZ(0) translateX(20px);
-      pointer-events: auto;
-      max-height: 500px;
-      overflow-y: auto;
-      right: 28px;
-      top: 120px;
-    }
-
-    .dropdown-menu.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateZ(0) translateX(0);
-    }
-
-    .dropdown-item {
-      padding: 14px 18px;
-      color: var(--text-primary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.2s ease;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      cursor: pointer;
-      font-weight: 500;
-    }
-
-    .dropdown-item:last-child {
-      border-bottom: none;
-    }
-
-    .dropdown-item:hover {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(0, 102, 255, 0.1) 100%);
-      padding-left: 24px;
-      color: var(--accent);
-    }
-
-    .dropdown-item i {
-      color: var(--accent);
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-    }
-
-    .dropdown-item:hover i {
-      transform: scale(1.15) rotate(5deg);
-      filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.4));
-    }
-
-    .btn-dropdown {
-      position: relative;
-    }
-
-    .btn-dropdown::after {
-      content: '▲';
-      font-size: 0.7rem;
-      margin-left: 4px;
-      transition: transform 0.3s ease;
-    }
-
-    .btn-dropdown.active::after {
-      transform: rotate(180deg);
-    }
-
-    .calendar-section {
-      margin: 80px 0;
-      opacity: 0;
-      animation: slideInUp 0.8s ease forwards;
-      animation-delay: 0.6s;
-    }
-
-    .calendar-section h2 {
-      font-family: 'Outfit', sans-serif;
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 40px;
-      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .calendar-container {
-      background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(51, 65, 85, 0.4) 100%);
-      backdrop-filter: blur(25px);
-      border: 1.5px solid rgba(6, 182, 212, 0.2);
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      overflow: hidden;
-      transition: all 0.4s ease;
-    }
-
-    .calendar-container:hover {
-      border-color: rgba(6, 182, 212, 0.4);
-      box-shadow: 0 20px 60px rgba(6, 182, 212, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-    }
-
-    .calendar-container iframe {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 12px;
-    }
-
-    footer {
-      background: linear-gradient(135deg, rgba(10, 42, 102, 0.9), rgba(88, 44, 131, 0.9));
-      color: #e0e0e0;
-      padding: 60px 20px 30px;
-      margin-top: 80px;
-      backdrop-filter: blur(10px);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .footer-container {
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      text-align: center;
-    }
-
-    .footer-logo {
-      font-family: 'Outfit', sans-serif;
-      font-size: 1.8em;
-      font-weight: bold;
-      background: linear-gradient(135deg, #00d4ff, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 15px;
-    }
-
-    .footer-nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .footer-nav a {
-      color: #c0c0c0;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s ease;
-    }
-
-    .footer-nav a:hover {
-      color: #00d4ff;
-    }
-
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-    }
-
-    .social-icons a {
-      color: #00d4ff;
-      font-size: 1.4em;
-      transition: all 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      color: #7c3aed;
-      transform: scale(1.2);
-    }
-
-    .footer-bottom {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #808080;
-    }
-
-    .floating-apply-btn {
-      position: fixed;
-      right: 20px;
-      bottom: 30px;
-      padding: 14px 24px;
-      background: linear-gradient(135deg, #00d4ff, #7c3aed);
-      color: white;
-      border-radius: 12px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 8px 24px rgba(0, 212, 255, 0.2);
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.95em;
-    }
-
-    .floating-apply-btn:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
-    }
-
-    .floating-apply-btn:active {
-      transform: translateY(-2px);
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding: 40px 24px;
-        min-height: 300px;
-        background-attachment: scroll;
-      }
-
-      .hero h1 {
-        font-size: 2rem;
-      }
-
-      .cards-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .calendar-container iframe {
-        height: 400px;
-      }
-
-      .dropdown-menu {
-        right: 16px;
-        min-width: 280px;
-        max-height: 400px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero {
-        padding: 30px 16px;
-        min-height: 250px;
-        background-attachment: scroll;
-      }
-
-      .hero h1 {
-        font-size: 1.5rem;
-      }
-
-      .hero p {
-        font-size: 0.95rem;
-      }
-
-      .card {
-        padding: 24px 16px;
-      }
-
-      .card h3 {
-        font-size: 1.1rem;
-      }
-
-      .calendar-container iframe {
-        height: 300px;
-      }
-
-      .dropdown-menu {
-        right: 12px;
-        min-width: 260px;
-      }
-
-      .floating-apply-btn {
-        left: 10px;
-        bottom: 20px;
-        padding: 12px 16px;
-        font-size: 0.85em;
-      }
-    }
-
-    /* NEW STYLES FOR LOGIN/DASHBOARD/QUIZ */
-    .portal-content-wrapper {
-        min-height: calc(100vh - 70px - 100px); /* Adjust based on header/footer height */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 28px;
-    }
-
-    .auth-card, .quiz-card { /* Combined style for consistency */
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(51, 65, 85, 0.5) 100%);
-        backdrop-filter: blur(25px);
-        border: 1.5px solid rgba(6, 182, 212, 0.2);
-        border-radius: 16px;
-        padding: 32px 24px;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-        text-align: center;
-        max-width: 600px; /* Increased max-width for quiz content */
-        width: 100%;
-        animation: fadeInDown 0.8s ease;
-    }
-
-    .auth-card h2, .quiz-card h2 {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1.8rem;
-        font-weight: 700;
-        margin-bottom: 20px;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    .auth-card label {
-        display: block;
-        text-align: left;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: var(--text-secondary);
-    }
-
-    .auth-card input[type="email"],
-    .auth-card input[type="password"] {
-        width: calc(100% - 24px); /* Account for padding */
-        padding: 12px;
-        margin-bottom: 15px;
-        border: 1px solid rgba(96, 165, 250, 0.3);
-        border-radius: 8px;
-        background-color: rgba(0, 0, 0, 0.2);
-        color: var(--text-primary);
-        font-size: 1rem;
-        transition: border-color 0.3s ease;
-    }
-
-    .auth-card input[type="email"]:focus,
-    .auth-card input[type="password"]:focus {
-        outline: none;
-        border-color: var(--accent);
-        box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3);
-    }
-
-    .auth-card button, .quiz-card .btn {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-        color: white;
-        padding: 12px 25px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        width: 100%;
-        text-decoration: none; /* For quiz buttons that might be links */
-        display: block; /* For quiz buttons to stack */
-    }
-
-    .auth-card button:hover, .quiz-card .btn:hover {
-        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4);
-    }
-
-    #login-error-message {
-        color: var(--gold); /* Using gold for error messages */
-        margin-top: 15px;
-        font-size: 0.9rem;
-    }
-
-    #dashboard-container {
-        width: 100%; /* Ensure dashboard takes full width of container */
-        text-align: left;
-    }
-
-    #dashboard-container h2 {
-        text-align: center;
-        font-family: 'Outfit', sans-serif;
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 20px;
-        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    #dashboard-container .dashboard-info {
-        text-align: center;
-        margin-bottom: 40px;
-        color: var(--text-secondary);
-        font-size: 1.1rem;
-    }
-
-    #dashboard-container #logout-button {
-        margin-top: 40px;
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%); /* Red for logout */
-    }
-    #dashboard-container #logout-button:hover {
-        background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-        box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
-    }
-
-    /* Quiz-specific styles */
-    .quiz-card .question-image {
-        max-width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin-bottom: 20px;
-    }
-    .quiz-card .question-text {
-        font-family: 'Outfit', sans-serif;
-        font-size: 1.5rem;
-        font-weight: 600;
-        margin-bottom: 25px;
-        color: var(--text-primary);
-    }
-    .quiz-card .options-container label {
-        display: block;
-        background-color: rgba(96, 165, 250, 0.1);
-        padding: 15px 20px;
-        margin-bottom: 12px;
-        border-radius: 8px;
-        text-align: left;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
-    }
-    .quiz-card .options-container label:hover {
-        background-color: rgba(96, 165, 250, 0.2);
-        border-color: var(--primary);
-    }
-    .quiz-card .options-container input[type="radio"] {
-        margin-right: 15px;
-        accent-color: var(--primary); /* Styles the radio button itself */
-    }
-    .quiz-navigation {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-        gap: 15px;
-    }
-    .quiz-navigation button {
-        width: 48%; /* Adjust width for prev/next buttons */
-    }
-    .quiz-navigation #submit-quiz-btn {
-        width: 100%;
-        margin-top: 20px;
-    }
-    .quiz-results {
-        margin-top: 20px;
-        text-align: center;
-        font-size: 1.2rem;
-    }
-    .quiz-results p {
-        margin-bottom: 10px;
-    }
-    .quiz-results .score {
-        font-size: 2em;
-        font-weight: 700;
-        color: var(--accent);
-    }
-    .back-to-dashboard-btn {
-      margin-top: 25px;
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%) !important;
-    }
-
-
-    /* Responsive adjustments for auth card / quiz card */
-    @media (max-width: 480px) {
-        .auth-card, .quiz-card {
-            padding: 24px 16px;
-        }
-        .auth-card h2, .quiz-card h2 {
-            font-size: 1.5rem;
-        }
-        .auth-card button, .quiz-card .btn {
-            font-size: 1rem;
-            padding: 10px 20px;
-        }
-        .quiz-card .question-text {
-            font-size: 1.2rem;
-        }
-        .quiz-card .options-container label {
-            padding: 12px 15px;
-            font-size: 0.9rem;
-        }
-        .quiz-navigation {
-            flex-direction: column;
-            gap: 10px;
-        }
-        .quiz-navigation button {
-            width: 100%;
-        }
-    }
-  </style>
-
-  <!-- MathJax for rendering LaTeX equations -->
-  <script>
-    MathJax = {
-      tex: {
-        inlineMath: [['\\(', '\\)']], // Recognize \( ... \) for inline math
-        displayMath: [['\\[', '\\]']]  // Recognize \[ ... \] for display math
-      },
-      svg: {
-        fontCache: 'global' // For better performance and consistent rendering
-      }
-    };
-  </script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quiz – Koyoyo College Africa</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0066ff;
+      --accent: #06b6d4;
+      --bg-dark: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 0% 0%, rgba(0, 102, 255, 0.15) 0%, transparent 35%),
+                        radial-gradient(circle at 100% 100%, rgba(6, 182, 212, 0.1) 0%, transparent 35%);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 700; color: white; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+
+    /* Quiz Header/Timer Styles */
+    .quiz-info-bar {
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 90px;
+      z-index: 900;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    #timer-display { font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; color: var(--accent); }
+
+    /* Question Styles */
+    .question-card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      margin-top: 25px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: transform 0.2s;
+    }
+    .question-card:hover { border-color: rgba(6, 182, 212, 0.3); }
+    .question-text { font-size: 1.25rem; font-weight: 600; margin-bottom: 20px; color: white; }
+    
+    .option-label {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .option-label:hover { background: rgba(0, 102, 255, 0.1); border-color: var(--primary); }
+    .option-label input { margin-right: 15px; width: 18px; height: 18px; accent-color: var(--primary); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;
+      transition: all 0.3s; border: none; font-family: 'Outfit', sans-serif;
+    }
+    .btn-submit { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; width: 100%; font-size: 1.2rem; margin: 40px 0 100px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2); }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.3); }
+
+    /* Login Box (Keep same as dashboard) */
+    .login-wrapper { min-height: 80vh; display: flex; align-items: center; justify-content: center; }
+    .login-box { background: var(--card-bg); padding: 40px; border-radius: 20px; width: 100%; max-width: 400px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+    .login-box input { width: 100%; padding: 12px; margin-bottom: 20px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; }
+    
+    #loading-overlay { text-align: center; margin-top: 100px; }
+  </style>
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <a href="index.html" class="logo-section">
-        <img src="https://i.imgur.com/QsV8xs6.webp" alt="Koyoyo College Logo" class="logo-img">
-        <div class="logo-text">KOYOYO COLLEGE AFRICA</div>
-      </a>
-      <nav>
-        <button class="hamburger" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="nav-links" id="navLinks">
-          <a href="index.html" class="nav-link">Home</a>
-          <a href="index.html#programs" class="nav-link">Programs</a>
-          <a href="admissions.html" class="nav-link">Admissions</a>
-          <a href="contact.html" class="nav-link">Contact Us</a>
-          <a href="students.html" class="nav-link">Students</a> <!-- Not active on quiz page -->
-          <a href="gallery.html" class="nav-link">Gallery</a>
-        </div>
-      </nav>
-    </div>
-  </header>
 
-  <!-- Main content area for the quiz -->
-  <div class="portal-content-wrapper">
-    <div id="quiz-app" class="quiz-card">
-      <h2>Loading Quiz...</h2>
-      <div id="quiz-content">
-        <!-- Questions will be dynamically loaded here -->
-        <p>Please wait while the quiz loads.</p>
-      </div>
-      <div id="quiz-navigation" style="display: none;">
-          <button id="prev-question-btn" class="btn secondary">Previous</button>
-          <button id="next-question-btn" class="btn">Next</button>
-          <button id="submit-quiz-btn" class="btn" style="display: none;">Submit Quiz</button>
-      </div>
-      <div id="quiz-results" style="display: none;">
-          <h3>Quiz Results</h3>
-          <p>You scored: <span class="score">0</span> out of <span class="total-questions">0</span></p>
-          <button id="back-to-dashboard-btn" class="btn back-to-dashboard-btn">Back to Dashboard</button>
-      </div>
-      <p id="quiz-error-message" style="color: var(--gold); margin-top: 15px;"></p>
-    </div>
-  </div>
+  <header>
+    <div class="container nav-container">
+      <a href="students.html" class="logo">
+        <i class="fas fa-graduation-cap"></i>
+        <span>KOYOYO <span style="color: var(--primary)">QUIZ</span></span>
+      </a>
+    </div>
+  </header>
 
-  <footer>
-    <div class="footer-container">
-      <div>
-        <div class="footer-logo">KOYOYO COLLEGE</div>
-        <p>We Serve All...</p>
-      </div>
-      <div class="footer-nav">
-        <a href="index.html">Home</a>
-        <a href="index.html#programs">Programs</a>
-        <a href="admissions.html">Admissions</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="students.html">Students</a>
-        <a href="gallery.html">Gallery</a>
-      </div>
-      <div class="social-icons">
-        <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
-        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
-        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="https://wa.me/233594860849"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.tiktok.com/@koyoyocollege" title="TikTok" target="_blank"><i class="fab fa-tiktok"></i></a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 KOYOYO COLLEGE. All rights reserved.</p>
-    </div>
-  </footer>
+  <div id="login-root" class="login-wrapper">
+    <div class="login-box">
+      <h2 style="text-align:center; margin-bottom:20px;">Student Login</h2>
+      <form id="login-form">
+        <input type="email" id="email" placeholder="Student Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit" class="btn" style="background: var(--primary); color: white; width: 100%;">Enter Quiz Room</button>
+        <p id="login-error-message" style="color: #ef4444; margin-top: 10px; text-align: center;"></p>
+      </form>
+    </div>
+  </div>
 
-  <a href="https://tally.so/r/n09joA" class="floating-apply-btn">
-    <span>Apply Now</span>
-    <i class="fas fa-arrow-right"></i>
-  </a>
+  <div id="dashboard-container" style="display: none;">
+    <div class="container">
+      <div class="quiz-info-bar">
+        <div>
+          <h2 id="quiz-title-display" style="color: white; margin:0;">Quiz Session</h2>
+          <p id="user-email-display" style="color: var(--text-secondary); margin:0; font-size: 0.9rem;"></p>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase;">Time Left</div>
+          <div id="timer-display">10:00</div>
+        </div>
+      </div>
 
-  <!-- Firebase SDKs and Initialization Script -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-    import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
-    import { getFirestore, collection, getDocs, query, where, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+      <div id="loading-overlay">
+        <i class="fas fa-spinner fa-spin fa-3x" style="color: var(--primary)"></i>
+        <p style="margin-top: 15px;">Loading your questions...</p>
+      </div>
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
-      authDomain: "koyoyocollegeafrica.firebaseapp.com",
-      projectId: "koyoyocollegeafrica",
-      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
-      messagingSenderId: "501491274694",
-      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
-      measurementId: "G-3F9CM217HQ"
-    };
+      <form id="quiz-form">
+        <div id="questions-container"></div>
+        <button type="submit" id="submit-btn" class="btn btn-submit" style="display: none;">Submit My Answers</button>
+      </form>
+    </div>
+  </div>
 
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
 
-    let currentUserId = null;
-    let questions = [];
-    let currentQuestionIndex = 0;
-    let userAnswers = [];
-    const urlParams = new URLSearchParams(window.location.search);
-    const defaultQuizId = urlParams.get('id') || "WASSCE_Math_60"; // <-- UPDATED: Now loading the WASSCE Math quiz
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
+      authDomain: "koyoyocollegeafrica.firebaseapp.com",
+      projectId: "koyoyocollegeafrica",
+      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
+      messagingSenderId: "501491274694",
+      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7"
+    };
 
-    // --- HTML Element References ---
-    const quizAppTitle = document.querySelector('#quiz-app h2');
-    const quizContent = document.getElementById('quiz-content');
-    const quizNavigation = document.getElementById('quiz-navigation');
-    const prevQuestionBtn = document.getElementById('prev-question-btn');
-    const nextQuestionBtn = document.getElementById('next-question-btn');
-    const submitQuizBtn = document.getElementById('submit-quiz-btn');
-    const quizResultsContainer = document.getElementById('quiz-results');
-    const quizErrorMessage = document.getElementById('quiz-error-message');
-    const backToDashboardBtn = document.getElementById('back-to-dashboard-btn');
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    // --- Core Quiz Functions ---
+    let timeLeft = 600; 
+    let timerInterval;
+    let quizData = [];
+    const urlParams = new URLSearchParams(window.location.search);
+    const quizId = urlParams.get('id');
 
-    async function fetchQuestions(quizId) {
-        quizErrorMessage.textContent = '';
-        try {
-            const q = query(collection(db, "questions"), where("quizId", "==", quizId));
-            const querySnapshot = await getDocs(q);
-            
-            if (querySnapshot.empty) {
-                quizErrorMessage.textContent = `No questions found for quiz "${quizId}"!`;
-                return [];
-            }
+    // 1. Authentication Logic
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById('login-root').style.display = 'none';
+        document.getElementById('dashboard-container').style.display = 'block';
+        document.getElementById('user-email-display').textContent = user.email;
+        if(quizId) {
+          fetchQuestions(user.uid);
+        } else {
+          alert("No quiz selected. Returning to portal.");
+          window.location.href = "students.html";
+        }
+      } else {
+        document.getElementById('login-root').style.display = 'flex';
+        document.getElementById('dashboard-container').style.display = 'none';
+      }
+    });
 
-            const fetchedQuestions = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            console.log("Fetched questions:", fetchedQuestions);
-            return fetchedQuestions;
+    // 2. Fetch Questions from Firebase
+    async function fetchQuestions(userId) {
+      try {
+        const q = query(collection(db, "questions"), where("quizId", "==", quizId));
+        const querySnapshot = await getDocs(q);
+        const container = document.getElementById('questions-container');
+        
+        document.getElementById('quiz-title-display').textContent = quizId;
+        document.getElementById('loading-overlay').style.display = 'none';
+        document.getElementById('submit-btn').style.display = 'flex';
+        
+        if (querySnapshot.empty) {
+            container.innerHTML = `<p style="text-align:center; margin-top:50px;">No questions found for this quiz.</p>`;
+            return;
+        }
 
-        } catch (error) {
-            console.error("Error fetching questions:", error);
-            quizErrorMessage.textContent = "Failed to load quiz questions. Please try again.";
-            return [];
-        }
-    }
+        querySnapshot.forEach((doc, index) => {
+          const data = doc.data();
+          quizData.push({ id: doc.id, ...data });
 
-    function displayQuestion() {
-        if (questions.length === 0) {
-            quizContent.innerHTML = "<p>No questions to display.</p>";
-            quizNavigation.style.display = 'none';
-            return;
-        }
+          const card = document.createElement('div');
+          card.className = 'question-card';
+          card.innerHTML = `
+            <div class="question-text">${index + 1}. ${data.question}</div>
+            <div class="options-list">
+              ${data.options.map(opt => `
+                <label class="option-label">
+                  <input type="radio" name="q${index}" value="${opt}" required>
+                  <span>${opt}</span>
+                </label>
+              `).join('')}
+            </div>
+          `;
+          container.appendChild(card);
+        });
 
-        const question = questions[currentQuestionIndex];
-        let optionsHtml = question.options.map((option, index) => `
-            <label>
-                <input type="radio" name="answer" value="${index}" 
-                       ${userAnswers[currentQuestionIndex] === index ? 'checked' : ''}>
-                ${option}
-            </label>
-        `).join('');
+        startTimer(userId);
+      } catch (err) {
+        console.error(err);
+        alert("Error loading questions.");
+      }
+    }
 
-        quizContent.innerHTML = `
-            ${question.imageUrl ? `<img src="${question.imageUrl}" alt="Question image" class="question-image">` : ''}
-            <p class="question-text">${currentQuestionIndex + 1}. ${question.text || question.question}</p>
-            <div class="options-container">${optionsHtml}</div>
-        `;
+    // 3. Timer Logic
+    function startTimer(userId) {
+    const display = document.getElementById('timer-display');
+    
+    // 1. Check if there is already a saved end time for this quiz
+    let quizEndTime = localStorage.getItem(`quiz_end_${quizId}`);
 
-        // Update navigation button visibility
-        prevQuestionBtn.style.display = currentQuestionIndex > 0 ? 'block' : 'none';
-        nextQuestionBtn.style.display = currentQuestionIndex < questions.length - 1 ? 'block' : 'none';
-        submitQuizBtn.style.display = currentQuestionIndex === questions.length - 1 ? 'block' : 'none';
+    if (!quizEndTime) {
+        // If no end time exists, set it to 10 minutes from NOW
+        quizEndTime = Date.now() + (10 * 60 * 1000); 
+        localStorage.setItem(`quiz_end_${quizId}`, quizEndTime);
+    }
 
-        quizAppTitle.textContent = `Quiz: Question ${currentQuestionIndex + 1} of ${questions.length}`;
+    timerInterval = setInterval(() => {
+        const currentTime = Date.now();
+        const remainingMs = quizEndTime - currentTime;
+        
+        // Calculate remaining seconds
+        timeLeft = Math.floor(remainingMs / 1000);
 
-        // NEW: Tell MathJax to render the newly added content
-        if (typeof MathJax !== 'undefined') {
-            MathJax.typesetPromise([quizContent]); // Tell MathJax to typeset only the quizContent div
-        }
-    }
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            localStorage.removeItem(`quiz_end_${quizId}`); // Clear the timer
+            display.textContent = "0:00";
+            alert("Time's up! Submitting your work.");
+            processSubmission(userId);
+            return;
+        }
 
-    function saveCurrentAnswer() {
-        const selectedOption = document.querySelector('input[name="answer"]:checked');
-        if (selectedOption) {
-            userAnswers[currentQuestionIndex] = parseInt(selectedOption.value);
-        } else {
-            userAnswers[currentQuestionIndex] = -1; // Indicate no answer selected
-        }
-    }
+        const mins = Math.floor(timeLeft / 60);
+        const secs = timeLeft % 60;
+        display.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 
-    prevQuestionBtn.addEventListener('click', () => {
-        saveCurrentAnswer(); // Save current answer before moving
-        if (currentQuestionIndex > 0) {
-            currentQuestionIndex--;
-            displayQuestion();
-        }
-    });
+        if (timeLeft <= 60) display.style.color = "#ef4444";
+    }, 1000);
+}
 
-    nextQuestionBtn.addEventListener('click', () => {
-        saveCurrentAnswer(); // Save current answer before moving
-        if (currentQuestionIndex < questions.length - 1) {
-            currentQuestionIndex++;
-            displayQuestion();
-        }
-    });
+// Update your processSubmission to clear the storage when they finish early
+async function processSubmission(userId) {
+    localStorage.removeItem(`quiz_end_${quizId}`);
+      let score = 0;
+      const form = document.getElementById('quiz-form');
+      
+      quizData.forEach((q, index) => {
+        const selected = form.elements[`q${index}`].value;
+        if (selected === q.answer) score++;
+      });
 
-    // --- Authentication Check and Quiz Initialization ---
+      try {
+        await addDoc(collection(db, "quizResults"), {
+          userId: userId,
+          quizId: quizId,
+          score: score,
+          totalQuestions: quizData.length,
+          timestamp: serverTimestamp()
+        });
+        alert(`Quiz Submitted! Score: ${score}/${quizData.length}`);
+        window.location.href = "students.html";
+      } catch (err) {
+        console.error(err);
+        alert("Submission failed, but your score was calculated.");
+      }
+    }
 
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            console.log("User is logged in on quiz.html:", user.email);
-            currentUserId = user.uid;
+    // Listeners
+    document.getElementById('login-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const pass = document.getElementById('password').value;
+      signInWithEmailAndPassword(auth, email, pass).catch(err => {
+        document.getElementById('login-error-message').textContent = "Login Failed: " + err.message;
+      });
+    });
 
-            quizAppTitle.textContent = "Loading Quiz...";
-            quizContent.innerHTML = "<p>Loading your quiz questions...</p>";
-            quizNavigation.style.display = 'none';
-            quizResultsContainer.style.display = 'none'; // Ensure results are hidden
-
-            questions = await fetchQuestions(defaultQuizId); // Use the global defaultQuizId
-            userAnswers = Array(questions.length).fill(-1); // Initialize answers array
-
-            if (questions.length > 0) {
-                quizNavigation.style.display = 'flex';
-                displayQuestion();
-            } else {
-                quizAppTitle.textContent = "Quiz Unavailable";
-                quizContent.innerHTML = `<p>We couldn't load any quiz questions right now. Please try again later.</p>
-                                        <button id="retry-load-btn" class="btn">Retry Loading Quiz</button>`;
-                document.getElementById('retry-load-btn').addEventListener('click', () => location.reload());
-            }
-
-        } else {
-            console.log("No user is logged in on quiz.html. Redirecting to students.html for login.");
-            window.location.href = "students.html";
-        }
-    });
-
-    // Event Listener for "Back to Dashboard" button (from results or error state)
-    backToDashboardBtn.addEventListener('click', () => {
-        window.location.href = "students.html"; // Navigate back to the dashboard
-    });
-
-    // --- Submit Quiz Logic (UPDATED) ---
-    submitQuizBtn.addEventListener('click', async () => { // Make function async to await Firestore write
-        saveCurrentAnswer(); // Save the answer for the last question
-        
-        let score = 0;
-        for (let i = 0; i < questions.length; i++) {
-            if (userAnswers[i] === questions[i].correctAnswerIndex) {
-                score++;
-            }
-        }
-        
-        console.log(`Quiz finished! Score: ${score} out of ${questions.length}`);
-
-        quizContent.style.display = 'none';
-        quizNavigation.style.display = 'none';
-        quizResultsContainer.style.display = 'block';
-        document.querySelector('#quiz-results .score').textContent = score;
-        document.querySelector('#quiz-results .total-questions').textContent = questions.length;
-        quizAppTitle.textContent = "Quiz Complete!";
-
-        // NEW: Save results to Firestore
-        if (currentUserId && questions.length > 0) {
-            try {
-                const resultDocRef = await addDoc(collection(db, "quizResults"), {
-                    userId: currentUserId,
-                    quizId: defaultQuizId, // Using the quizId that was loaded
-                    score: score,
-                    totalQuestions: questions.length,
-                    timestamp: serverTimestamp(), // Firestore automatically provides a server timestamp
-                    // Optionally, save userAnswers if you need detailed review later:
-                    // userAnswers: userAnswers
-                });
-                console.log("Quiz results saved with ID:", resultDocRef.id);
-            } catch (error) {
-                console.error("Error saving quiz results:", error);
-                quizErrorMessage.textContent = "Error saving quiz results. Please check console.";
-            }
-        } else {
-            console.warn("Could not save quiz results: User not logged in or no questions loaded.");
-        }
-    });
-
-  </script>
-
-  <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-    const classroomBtn = document.getElementById('classroomBtn');
-    const classroomMenu = document.getElementById('classroomMenu');
-
-    hamburger.addEventListener('click', function() {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
-    });
-
-    const navItems = navLinks.querySelectorAll('.nav-link');
-    navItems.forEach(item => {
-      item.addEventListener('click', function() {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-      });
-    });
-
-    if(classroomBtn && classroomMenu) {
-        classroomBtn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          classroomBtn.classList.toggle('active');
-          classroomMenu.classList.toggle('active');
-        });
-
-        document.addEventListener('click', function(e) {
-          if (!e.target.closest('.dropdown-container')) {
-            classroomBtn.classList.remove('active');
-            classroomMenu.classList.remove('active');
-          }
-        });
-
-        const dropdownItems = document.querySelectorAll('.dropdown-item');
-        dropdownItems.forEach(item => {
-          item.addEventListener('click', function() {
-            classroomBtn.classList.remove('active');
-            classroomMenu.classList.remove('active');
-          });
-        });
-    }
-  </script>
-
+    document.getElementById('quiz-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      if(confirm("Submit your answers?")) {
+        clearInterval(timerInterval);
+        processSubmission(auth.currentUser.uid);
+      }
+    });
+  </script>
 </body>
 </html>
