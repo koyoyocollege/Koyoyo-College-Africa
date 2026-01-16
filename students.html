@@ -1083,6 +1083,7 @@
     const dashboardContainer = document.getElementById('dashboard-container');
     const userEmailDisplay = document.getElementById('user-email-display');
     const logoutButton = document.getElementById('logout-button');
+    const loginRoot = document.getElementById('login-root');
     // NEW: References for Quiz History elements
     const quizHistoryMessage = document.getElementById('quiz-history-message');
     const quizHistoryTable = document.getElementById('quiz-history-table');
@@ -1133,27 +1134,34 @@
 
     // Function to update UI based on login state
    const updateUI = async (user) => {
-    // Look for the new 'login-root' wrapper we created
-    const loginRoot = document.getElementById('login-root'); 
+        if (user) {
+            // ✅ Hide the whole login area (Removes the top space)
+            if (loginRoot) loginRoot.style.display = 'none'; 
+            dashboardContainer.style.display = 'block';
 
-    if (user) {
-        // ✅ THIS IS THE FIX: 
-        // We hide the 'login-root' which removes the 60vh space entirely
-        if (loginRoot) loginRoot.style.display = 'none';
-        
-        dashboardContainer.style.display = 'block';
-        
-        // Show the user's name in the Hero section
-        const userEmailDisplay = document.getElementById('user-email-display');
-        if (userEmailDisplay) {
-            userEmailDisplay.textContent = user.email.split('@')[0];
+            // Fetch user data from Firestore
+            const userDocRef = doc(db, "users", user.uid);
+            const userSnap = await getDoc(userDocRef);
+
+            if (userSnap.exists()) {
+                const userData = userSnap.data();
+                userEmailDisplay.textContent = userData.username || user.email;
+            } else {
+                userEmailDisplay.textContent = user.email;
+            }
+
+            loadQuizHistory(user.uid);
+
+        } else {
+            // ❌ Show the login area when logged out
+            if (loginRoot) loginRoot.style.display = 'block';
+            dashboardContainer.style.display = 'none';
+            userEmailDisplay.textContent = ''; 
+            errorMessage.textContent = ''; 
+            emailInput.value = ''; 
+            passwordInput.value = '';
         }
-    } else {
-        // User is logged out: Show the login space again
-        if (loginRoot) loginRoot.style.display = 'block';
-        dashboardContainer.style.display = 'none';
-    }
-};
+    };
             // Fetch username from Firestore
             const userRef = doc(db, 'users', user.uid);
             const userSnap = await getDoc(userRef);
@@ -1170,7 +1178,7 @@
             // NEW: Load quiz history for the logged-in user
             loadQuizHistory(user.uid);
 
-         else {
+    }else {
             // No user is logged in
             loginContainer.style.display = 'block';
             dashboardContainer.style.display = 'none';
