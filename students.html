@@ -928,21 +928,23 @@
     </div>
   </header>
 
-        <div class="portal-content-wrapper" id="login-wrapper">
-    <div id="login-container" class="auth-card">
-        <h2>Koyoyo Portal Login</h2>
-        <form id="login-form">
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" required>
-
-            <button type="submit">Log In</button>
-        </form>
-        <p id="login-error-message"></p>
+<div id="login-root">
+    <div class="portal-content-wrapper">
+        <div id="login-container" class="auth-card">
+            <h2>Koyoyo Portal Login</h2>
+            <form id="login-form">
+                <label for="email">Email:</label>
+                <input type="email" id="email" required placeholder="student@example.com">
+                <label for="password">Password:</label>
+                <input type="password" id="password" required placeholder="••••••••">
+                <button type="submit">Log In</button>
+            </form>
+            <p id="login-error-message" style="color: red; text-align: center; margin-top: 10px;"></p>
+        </div>
     </div>
-</div> <div id="dashboard-container" style="display: none;">
+</div>
+
+<div id="dashboard-container" style="display: none;">
     <div class="container">
         <section class="hero">
             <h1>Welcome, <span id="user-email-display"></span>!</h1>
@@ -1013,21 +1015,10 @@
             </div>
         </section>
 
-        <section class="quiz-history-section">
-            <h3>Your Quiz History</h3>
-            <p id="quiz-history-message" class="quiz-history-message" style="display:none;">Loading quiz history...</p>
-            <table class="quiz-history-table" id="quiz-history-table" style="display:none;">
-                <thead>
-                    <tr><th>Quiz</th><th>Score</th><th>Date</th></tr>
-                </thead>
-                <tbody id="quiz-history-body"></tbody>
-            </table>
-        </section>
-
-        <button id="logout-button" class="btn">Log Out</button>
+        <button id="logout-button" class="btn" style="background: #e11d48; margin-top: 20px;">Log Out</button>
     </div>
-</div> 
-
+</div>
+  
   <footer>
     <div class="footer-container">
       <div>
@@ -1141,12 +1132,28 @@
 
 
     // Function to update UI based on login state
-    const updateUI = async (user) => {
-        if (user) {
-            // User is logged in
-            loginContainer.style.display = 'none';
-            dashboardContainer.style.display = 'block';
+   const updateUI = async (user) => {
+    // Look for the new 'login-root' wrapper we created
+    const loginRoot = document.getElementById('login-root'); 
 
+    if (user) {
+        // ✅ THIS IS THE FIX: 
+        // We hide the 'login-root' which removes the 60vh space entirely
+        if (loginRoot) loginRoot.style.display = 'none';
+        
+        dashboardContainer.style.display = 'block';
+        
+        // Show the user's name in the Hero section
+        const userEmailDisplay = document.getElementById('user-email-display');
+        if (userEmailDisplay) {
+            userEmailDisplay.textContent = user.email.split('@')[0];
+        }
+    } else {
+        // User is logged out: Show the login space again
+        if (loginRoot) loginRoot.style.display = 'block';
+        dashboardContainer.style.display = 'none';
+    }
+};
             // Fetch username from Firestore
             const userRef = doc(db, 'users', user.uid);
             const userSnap = await getDoc(userRef);
