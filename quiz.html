@@ -1196,13 +1196,22 @@
 
     // --- Submit Quiz Logic (UPDATED) ---
     // This function handles the actual scoring and saving
-async function submitQuizResults() {
+    async function submitQuizResults() {
     saveCurrentAnswer(); // Save the answer for the last question
     
     let score = 0;
     for (let i = 0; i < questions.length; i++) {
-        if (userAnswers[i] === questions[i].correctAnswerIndex) {
-            score++;
+        const question = questions[i];
+        const userAnswer = userAnswers[i];
+        const correctAnswer = question.correctAnswerIndex;
+
+        // Only grade if it's an OBJECTIVE question (has options)
+        if (question.options && question.options.length > 0) {
+            // Use == instead of === to allow String "0" to match Number 0
+            // OR use Number() to be extra safe
+            if (userAnswer !== -1 && Number(userAnswer) === Number(correctAnswer)) {
+                score++;
+            }
         }
     }
     
@@ -1217,17 +1226,17 @@ async function submitQuizResults() {
     // Save to Firestore
     if (currentUserId && questions.length > 0) {
         try {
-            // This detects the actual quiz ID from the URL
             const actualQuizId = new URLSearchParams(window.location.search).get('id') || defaultQuizId;
 
             const resultDocRef = await addDoc(collection(db, "quizResults"), {
-    userId: currentUserId,
-    quizId: actualQuizId,
-    score: score, // This will only count the objective ones automatically
-    totalQuestions: questions.length,
-    responses: userAnswers, // This saves the text answers for you to read!
-    timestamp: serverTimestamp()
-});
+                userId: currentUserId,
+                quizId: actualQuizId,
+                score: score, 
+                totalQuestions: questions.length,
+                responses: userAnswers, 
+                markingStatus: "Pending", // Added this so the teacher knows to mark it
+                timestamp: serverTimestamp()
+            });
             console.log("Quiz results saved:", resultDocRef.id);
         } catch (error) {
             console.error("Error saving quiz results:", error);
