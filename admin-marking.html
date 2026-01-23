@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marking Desk | Koyoyo College</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --dark-bg: #0f172a; --card-bg: #1e293b; --gold: #fbbf24; }
+        body { font-family: 'Outfit', sans-serif; background-color: var(--dark-bg); color: white; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid #334155; }
+        
+        h1 { color: var(--gold); border-bottom: 1px solid #334155; padding-bottom: 15px; }
+        
+        .info-panel { background: #0f172a; padding: 15px; border-radius: 8px; margin-bottom: 30px; display: flex; justify-content: space-between; }
+        
+        .theory-item { background: #0f172a; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid var(--gold); }
+        .theory-q { color: var(--gold); font-weight: bold; margin-bottom: 10px; display: block; }
+        
+        .grading-box { margin-top: 30px; border-top: 2px solid var(--gold); padding-top: 20px; }
+        .btn-save { background: #10b981; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn-back { background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <button class="btn-back" onclick="location.href='teacher-portal.html'">← Back to Portal</button>
+    <h1>Grading Workstation</h1>
+    
+    <div id="loading">Loading submission...</div>
+
+    <div id="content" style="display:none;">
+        <div class="info-panel">
+            <div>
+                <strong>Quiz:</strong> <span id="quiz-id">---</span><br>
+                <strong>Student:</strong> <span id="student-id">---</span>
+            </div>
+            <div style="text-align:right">
+                <strong>Objective Score:</strong> <span id="obj-score" style="color:var(--gold); font-size:1.2rem;">0</span>
+            </div>
+        </div>
+
+        <h3>Theory Responses</h3>
+        <div id="theory-container"></div>
+
+        <div class="grading-box">
+            <label style="display:block; margin-bottom:10px;">Enter Additional Marks for Theory:</label>
+            <input type="number" id="theory-marks" style="background:#0f172a; border:1px solid var(--gold); color:white; padding:10px; width:100px; font-size:1.2rem;" value="0">
+            <button class="btn-save" id="save-btn">Save Final Grade</button>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+
+    // --- PASTE FIREBASE CONFIG HERE ---
+    const firebaseConfig = {
+      apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
+      authDomain: "koyoyocollegeafrica.firebaseapp.com",
+      projectId: "koyoyocollegeafrica",
+      storageBucket: "koyoyocollegeafrica.firebasestorage.app",
+      messagingSenderId: "501491274694",
+      appId: "1:501491274694:web:8a9d82e1758b0d46d818c7",
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // 1. Get the Document ID from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const docId = urlParams.get('id');
+
+    async function loadSubmission() {
+        if (!docId) {
+            alert("No submission ID provided.");
+            window.location.href = 'teacher-portal.html';
+            return;
+        }
+
+        const docRef = doc(db, "quizResults", docId);
+        const snap = await getDoc(docRef);
+
+        if (snap.exists()) {
+            const data = snap.data();
+            
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+            
+            // Populate Info
+            document.getElementById('quiz-id').textContent = data.quizId;
+            document.getElementById('student-id').textContent = data.userId;
+            document.getElementById('obj-score').textContent = `${data.score} / ${data.totalQuestions}`;
+            document.getElementById('theory-marks').value = data.theoryMarks || 0;
+
+            // Populate Theory Answers
+            const container = document.getElementById('theory-container');
+            container.innerHTML = "";
+            let theoryFound = false;
+
+            // Loop through responses to find text
+            if (data.responses) {
+                data.responses.forEach((ans, index) => {
+                    // Check if answer is a string (Theory) AND not just a number string like "1"
+                    if (typeof ans === "string" && isNaN(ans) && ans.trim().length > 0) {
+                        theoryFound = true;
+                        container.innerHTML += `
+                            <div class="theory-item">
+                                <span class="theory-q">Response #${index + 1}</span>
+                                <p style="margin:0; line-height:1.6;">${ans}</p>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            if (!theoryFound) {
+                container.innerHTML = "<p>No written answers found (Quiz was purely objective).</p>";
+            }
+
+            // Save Logic
+            document.getElementById('save-btn').onclick = async () => {
+                const extra = parseInt(document.getElementById('theory-marks').value) || 0;
+                const total = data.score + extra;
+                
+                await updateDoc(docRef, {
+                    theoryMarks: extra,
+                    totalFinalGrade: total,
+                    markingStatus: "Completed"
+                });
+
+                alert(`Success! Final Grade Updated to: ${total}`);
+                window.location.href = 'teacher-portal.html'; // Go back to list
+            };
+
+        } else {
+            alert("Submission not found!");
+            window.location.href = 'teacher-portal.html';
+        }
+    }
+
+    loadSubmission();
+</script>
+</body>
+</html>
