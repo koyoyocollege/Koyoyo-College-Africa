@@ -68,7 +68,6 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // ✅ FIXED: Wait for Auth to confirm user is a teacher before loading
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const userRef = doc(db, 'users', user.uid);
@@ -80,7 +79,7 @@
                 document.getElementById('loading').textContent = "Access Denied: Teachers only.";
             }
         } else {
-            window.location.href = "login.html"; // Redirect if not logged in
+            window.location.href = "login.html";
         }
     });
 
@@ -89,8 +88,16 @@
         const loading = document.getElementById('loading');
         
         try {
+            // 1. Fetch all quiz results
             const q = query(collection(db, "quizResults"), orderBy("timestamp", "desc"));
             const snapshot = await getDocs(q);
+            
+            // 2. Fetch all user names once to avoid repeated database calls
+            const usersSnapshot = await getDocs(collection(db, "users"));
+            const userNames = {};
+            usersSnapshot.forEach(userDoc => {
+                userNames[userDoc.id] = userDoc.data().username || "Unknown Student";
+            });
             
             const students = {};
             snapshot.forEach(doc => {
@@ -110,6 +117,8 @@
 
             for (const [uid, results] of Object.entries(students)) {
                 const pendingCount = results.filter(r => r.markingStatus !== "Completed").length;
+                const studentName = userNames[uid] || `ID: ${uid.substring(0, 8)}`; // Use name if found
+                
                 const statusBadge = pendingCount > 0 
                     ? `<span class="badge badge-pending">${pendingCount} Pending</span>` 
                     : `<span class="badge badge-done">All Graded</span>`;
@@ -119,8 +128,8 @@
                 card.innerHTML = `
                     <div class="student-header" onclick="toggleDetails(this)">
                         <div class="student-info">
-                            <h3>Student ID: ${uid.substring(0, 8)}...</h3> 
-                            <small>${results.length} Quizzes Taken</small>
+                            <h3>${studentName}</h3> 
+                            <small>${results.length} Quizzes Taken • ID: ${uid.substring(0, 8)}</small>
                         </div>
                         ${statusBadge}
                     </div>
@@ -152,7 +161,6 @@
         }
     }
 
-    // Helper for toggle
     window.toggleDetails = (el) => {
         const list = el.nextElementSibling;
         list.style.display = (list.style.display === 'block') ? 'none' : 'block';
