@@ -956,6 +956,12 @@
         </section>
 
         <div class="cards-grid">
+          <div class="card" id="admin-card" style="display: none; border: 2px solid #fbbf24; background: rgba(251, 191, 36, 0.05);">
+        <div class="card-icon"><i class="fas fa-user-shield" style="color: #fbbf24;"></i></div>
+        <h3 style="color: #fbbf24;">Teacher Admin</h3>
+        <p>Access student results and mark theory answers.</p>
+        <a href="teacher-portal.html" class="btn" style="background: #fbbf24; color: #000;">Enter Portal</a>
+    </div>
             <div class="card">
                 <div class="card-icon"><i class="fas fa-chalkboard"></i></div>
                 <h3>Google Classroom</h3>
@@ -1072,7 +1078,7 @@
   </a>
 
   <!-- Firebase SDKs and Initialization Script -->
-  <script type="module">
+ <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
@@ -1101,52 +1107,53 @@
     const dashboardContainer = document.getElementById('dashboard-container');
     const userEmailDisplay = document.getElementById('user-email-display');
     const logoutButton = document.getElementById('logout-button');
+    const adminCard = document.getElementById('admin-card'); // Added for Teacher check
     const quizHistoryMessage = document.getElementById('quiz-history-message');
     const quizHistoryTable = document.getElementById('quiz-history-table');
     const quizHistoryBody = document.getElementById('quiz-history-body');
 
-   async function loadQuizHistory(userId) {
-    if (!quizHistoryMessage || !quizHistoryTable || !quizHistoryBody) return;
+    async function loadQuizHistory(userId) {
+     if (!quizHistoryMessage || !quizHistoryTable || !quizHistoryBody) return;
 
-    quizHistoryMessage.textContent = "Loading quiz history...";
-    quizHistoryMessage.style.display = 'block';
-    quizHistoryTable.style.display = 'none';
-    quizHistoryBody.innerHTML = ''; 
+     quizHistoryMessage.textContent = "Loading quiz history...";
+     quizHistoryMessage.style.display = 'block';
+     quizHistoryTable.style.display = 'none';
+     quizHistoryBody.innerHTML = ''; 
 
-    try {
-        const q = query(
-            collection(db, "quizResults"),
-            where("userId", "==", userId),
-            orderBy("timestamp", "desc")
-        );
-        const querySnapshot = await getDocs(q);
+     try {
+         const q = query(
+             collection(db, "quizResults"),
+             where("userId", "==", userId),
+             orderBy("timestamp", "desc")
+         );
+         const querySnapshot = await getDocs(q);
 
-        if (querySnapshot.empty) {
-            quizHistoryMessage.textContent = "No quiz history found yet.";
-            quizHistoryMessage.style.color = "#94a3b8"; // Visible grey
-        } else {
-            quizHistoryMessage.style.display = 'none';
-            quizHistoryTable.style.display = 'table';
-            querySnapshot.forEach((doc) => {
-                const result = doc.data();
-                const date = result.timestamp ? result.timestamp.toDate().toLocaleDateString() : 'N/A';
-                const time = result.timestamp ? result.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
-                
-               const row = quizHistoryBody.insertRow();
-                // ✅ Forced white and cyan colors for maximum contrast
-                row.innerHTML = `
-                    <td data-label="Quiz" style="color: #ffffff !important; font-weight: 600;">${result.quizId || 'Subject Missing'}</td>
-                    <td data-label="Score" style="color: #06b6d4 !important; font-weight: bold;">${result.score ?? '0'} / ${result.totalQuestions ?? '0'}</td>
-                    <td data-label="Date" style="color: #ffffff !important; opacity: 0.9;">${date} <small style="display:block; opacity: 0.6; color: #cbd5e1;">${time}</small></td>
-                `;
-            });
-        }
-    } catch (error) {
-        console.error("Error loading history:", error);
-        quizHistoryMessage.textContent = "Error loading quiz history.";
-        quizHistoryMessage.style.color = "#ef4444"; // Red for error
+         if (querySnapshot.empty) {
+             quizHistoryMessage.textContent = "No quiz history found yet.";
+             quizHistoryMessage.style.color = "#94a3b8"; // Visible grey
+         } else {
+             quizHistoryMessage.style.display = 'none';
+             quizHistoryTable.style.display = 'table';
+             querySnapshot.forEach((doc) => {
+                 const result = doc.data();
+                 const date = result.timestamp ? result.timestamp.toDate().toLocaleDateString() : 'N/A';
+                 const time = result.timestamp ? result.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+                 
+                const row = quizHistoryBody.insertRow();
+                 // ✅ Forced white and cyan colors for maximum contrast
+                 row.innerHTML = `
+                     <td data-label="Quiz" style="color: #ffffff !important; font-weight: 600;">${result.quizId || 'Subject Missing'}</td>
+                     <td data-label="Score" style="color: #06b6d4 !important; font-weight: bold;">${result.score ?? '0'} / ${result.totalQuestions ?? '0'}</td>
+                     <td data-label="Date" style="color: #ffffff !important; opacity: 0.9;">${date} <small style="display:block; opacity: 0.6; color: #cbd5e1;">${time}</small></td>
+                 `;
+             });
+         }
+     } catch (error) {
+         console.error("Error loading history:", error);
+         quizHistoryMessage.textContent = "Error loading quiz history.";
+         quizHistoryMessage.style.color = "#ef4444"; // Red for error
+     }
     }
-}
 
     // ✅ FIXED: Cleaned up the updateUI function (removed double braces)
     const updateUI = async (user) => {
@@ -1155,14 +1162,29 @@
             if (loginRoot) loginRoot.style.display = 'none';
             dashboardContainer.style.display = 'block';
 
-            // Fetch username
-            const userRef = doc(db, 'users', user.uid);
-            const userSnap = await getDoc(userRef);
+            // Fetch user data for Username and Role
+            try {
+                const userRef = doc(db, 'users', user.uid);
+                const userSnap = await getDoc(userRef);
 
-            if (userSnap.exists()) {
-                const userData = userSnap.data();
-                userEmailDisplay.textContent = userData.username || user.email;
-            } else {
+                if (userSnap.exists()) {
+                    const userData = userSnap.data();
+                    userEmailDisplay.textContent = userData.username || user.email;
+
+                    // ✅ Check for Teacher Role to show Admin Card
+                    if (adminCard) {
+                        if (userData.role === 'teacher') {
+                            adminCard.style.display = 'block';
+                        } else {
+                            adminCard.style.display = 'none';
+                        }
+                    }
+                } else {
+                    userEmailDisplay.textContent = user.email;
+                    if (adminCard) adminCard.style.display = 'none';
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
                 userEmailDisplay.textContent = user.email;
             }
 
@@ -1171,6 +1193,7 @@
             // Logged Out: Show login space
             if (loginRoot) loginRoot.style.display = 'block';
             dashboardContainer.style.display = 'none';
+            if (adminCard) adminCard.style.display = 'none';
             userEmailDisplay.textContent = ''; 
             errorMessage.textContent = ''; 
             emailInput.value = ''; 
@@ -1202,7 +1225,7 @@
             console.error("Logout failed:", error);
         }
     });
-  </script> 
+ </script>
 
   <!-- ORIGINAL site JavaScript (kept separate as it's not a module) -->
   <script>
