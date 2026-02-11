@@ -1005,7 +1005,7 @@
                 <a href="https://drive.google.com/file/d/14R0kbA8DYSEJooYSuhXJn0lT1zVBDdXJ/view?usp=drive_link" class="btn">View Documents</a>
             </div>
 
-            <div class="card">
+            <div class="card" id="available-quizzes-card"> <!-- ADD THIS ID -->
                 <div class="card-icon"><i class="fas fa-question-circle"></i></div>
                 <h3>Available Quizzes</h3>
                 <p>Select a subject to begin your test.</p>
@@ -1016,7 +1016,7 @@
                     <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> ICT Quiz</a>
                 </div>
             </div>
-        </div>
+          </div>
 
         <section class="calendar-section" id="calendar">
             <h2>Academic Calendar</h2>
@@ -1107,7 +1107,8 @@
     const dashboardContainer = document.getElementById('dashboard-container');
     const userEmailDisplay = document.getElementById('user-email-display');
     const logoutButton = document.getElementById('logout-button');
-    const adminCard = document.getElementById('admin-card'); // Added for Teacher check
+    const adminCard = document.getElementById('admin-card');
+    const availableQuizzesCard = document.getElementById('available-quizzes-card'); 
     const quizHistoryMessage = document.getElementById('quiz-history-message');
     const quizHistoryTable = document.getElementById('quiz-history-table');
     const quizHistoryBody = document.getElementById('quiz-history-body');
@@ -1156,7 +1157,7 @@
     }
 
     // ✅ FIXED: Cleaned up the updateUI function (removed double braces)
-    const updateUI = async (user) => {
+        const updateUI = async (user) => {
         if (user) {
             // Logged In: Remove login space entirely
             if (loginRoot) loginRoot.style.display = 'none';
@@ -1171,21 +1172,26 @@
                     const userData = userSnap.data();
                     userEmailDisplay.textContent = userData.username || user.email;
 
-                    // ✅ Check for Teacher Role to show Admin Card
+                    // ✅ Check for Teacher Role to show Admin Card and hide Quizzes
                     if (adminCard) {
                         if (userData.role === 'teacher') {
                             adminCard.style.display = 'block';
+                            if (availableQuizzesCard) availableQuizzesCard.style.display = 'none'; // Hide for teachers
                         } else {
                             adminCard.style.display = 'none';
+                            if (availableQuizzesCard) availableQuizzesCard.style.display = 'block'; // Show for non-teachers (students)
                         }
                     }
                 } else {
                     userEmailDisplay.textContent = user.email;
                     if (adminCard) adminCard.style.display = 'none';
+                    if (availableQuizzesCard) availableQuizzesCard.style.display = 'block'; // Default to showing if no role found
                 }
             } catch (error) {
                 console.error("Error fetching user data:", error);
                 userEmailDisplay.textContent = user.email;
+                if (adminCard) adminCard.style.display = 'none';
+                if (availableQuizzesCard) availableQuizzesCard.style.display = 'block'; // Default to showing on error
             }
 
             loadQuizHistory(user.uid);
@@ -1194,12 +1200,14 @@
             if (loginRoot) loginRoot.style.display = 'block';
             dashboardContainer.style.display = 'none';
             if (adminCard) adminCard.style.display = 'none';
-            userEmailDisplay.textContent = ''; 
-            errorMessage.textContent = ''; 
-            emailInput.value = ''; 
+            if (availableQuizzesCard) availableQuizzesCard.style.display = 'none'; // Ensure hidden when logged out
+            userEmailDisplay.textContent = '';
+            errorMessage.textContent = '';
+            emailInput.value = '';
             passwordInput.value = '';
         }
     };
+
 
     onAuthStateChanged(auth, (user) => {
         updateUI(user);
