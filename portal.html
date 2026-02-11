@@ -1009,12 +1009,12 @@
                 <div class="card-icon"><i class="fas fa-question-circle"></i></div>
                 <h3>Available Quizzes</h3>
                 <p>Select a subject to begin your test.</p>
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <a href="quiz.html?id=Maths Test 1" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-calculator"></i> Mathematics Quiz</a>
-                    <a href="quiz.html?id=WASSCE_English_2025" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> English Language Quiz</a>
-                    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-flask"></i> Integrated Science Quiz</a>
-                    <a href="quiz.html?id=ICT Test 1" class="btn" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> ICT Quiz</a>
-                </div>
+                 <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="quiz.html?id=Maths Test 1" class="btn" id="math-quiz-link" style="text-align: left; padding: 12px;"><i class="fas fa-calculator"></i> Mathematics Quiz</a>
+                    <a href="quiz.html?id=WASSCE_English_2025" class="btn" id="english-quiz-link" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> English Language Quiz</a>
+                    <a href="quiz.html?id=WASSCE_Science_2025" class="btn" id="science-quiz-link" style="text-align: left; padding: 12px;"><i class="fas fa-flask"></i> Integrated Science Quiz</a>
+                    <a href="quiz.html?id=ICT Test 1" class="btn" id="ict-quiz-link" style="text-align: left; padding: 12px;"><i class="fas fa-book"></i> ICT Quiz</a>
+                 </div>
             </div>
           </div>
 
@@ -1083,6 +1083,7 @@
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js';
     import { getFirestore, doc, getDoc, collection, query, where, orderBy, getDocs } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+    import { getRemoteConfig, fetchAndActivate, getValue } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-remote-config.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
@@ -1097,6 +1098,7 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const remoteConfig = getRemoteConfig(app);
 
     // ✅ FIXED: Correctly defined all variables at the top
     const loginRoot = document.getElementById('login-root');
@@ -1112,6 +1114,10 @@
     const quizHistoryMessage = document.getElementById('quiz-history-message');
     const quizHistoryTable = document.getElementById('quiz-history-table');
     const quizHistoryBody = document.getElementById('quiz-history-body');
+    const mathQuizLink = document.getElementById('math-quiz-link'); 
+    const englishQuizLink = document.getElementById('english-quiz-link'); 
+    const scienceQuizLink = document.getElementById('science-quiz-link'); 
+    const ictQuizLink = document.getElementById('ict-quiz-link'); 
 
     async function loadQuizHistory(userId) {
      if (!quizHistoryMessage || !quizHistoryTable || !quizHistoryBody) return;
@@ -1157,7 +1163,16 @@
     }
 
     // ✅ FIXED: Cleaned up the updateUI function (removed double braces)
-        const updateUI = async (user) => {
+           const updateUI = async (user) => {
+        // Fetch and activate Remote Config values first
+        try {
+            await fetchAndActivate(remoteConfig);
+            console.log("Remote Config fetched and activated!");
+        } catch (error) {
+            console.error("Error fetching remote config:", error);
+            // Handle error, maybe use default values
+        }
+
         if (user) {
             // Logged In: Remove login space entirely
             if (loginRoot) loginRoot.style.display = 'none';
@@ -1168,27 +1183,50 @@
                 const userRef = doc(db, 'users', user.uid);
                 const userSnap = await getDoc(userRef);
 
+                let isTeacher = false;
                 if (userSnap.exists()) {
                     const userData = userSnap.data();
                     userEmailDisplay.textContent = userData.username || user.email;
-
-                    // ✅ Check for Teacher Role to show Admin Card and hide Quizzes
-                    if (adminCard) {
-                        if (userData.role === 'teacher') {
-                            adminCard.style.display = 'block';
-                            if (availableQuizzesCard) availableQuizzesCard.style.display = 'none'; // Hide for teachers
-                        } else {
-                            adminCard.style.display = 'none';
-                            if (availableQuizzesCard) availableQuizzesCard.style.display = 'block'; // Show for non-teachers (students)
-                        }
+                    if (userData.role === 'teacher') {
+                        isTeacher = true;
                     }
                 } else {
                     userEmailDisplay.textContent = user.email;
-                    if (adminCard) adminCard.style.display = 'none';
-                    if (availableQuizzesCard) availableQuizzesCard.style.display = 'block'; // Default to showing if no role found
                 }
+
+                // Handle adminCard visibility based on role
+                if (adminCard) {
+                    adminCard.style.display = isTeacher ? 'block' : 'none';
+                }
+
+                // Handle availableQuizzesCard visibility based on role
+                if (availableQuizzesCard) {
+                    availableQuizzesCard.style.display = isTeacher ? 'none' : 'block';
+                }
+
+                // Now, conditionally show/hide individual quiz links based on Remote Config for students
+                if (!isTeacher) { // Only apply quiz visibility rules for non-teachers
+                    if (mathQuizLink) {
+                        mathQuizLink.style.display = getValue(remoteConfig, 'is_math_quiz_enabled').asBoolean() ? 'flex' : 'none';
+                    }
+                    if (englishQuizLink) {
+                        englishQuizLink.style.display = getValue(remoteConfig, 'is_english_quiz_enabled').asBoolean() ? 'flex' : 'none';
+                    }
+                    if (scienceQuizLink) {
+                        scienceQuizLink.style.display = getValue(remoteConfig, 'is_science_quiz_enabled').asBoolean() ? 'flex' : 'none';
+                    }
+                    if (ictQuizLink) {
+                        ictQuizLink.style.display = getValue(remoteConfig, 'is_ict_quiz_enabled').asBoolean() ? 'flex' : 'none';
+                    }
+                } else { // Ensure quiz links are hidden for teachers even if the card is visible (though the card itself is hidden)
+                     if (mathQuizLink) mathQuizLink.style.display = 'none';
+                     if (englishQuizLink) englishQuizLink.style.display = 'none';
+                     if (scienceQuizLink) scienceQuizLink.style.display = 'none';
+                     if (ictQuizLink) ictQuizLink.style.display = 'none';
+                }
+
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error("Error fetching user data or updating UI:", error);
                 userEmailDisplay.textContent = user.email;
                 if (adminCard) adminCard.style.display = 'none';
                 if (availableQuizzesCard) availableQuizzesCard.style.display = 'block'; // Default to showing on error
@@ -1201,6 +1239,12 @@
             dashboardContainer.style.display = 'none';
             if (adminCard) adminCard.style.display = 'none';
             if (availableQuizzesCard) availableQuizzesCard.style.display = 'none'; // Ensure hidden when logged out
+            // Hide individual quiz links when logged out
+            if (mathQuizLink) mathQuizLink.style.display = 'none';
+            if (englishQuizLink) englishQuizLink.style.display = 'none';
+            if (scienceQuizLink) scienceQuizLink.style.display = 'none';
+            if (ictQuizLink) ictQuizLink.style.display = 'none';
+
             userEmailDisplay.textContent = '';
             errorMessage.textContent = '';
             emailInput.value = '';
