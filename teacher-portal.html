@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teacher Portal | Koyoyo College</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Include Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -14,7 +13,7 @@
             --gold: #fbbf24;
             --text-gray: #cbd5e1;
             --success: #10b981;
-            --primary-blue: #0066ff; /* Adding a primary blue for buttons/accents */
+            --primary-blue: #0066ff;
         }
         body { font-family: 'Outfit', sans-serif; background-color: var(--dark-bg); color: white; margin: 0; padding: 20px; }
         .container { max-width: 1000px; margin: 0 auto; }
@@ -37,147 +36,30 @@
         .badge-pending { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #fbbf24; }
         .badge-done { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #34d399; }
 
-        /* Dropdown Results */
+        /* Results List */
         .results-list { display: none; padding: 0; }
         .quiz-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-top: 1px solid #334155; background: #162035; }
         .btn-mark { background: var(--gold); color: black; border: none; padding: 6px 15px; border-radius: 5px; font-weight: 700; cursor: pointer; text-decoration: none; font-size: 0.85rem; }
         .btn-mark:hover { opacity: 0.9; }
 
-        /* Lesson Upload Form Styles */
-        .lesson-upload-section {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 40px;
-            border: 1px solid #334155;
+        /* Upload Form */
+        .lesson-upload-section { background: var(--card-bg); border-radius: 12px; padding: 30px; margin-top: 40px; border: 1px solid #334155; }
+        .lesson-upload-section h2 { color: var(--primary-blue); margin-bottom: 25px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+        .form-group input, .form-group textarea, .form-group select { 
+            width: 100%; padding: 12px; border: 1px solid #334155; border-radius: 8px; 
+            background: #0f172a; color: white; box-sizing: border-box;
         }
-        .lesson-upload-section h2 {
-            color: var(--primary-blue);
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            text-align: center;
+        .btn-upload { 
+            background: var(--primary-blue); color: white; border: none; padding: 15px; 
+            border-radius: 8px; width: 100%; font-weight: 700; cursor: pointer; font-size: 1.1rem;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: white;
-            font-size: 0.95rem;
-        }
-        .form-group input[type="text"],
-        .form-group textarea,
-        .form-group select {
-            width: calc(100% - 24px); /* Account for padding */
-            padding: 12px;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            background-color: #0f172a;
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s ease;
-        }
-        .form-group input[type="text"]:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.3);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .form-group input[type="file"] {
-            display: block;
-            width: 100%;
-            padding: 10px 0;
-            color: white;
-            background-color: #0f172a; /* Match form field background */
-            border: 1px solid #334155;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            margin-top: 5px; /* Adjust spacing */
-            transition: background-color 0.3s ease;
-        }
-        .form-group input[type="file"]::-webkit-file-upload-button {
-            visibility: hidden;
-        }
-        .form-group input[type="file"]::before {
-            content: 'Select File';
-            display: inline-block;
-            background: var(--gold);
-            color: black;
-            border: none;
-            border-radius: 5px;
-            padding: 8px 16px;
-            outline: none;
-            white-space: nowrap;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-right: 10px;
-        }
-        .form-group input[type="file"]:hover::before {
-            opacity: 0.9;
-        }
-        .file-name-display {
-            display: block;
-            margin-top: 5px;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-        }
-        .btn-upload {
-            background: var(--primary-blue);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn-upload:hover {
-            background: #0056e6; /* Darker blue on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.4);
-        }
-        .upload-status {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-        .upload-status.success {
-            color: var(--success);
-        }
-        .upload-status.error {
-            color: var(--gold); /* Using gold for error messages */
-        }
-        .upload-progress {
-            margin-top: 15px;
-            width: 100%;
-            background-color: #334155;
-            border-radius: 5px;
-            height: 8px;
-            overflow: hidden;
-            display: none; /* Hidden by default */
-        }
-        .upload-progress-bar {
-            width: 0%;
-            height: 100%;
-            background-color: var(--primary-blue);
-            border-radius: 5px;
-            transition: width 0.1s linear;
-        }
+        .upload-progress { height: 8px; background: #334155; border-radius: 4px; margin-top: 15px; display: none; overflow: hidden; }
+        .upload-progress-bar { height: 100%; background: var(--primary-blue); width: 0%; transition: width 0.3s; }
+        .upload-status { margin-top: 10px; text-align: center; font-weight: 600; }
+        .success { color: var(--success); }
+        .error { color: #f87171; }
     </style>
 </head>
 <body>
@@ -186,59 +68,53 @@
     <div class="header">
         <div>
             <h1>Teacher Portal</h1>
-            <p style="margin:5px 0 0; color:var(--text-gray)">Manage student submissions</p>
+            <p style="margin:5px 0 0; color:var(--text-gray)">Manage submissions & lessons</p>
         </div>
-        <input type="text" id="search-input" class="search-box" placeholder="Search by Student ID...">
+        <input type="text" id="search-input" class="search-box" placeholder="Search students...">
     </div>
 
     <div id="loading" style="text-align:center; color:var(--text-gray);">Loading records...</div>
     <div id="students-container"></div>
 
-    <!-- NEW LESSON UPLOAD SECTION -->
     <div class="lesson-upload-section">
-        <h2>Upload New Lesson</h2>
+        <h2><i class="fas fa-file-upload"></i> Upload New Lesson</h2>
         <form id="lesson-upload-form">
             <div class="form-group">
-                <label for="lesson-title">Lesson Title:</label>
-                <input type="text" id="lesson-title" required placeholder="e.g., Introduction to Algebra">
+                <label>Lesson Title</label>
+                <input type="text" id="lesson-title" required placeholder="e.g., Fractions 101">
             </div>
             <div class="form-group">
-                <label for="lesson-description">Description:</label>
-                <textarea id="lesson-description" placeholder="Briefly describe the lesson content."></textarea>
+                <label>Description</label>
+                <textarea id="lesson-description" placeholder="What is this lesson about?"></textarea>
             </div>
             <div class="form-group">
-                <label for="lesson-subject">Subject:</label>
+                <label>Subject</label>
                 <select id="lesson-subject" required>
                     <option value="">-- Select Subject --</option>
                     <option value="Mathematics">Mathematics</option>
-                    <option value="English Language">English Language</option>
-                    <option value="Integrated Science">Integrated Science</option>
+                    <option value="English">English</option>
+                    <option value="Science">Science</option>
                     <option value="ICT">ICT</option>
-                    <!-- Add more subjects as needed -->
                 </select>
             </div>
             <div class="form-group">
-                <label for="lesson-file">Lesson File (PDF, Video, etc.):</label>
+                <label>File (PDF or Video)</label>
                 <input type="file" id="lesson-file" required>
-                <span class="file-name-display" id="file-name-display">No file chosen</span>
             </div>
-            <button type="submit" class="btn-upload"><i class="fas fa-upload"></i> Upload Lesson</button>
+            <button type="submit" class="btn-upload">Publish Lesson</button>
             <div class="upload-progress" id="upload-progress">
                 <div class="upload-progress-bar" id="upload-progress-bar"></div>
             </div>
             <div class="upload-status" id="upload-status"></div>
         </form>
     </div>
-    <!-- END NEW LESSON UPLOAD SECTION -->
-
 </div>
 
 <script type="module">
-    // ... (Your existing imports)
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-    import { getFirestore, collection, getDocs, query, orderBy, doc, getDoc, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js'; // Added addDoc, serverTimestamp
-    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js"; // New Storage imports
+    import { getFirestore, collection, getDocs, query, orderBy, doc, getDoc, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js';
+    import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAj6F5GRKf6-hAk4Y6Ac1dOXEA8vgvLe3Q",
@@ -252,131 +128,146 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
-    const storage = getStorage(app); // Initialize Firebase Storage
+    const storage = getStorage(app);
 
-    // Get references to the new form elements
-    const lessonUploadForm = document.getElementById('lesson-upload-form');
-    const lessonTitleInput = document.getElementById('lesson-title');
-    const lessonDescriptionInput = document.getElementById('lesson-description');
-    const lessonSubjectSelect = document.getElementById('lesson-subject');
-    const lessonFileInput = document.getElementById('lesson-file');
-    const fileNameDisplay = document.getElementById('file-name-display');
-    const uploadStatus = document.getElementById('upload-status');
-    const uploadProgressBar = document.getElementById('upload-progress-bar');
-    const uploadProgressContainer = document.getElementById('upload-progress');
+    let currentUserGlobal = null;
 
-    let currentUserGlobal = null; // To store current user data for upload
-
+    // --- 1. AUTH CHECK ---
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             const userRef = doc(db, 'users', user.uid);
             const userSnap = await getDoc(userRef);
-            
             if (userSnap.exists() && userSnap.data().role === 'teacher') {
-                currentUserGlobal = { uid: user.uid, username: userSnap.data().username || user.email }; // Store user data
+                currentUserGlobal = { uid: user.uid, username: userSnap.data().username || user.email };
                 loadPortal();
             } else {
                 document.getElementById('loading').textContent = "Access Denied: Teachers only.";
-                // Hide lesson upload form if not a teacher
-                lessonUploadForm.style.display = 'none';
+                document.getElementById('lesson-upload-form').style.display = 'none';
             }
         } else {
-            window.location.href = "login.html"; // Redirect to login page
+            window.location.href = "login.html";
         }
     });
 
-    // ... (Your existing loadPortal function, window.toggleDetails, search-input event listener)
-
-    // Event listener for file input to display selected file name
-    lessonFileInput.addEventListener('change', (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            fileNameDisplay.textContent = `Selected: ${file.name}`;
-        } else {
-            fileNameDisplay.textContent = 'No file chosen';
-        }
-    });
-
-    // Lesson Upload Form Submission Handler
-    lessonUploadForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        if (!currentUserGlobal) {
-            uploadStatus.textContent = "Error: User not authenticated.";
-            uploadStatus.className = 'upload-status error';
-            return;
-        }
-
-        const title = lessonTitleInput.value.trim();
-        const description = lessonDescriptionInput.value.trim();
-        const subject = lessonSubjectSelect.value;
-        const file = lessonFileInput.files[0];
-
-        if (!title || !subject || !file) {
-            uploadStatus.textContent = "Please fill in all required fields and select a file.";
-            uploadStatus.className = 'upload-status error';
-            return;
-        }
-
-        uploadStatus.textContent = "Uploading...";
-        uploadStatus.className = 'upload-status';
-        uploadProgressContainer.style.display = 'block'; // Show progress bar
-        uploadProgressBar.style.width = '0%';
-
+    // --- 2. LOAD QUIZ RESULTS ---
+    async function loadPortal() {
+        const container = document.getElementById('students-container');
+        const loading = document.getElementById('loading');
         try {
-            // 1. Upload file to Firebase Storage
-            const storagePath = `lessons/${subject}/${Date.now()}_${file.name}`;
-            const storageRef = ref(storage, storagePath);
-            const uploadTask = uploadBytesResumable(storageRef, file);
+            const q = query(collection(db, "quizResults"), orderBy("timestamp", "desc"));
+            const snapshot = await getDocs(q);
+            const usersSnapshot = await getDocs(collection(db, "users"));
+            
+            const userNames = {};
+            usersSnapshot.forEach(u => userNames[u.id] = u.data().username || "Unknown");
 
-            uploadTask.on('state_changed', 
-                (snapshot) => {
-                    // Observe state change events such as progress, pause, and resume
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    uploadProgressBar.style.width = progress + '%';
-                    uploadStatus.textContent = `Uploading: ${progress.toFixed(0)}%`;
-                }, 
-                (error) => {
-                    // Handle unsuccessful uploads
-                    console.error("Storage Upload Error:", error);
-                    uploadStatus.textContent = `Upload failed: ${error.message}`;
-                    uploadStatus.className = 'upload-status error';
-                    uploadProgressContainer.style.display = 'none'; // Hide progress bar on error
-                }, 
-                async () => {
-                    // Handle successful uploads on complete
-                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            const students = {};
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const uid = data.userId || "Unknown";
+                if (!students[uid]) students[uid] = [];
+                students[uid].push({ id: doc.id, ...data });
+            });
 
-                    // 2. Save lesson metadata to Firestore
-                    await addDoc(collection(db, "lessons"), {
-                        title: title,
-                        description: description,
-                        subject: subject,
-                        teacherId: currentUserGlobal.uid,
-                        teacherName: currentUserGlobal.username, // Denormalized teacher name
-                        fileUrl: downloadURL,
-                        fileRef: storagePath, // Store storage path for future management
-                        fileType: file.type,
-                        fileName: file.name,
-                        uploadDate: serverTimestamp(), // Firestore server timestamp
-                        status: "published" // Default to published, can be changed later
-                    });
+            container.innerHTML = "";
+            loading.style.display = 'none';
 
-                    uploadStatus.textContent = "Lesson uploaded successfully!";
-                    uploadStatus.className = 'upload-status success';
-                    uploadProgressBar.style.width = '100%';
-                    // Clear form
-                    lessonUploadForm.reset();
-                    fileNameDisplay.textContent = 'No file chosen';
-                    uploadProgressContainer.style.display = 'none'; // Hide progress bar on success
-                }
-            );
-        } catch (error) {
-            console.error("Lesson Upload Error:", error);
-            uploadStatus.textContent = `An unexpected error occurred: ${error.message}`;
-            uploadStatus.className = 'upload-status error';
-            uploadProgressContainer.style.display = 'none'; // Hide progress bar on error
+            for (const [uid, results] of Object.entries(students)) {
+                const pendingCount = results.filter(r => r.markingStatus !== "Completed").length;
+                const card = document.createElement('div');
+                card.className = 'student-card';
+                card.innerHTML = `
+                    <div class="student-header" onclick="toggleDetails(this)">
+                        <div class="student-info">
+                            <h3>${userNames[uid] || uid}</h3>
+                            <small>${results.length} Quizzes Submitted</small>
+                        </div>
+                        <span class="badge ${pendingCount > 0 ? 'badge-pending' : 'badge-done'}">
+                            ${pendingCount > 0 ? pendingCount + ' Pending' : 'All Graded'}
+                        </span>
+                    </div>
+                    <div class="results-list">
+                        ${results.map(r => `
+                            <div class="quiz-row">
+                                <div>
+                                    <div style="font-weight:600">${r.quizId || 'Quiz'}</div>
+                                    <small style="color:var(--text-gray)">${r.timestamp?.toDate().toLocaleDateString()}</small>
+                                </div>
+                                <div style="text-align:right">
+                                    <div style="color:var(--gold)">Score: ${r.totalFinalGrade || r.score} / ${r.totalQuestions}</div>
+                                    <a href="admin-marking.html?id=${r.id}" class="btn-mark">Mark Quiz</a>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(card);
+            }
+        } catch (err) {
+            loading.textContent = "Error loading submissions.";
+            console.error(err);
         }
+    }
+
+    // --- 3. UI UTILITIES ---
+    window.toggleDetails = (el) => {
+        const list = el.nextElementSibling;
+        list.style.display = (list.style.display === 'block') ? 'none' : 'block';
+    };
+
+    document.getElementById('search-input').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.student-card').forEach(card => {
+            card.style.display = card.textContent.toLowerCase().includes(term) ? 'block' : 'none';
+        });
+    });
+
+    // --- 4. LESSON UPLOAD ---
+    const uploadForm = document.getElementById('lesson-upload-form');
+    uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const file = document.getElementById('lesson-file').files[0];
+        const title = document.getElementById('lesson-title').value;
+        const subject = document.getElementById('lesson-subject').value;
+        const statusEl = document.getElementById('upload-status');
+        const progressBar = document.getElementById('upload-progress-bar');
+        const progressContainer = document.getElementById('upload-progress');
+
+        if(!file || !currentUserGlobal) return;
+
+        statusEl.textContent = "Uploading file...";
+        statusEl.className = "upload-status";
+        progressContainer.style.display = 'block';
+
+        const fileRef = ref(storage, `lessons/${subject}/${Date.now()}_${file.name}`);
+        const uploadTask = uploadBytesResumable(fileRef, file);
+
+        uploadTask.on('state_changed', 
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                progressBar.style.width = progress + '%';
+            }, 
+            (error) => {
+                statusEl.textContent = "Error: " + error.message;
+                statusEl.className = "upload-status error";
+            }, 
+            async () => {
+                const url = await getDownloadURL(uploadTask.snapshot.ref);
+                await addDoc(collection(db, "lessons"), {
+                    title, 
+                    subject, 
+                    fileUrl: url,
+                    description: document.getElementById('lesson-description').value,
+                    teacherId: currentUserGlobal.uid,
+                    teacherName: currentUserGlobal.username,
+                    uploadDate: serverTimestamp()
+                });
+                statusEl.textContent = "Lesson Published Successfully!";
+                statusEl.className = "upload-status success";
+                uploadForm.reset();
+                setTimeout(() => { progressContainer.style.display = 'none'; }, 3000);
+            }
+        );
     });
 </script>
 </body>
